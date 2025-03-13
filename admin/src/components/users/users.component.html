@@ -1,0 +1,20 @@
+<button mat-raised-button color="primary">Add User</button>
+
+<mat-accordion>
+    @for(currentUser of (allUsers$|async);track $index){
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{currentUser.fullName}}
+                @if(!currentUser.isDeleted){
+                <button mat-raised-button color="primary" (click)="deleteUser(currentUser.id)">Delete User</button>
+                }@else {
+                <button mat-raised-button color="primary" (click)="addUser(currentUser.id)">Add User</button>
+                }
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        Email: {{currentUser.email}}
+        JoiningDate: {{currentUser.joiningDate}}
+    </mat-expansion-panel>
+    }
+</mat-accordion>

@@ -1,0 +1,15 @@
+mat-list-item {
+    margin-bottom: 16px;
+    padding: 16px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+  }
+  
+  mat-form-field {
+    display: block;
+    margin-bottom: 16px;
+  }
+  mat-card {
+    width: 300px; 
+    text-align: center; 
+  }
