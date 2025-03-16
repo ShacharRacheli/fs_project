@@ -1,7 +1,7 @@
 import { Box, Button, Modal, TextField } from "@mui/material"
 import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
-import { getUserIdByToken } from "../store/getFromToken";
+import { getEmailByToken, getUserIdByToken } from "../store/getFromToken";
 
 const Update=()=>{
     const [open, setOpen] = useState(false);
@@ -19,7 +19,7 @@ const Update=()=>{
        
         try {
             const res = await axios.put(`http://localhost:5070/api/User/${+userId}`, {
-                Email: emailRef.current?.value,
+                Email: emailRef.current?.value||getEmailByToken(),
                 FullName: fullNameRef.current?.value,
             }, {
                 headers: {

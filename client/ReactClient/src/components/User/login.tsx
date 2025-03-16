@@ -2,7 +2,7 @@ import { Box, Button, Modal, TextField } from "@mui/material"
 import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
 
-const Login = () => {
+const Login = ({ succeedFunc }: { succeedFunc: Function }) => {
     const [open, setOpen] = useState(false);
     // const [logIn, setLogIn] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -26,7 +26,7 @@ const Login = () => {
             } else {
                 console.log('Token not found in response');
             }
-            
+            succeedFunc()
             handleClose();
         }
         catch (e: any) {

@@ -7,7 +7,7 @@ export type Challenge={
     status:boolean,
 }
 export type ChallengeType={
-    challengeId:number,
+    id:number,
     title:string,
     description:string,
     startDate:Date,
