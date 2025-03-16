@@ -2,7 +2,7 @@ import { Box, Button, FormControl, InputLabel, MenuItem, Modal, Select, TextFiel
 import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
 
-const Register=()=>{
+const Register=({ succeedFunc }: { succeedFunc: Function })=>{
     const [error, setError] = useState('');
 
     const [open, setOpen] = useState(false);
@@ -62,7 +62,7 @@ console.log(sessionStorage.getItem('testKey')); // Should log 'testValue'
             } else {
                 console.log('Token not found in response');
             }
-            
+            succeedFunc()
             handleClose();
         }
         catch (e: any) {
@@ -77,7 +77,7 @@ console.log(sessionStorage.getItem('testKey')); // Should log 'testValue'
    
    return(<>
    <Box sx={{ position: 'absolute', top: 10, left: 100 }}>
-            <Button onClick={handleOpen}>Register</Button>
+            <Button onClick={handleOpen}>Sign up</Button>
         </Box>
         <Modal
             open={open}
@@ -90,9 +90,8 @@ console.log(sessionStorage.getItem('testKey')); // Should log 'testValue'
                     <TextField type='password' fullWidth label='Password' variant="outlined" inputRef={passwordRef}  required
                             error={!!error}/>
                     <TextField type='text' fullWidth label='FullName' variant="outlined" inputRef={fullNameRef} required
-                            error={!!error} />                 
-                       
-                 <Button fullWidth type='submit' sx={{ color: 'var(--secondary-color)' }}>Signin</Button>
+                            error={!!error} />                                      
+                 <Button fullWidth type='submit' sx={{ color: 'var(--secondary-color)' }}>send</Button>
                 </form>
             </Box>
         </Modal>
