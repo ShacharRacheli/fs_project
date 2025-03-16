@@ -15,5 +15,9 @@ namespace Comp.Core.IRepositories
         Task<Challenge> GetByIdAsync(int id);
         Task<IEnumerable<Challenge>> GetChallengesByStatusAsync(EStatus status);
         Task UpdateAsync(Challenge challenge);
+        Task<List<Challenge>> GetExpiredChallengesAsync();
+        Task<User?> GetWinnerByTopImageAsync(int challengeId);
+
+
     }
 }

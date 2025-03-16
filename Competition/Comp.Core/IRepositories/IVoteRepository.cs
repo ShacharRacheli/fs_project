@@ -10,5 +10,6 @@ namespace Comp.Core.IRepositories
     public interface IVoteRepository
     {
         Task<Vote> VoteImageAsync(int userId, int imageId);
+        Task<bool> DeleteVoteAsync(int userId, int imageId);
     }
 }

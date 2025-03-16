@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Comp.Data.Reposirories
 {
-    public class VoteRepository:IVoteRepository
+    public class VoteRepository : IVoteRepository
     {
         private readonly DataContext _dataContext;
         public VoteRepository(DataContext dataContext)
@@ -47,6 +47,20 @@ namespace Comp.Data.Reposirories
 
             await _dataContext.SaveChangesAsync();
             return vote;
+        }
+        public async Task<bool> DeleteVoteAsync(int userId, int imageId)
+        {
+            var vote = await _dataContext.VoteList.FirstOrDefaultAsync(v => v.UserId == userId && v.ImageId == imageId);
+            if (vote == null)
+                return false;
+            var image = await _dataContext.ImagesList.FirstOrDefaultAsync(i => i.Id == imageId);
+            if (image != null)
+            {
+                image.CountVotes--;
+                _dataContext.ImagesList.Update(image);
+            }
+            _dataContext.VoteList.Remove(vote);
+            return await _dataContext.SaveChangesAsync() > 0;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Comp.Core.DTOs;
 using Comp.Core.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -33,10 +34,10 @@ namespace Comp.API.Controllers
         //    return "value";
         //}
         [HttpPost]
+        //[Authorize]
         public async Task<IActionResult> VoteImage([FromBody] VoteDto voteRequest)
         {
             var vote = await _voteService.VoteImageAsync(voteRequest.UserId, voteRequest.ImageId);
-
             if (vote == null)
             {
                 return BadRequest("User has already voted for this image.");
@@ -46,22 +47,13 @@ namespace Comp.API.Controllers
             return Ok(voteDto);
         }
 
-        // POST api/<VoteController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
 
-        //// PUT api/<VoteController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
 
         // DELETE api/<VoteController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpDelete("deleteVote")]
+        public async Task<bool> Delete([FromBody] VoteDto voteRequest)
+        {
+           return await _voteService.DeleteVoteAsync(voteRequest.UserId, voteRequest.ImageId);
+        }
     }
 }
