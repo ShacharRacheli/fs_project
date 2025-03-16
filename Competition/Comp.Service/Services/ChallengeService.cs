@@ -62,11 +62,30 @@ namespace Comp.Service.Services
             var challenge = await _challengeRepository.GetByIdAsync(id);
             if (challenge != null)
             {
-                challenge.Status = status;
+                challenge.Status = EStatus.finished;
                 await _challengeRepository.UpdateAsync(challenge);
             }
             return challenge;
         }
+        //public async Task ProcessExpiredChallengesAsync()
+        //{
+        //    var expiredChallenges = await _challengeRepository.GetExpiredChallengesAsync();
+
+        //    foreach (var challenge in expiredChallenges)
+        //    {
+        //        var winner = await _challengeRepository.GetWinnerByTopImageAsync(challenge.Id);
+        //        if (winner == null) continue; // אם אין מנצח, ממשיכים הלאה
+
+        //        var subject = "You won the challenge!";
+        //        var body = $"Congratulations {winner.Name}! You won the challenge '{challenge.Title}' 🎉";
+
+        //        await _emailService.SendEmailAsync(winner.Email, subject, body);
+
+        //        challenge.Status = EStatus.finished;
+        //        challenge.IsWinnerEmailSent = true;
+        //        await _challengeRepository.UpdateChallengeAsync(challenge);
+        //    }
+        //}
 
     }
 }
