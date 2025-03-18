@@ -16,7 +16,6 @@ const clickDeleteVote=()=>{
     dispatch(deleteVote({userId,imageId,challengeId}))
 }
 return(<>
-
 <Button onClick={clickAddVote}>☝️</Button>
 <Box></Box>
 <Button onClick={clickDeleteVote}>👇</Button>

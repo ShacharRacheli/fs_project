@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Comp.Data.Reposirories
 {
-    public class VoteRepository:IVoteRepository
+    public class VoteRepository : IVoteRepository
     {
         private readonly DataContext _dataContext;
         public VoteRepository(DataContext dataContext)

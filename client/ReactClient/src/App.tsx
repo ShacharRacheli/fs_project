@@ -13,10 +13,10 @@ function App() {
 
   return (
     <>
-  {/* <Login/> */}
+      {/* <Login/> */}
       {/* <Register/> */}
       {/* <Update/> */}
-      <Provider store={store}>
+    <Provider store={store}>
         {/* <AllChallenges/> */}
 
     <RouterProvider router={router} />

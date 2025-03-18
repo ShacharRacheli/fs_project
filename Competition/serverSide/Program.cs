@@ -23,7 +23,8 @@ using Comp.API.Jobs;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+//Env.Load();
+DotNetEnv.Env.Load();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -80,16 +81,19 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-options.TokenValidationParameters = new TokenValidationParameters
-{
- ValidateIssuer = true,
- ValidateAudience = true,
- ValidateLifetime = true,
- ValidateIssuerSigningKey = true,
- ValidIssuer = builder.Configuration["JWT:Issuer"],
- ValidAudience = builder.Configuration["JWT:Audience"],
- IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
-};
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        //ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        //ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+    };
 });
 builder.Services.AddCors();
 //builder.Services.AddCors(options =>

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router"
-import HomePage from "./homePage"
 import NavBar from "./navBar"
+import HomePage from "./homePage"
 
 const AppLayout=()=>{
 return(<>

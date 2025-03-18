@@ -58,13 +58,12 @@ namespace Comp.API.Controllers
         public async Task<ActionResult> Login([FromBody] UserLoginDto userLogin)
         {
             User user = await _userService.GetUserByEmailPasswordAsync(userLogin);
-            if (user != null)
+            if (user != null&&!user.IsDeleted)
             {
                 if (VPassword.VerifyPassword(userLogin.Password, user.Password))  // תוודא שהסיסמה נכונה
                 {
                     // הפונקציה מייצרת את ה-JWT עם מזהה המשתמש, שם המשתמש, כתובת האימייל והתפקיד
                     var token = Jwt.GenerateJwtToken(user);
-
                     // מחזירים את ה-JWT ללקוח
                     return Ok(new { Token = token });
                 }
@@ -121,7 +120,7 @@ namespace Comp.API.Controllers
         public async Task<ActionResult> Put(int id, [FromBody] UserUpdateDto user)
         {
             var userEntity = _mapper.Map<User>(user);
-
+            userEntity.Id = id;
             //if (Enum.TryParse<ERole>(user.Role, out var role))
             //{
             //    userEntity.Role = role; // עדכון התפקיד
@@ -133,7 +132,6 @@ namespace Comp.API.Controllers
             }
             // Generate a new JWT token if needed
             var token = Jwt.GenerateJwtToken(userEntity);
-
             return Ok(new { Token = token });
             //if (await _userService.UpdateUserAsync(id, _mapper.Map<User>(user)))
             //    return Ok();

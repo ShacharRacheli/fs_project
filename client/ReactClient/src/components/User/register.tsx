@@ -77,7 +77,7 @@ console.log(sessionStorage.getItem('testKey')); // Should log 'testValue'
    
    return(<>
    <Box sx={{ position: 'absolute', top: 10, left: 100 }}>
-            <Button onClick={handleOpen}>Register</Button>
+            <Button onClick={handleOpen}>Sign up</Button>
         </Box>
         <Modal
             open={open}
@@ -90,9 +90,8 @@ console.log(sessionStorage.getItem('testKey')); // Should log 'testValue'
                     <TextField type='password' fullWidth label='Password' variant="outlined" inputRef={passwordRef}  required
                             error={!!error}/>
                     <TextField type='text' fullWidth label='FullName' variant="outlined" inputRef={fullNameRef} required
-                            error={!!error} />                 
-                       
-                 <Button fullWidth type='submit' sx={{ color: 'var(--secondary-color)' }}>Signin</Button>
+                            error={!!error} />                                      
+                 <Button fullWidth type='submit' sx={{ color: 'var(--secondary-color)' }}>send</Button>
                 </form>
             </Box>
         </Modal>

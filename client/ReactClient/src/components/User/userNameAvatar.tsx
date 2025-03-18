@@ -1,5 +1,6 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material"
 import { getUserNameByToken } from "../store/getFromToken";
+import React from "react";
 // import React from "react";
 
 const UserNameAvatar=()=>{

@@ -31,11 +31,14 @@ namespace Comp.Data.Reposirories
         {
             return await _dataContext.UsersList.FirstOrDefaultAsync(u => u.Email==user.Email);
         }
-        public async Task<bool> EmailExistsAsync(string email)
+        public async Task<bool> EmailExistsAsync(int id,string email)
+        {
+            return await _dataContext.UsersList.AnyAsync(u => u.Email == email&&id!=u.Id);
+        }
+        public async Task<bool> EmailExistsAsync( string email)
         {
             return await _dataContext.UsersList.AnyAsync(u => u.Email == email);
         }
-
         public async Task<bool> AddUserAsync(User user)
         { 
            await _dataContext.UsersList.AddAsync(user);
@@ -46,9 +49,9 @@ namespace Comp.Data.Reposirories
             var tempUser = await _dataContext.UsersList.FirstOrDefaultAsync(u => u.Id == id);
             if (tempUser != null)
             {
-                if (!string.IsNullOrEmpty(user.Email) && await EmailExistsAsync(user.Email))
+                if (!string.IsNullOrEmpty(user.Email) && await EmailExistsAsync(id,user.Email))
                 {
-                    return false; // המייל קיים, החזר false
+                    return false;
                 }
                 tempUser.FullName = user.FullName;
                 tempUser.Email = user.Email;
@@ -60,10 +63,10 @@ namespace Comp.Data.Reposirories
                 }
 
                 // עדכון תפקיד אם הוא שונה
-                if (tempUser.Role != user.Role)
-                {
-                    tempUser.Role = user.Role;
-                }
+                //if (tempUser.Role != user.Role)
+                //{
+                //    tempUser.Role = user.Role;
+                //}
 
                 return await _dataContext.SaveChangesAsync() > 0;
             }

@@ -67,7 +67,7 @@ namespace Comp.Service.Services
             var challenge = await _challengeRepository.GetByIdAsync(id);
             if (challenge != null)
             {
-                challenge.Status = status;
+                challenge.Status = EStatus.finished;
                 await _challengeRepository.UpdateAsync(challenge);
             }
             return challenge;

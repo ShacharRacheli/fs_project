@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Comp.Core.DTOs;
 using Comp.Core.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -43,7 +44,6 @@ namespace Comp.API.Controllers
             if(await _voteService.IsSelfVotingAsync(voteRequest.ImageId,voteRequest.UserId))
                 return BadRequest("You cannot vote for your own image.");
             var vote = await _voteService.VoteImageAsync(voteRequest.UserId, voteRequest.ImageId);
-
             if (vote == null)
             {
                 return BadRequest("User has already voted for this image.");
@@ -52,17 +52,7 @@ namespace Comp.API.Controllers
             return Ok(voteDto);
         }
 
-        // POST api/<VoteController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
 
-        //// PUT api/<VoteController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
 
         // DELETE api/<VoteController>/5
         [HttpDelete("deleteVote")]
