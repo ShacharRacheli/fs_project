@@ -1,13 +1,15 @@
-export type Challenge={
-    challengeId:number,
+export type ChallengeAndImage={
+    id:number,
     title:string,
     description:string,
     startDate:Date,
     endDate:Date,
-    status:boolean,
+    // status:boolean,
+    imageId:number,
+    fileName:string,
 }
 export type ChallengeType={
-    challengeId:number,
+    id:number,
     title:string,
     description:string,
     startDate:Date,

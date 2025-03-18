@@ -23,10 +23,10 @@ namespace Comp.Data.Reposirories
         {
             return await _dataContext.UsersList.ToListAsync();  
         }
-        //public async Task<User> GetUserByIDAsync(int id)
-        //{
-        //    return await _dataContext.UsersList.FirstOrDefaultAsync(u => u.Id == id);
-        //}
+        public async Task<User> GetUserByIDAsync(int id)
+        {
+            return await _dataContext.UsersList.FirstOrDefaultAsync(u => u.Id == id);
+        }
         public async Task<User> GetUserByEmailPasswordAsync(UserLoginDto user)
         {
             return await _dataContext.UsersList.FirstOrDefaultAsync(u => u.Email==user.Email);

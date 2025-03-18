@@ -1,4 +1,5 @@
-﻿using Comp.Core.Models;
+﻿using Comp.Core.DTOs;
+using Comp.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,8 @@ namespace Comp.Core.IServices
         Task<IEnumerable<Image>> GetAllImagesAsync();
         Task<List<Image>> GetImagesByChallengeAsync(int challengeId);
         Task<int> GetVoteCountAsync(int imageId);
-        Task<Image> GetTopImageByChallengeAsync(int challengeId);
+        Task<TopImageDTO> GetTopImageByChallengeAsync(int challengeId);
+        //Task<Image> GetTopImageByChallengeAsync(int challengeId);
         //Task<bool> AddImageAsync(Image image);
         //Task UploadImageAsync(int userId, int challengeId, Stream stream, string fileName);
         Task<Image> UploadImageAsync(int userId, int challengeId, Stream fileStream, string fileName);
@@ -21,5 +23,7 @@ namespace Comp.Core.IServices
         Task ListBucketsAsync();
         Task<Image> AddImageAsync(Image image);
         Task<bool> DeleteImageAsync(int id, int userId, bool isAdmin); // עדכון מחיקה עם בקרת גישה
+      Task<bool> UserUploadedAlready(int userId, int challengeId);
+
     }
 }

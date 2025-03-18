@@ -1,4 +1,5 @@
-﻿using Comp.Core.Models;
+﻿using Comp.Core.DTOs;
+using Comp.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace Comp.Core.IRepositories
         Task<int> GetVoteCountByImageIdAsync(int imageId);
         Task<bool> DeleteImageAsync(int id);
         Task<List<Image>> GetImagesByChallengeAsync(int challengeId);
-        Task<Image>GetTopImageByChallengeAsync(int challengeId);
+        Task<TopImageDTO> GetTopImageByChallengeAsync(int challengeId);
+        //Task<Image>GetTopImageByChallengeAsync(int challengeId);
+      Task<bool> UserUploadedAlready(int userId, int challengeId);
     }
 }

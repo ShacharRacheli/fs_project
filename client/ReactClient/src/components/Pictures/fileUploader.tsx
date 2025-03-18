@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { getUserIdByToken } from '../store/getFromToken';
+import { Box, Button, Typography } from '@mui/material';
 
-const FileUploader1 = ({idChallenge}:{idChallenge:number}) => {
+const FileUploader = ({idChallenge}:{idChallenge:number}) => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
 
@@ -22,7 +23,8 @@ const FileUploader1 = ({idChallenge}:{idChallenge:number}) => {
       const response = await axios.get('http://localhost:5070/api/Image/presigned-url', {
         params: {
           fileName: file.name,
-          contentType: file.type // Add contentType to the request++++++++++++++++++
+          contentType: file.type,
+          challengeId:idChallenge,
         }, headers: {
           'Content-Type': file.type,
           'Authorization': `Bearer ${token}`
@@ -45,13 +47,21 @@ const FileUploader1 = ({idChallenge}:{idChallenge:number}) => {
           setProgress(percent);
         },
       });
-      const imageData = {
-        imageUrl: presignedUrl,
-        userId: getUserIdByToken(),
-        challengeId: idChallenge,//=??????????????????????????????????????
-        // הוסף כאן שדות נוספים אם יש צורך
-      };
 
+    //   const imageData = {
+    //     imageUrl: presignedUrl,
+    //     userId: getUserIdByToken(),
+    //     challengeId: idChallenge,   //=??????????????????????????????????????
+    //     // הוסף כאן שדות נוספים אם יש צורך
+    //   };
+    const imageUrl = presignedUrl.split('?')[0];
+
+    const imageData = {
+        imageUrl: imageUrl, // Use the base URL here
+        userId: getUserIdByToken(),
+        challengeId: idChallenge,
+        fileName:file.name,
+    };
       await axios.post('http://localhost:5070/api/Image/addImageToDB', imageData, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -65,18 +75,6 @@ const FileUploader1 = ({idChallenge}:{idChallenge:number}) => {
 
   return (
     <div>
-      {/* <Box mb={4}>
-        <input type="file" onChange={handleImageChange} />
-        <Button
-          variant="contained"
-          color="primary"
-        //   onClick={handleUpload}
-          disabled={loading}
-          style={{ marginLeft: '10px' }}
-        >
-          {loading ? 'העלאה...' : 'העלה תמונה'}
-        </Button>
-      </Box> */}
       <input type="file" onChange={handleFileChange} />
       <button onClick={handleUpload}>העלה קובץ</button>
       {progress > 0 && <div>התקדמות: {progress}%</div>}
@@ -84,7 +82,21 @@ const FileUploader1 = ({idChallenge}:{idChallenge:number}) => {
   );
 };
 
-export default FileUploader1;
+export default FileUploader;
+//     <Box sx={{ padding: 2, border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
+//     <Typography variant="h6" gutterBottom>
+//       העלאת קובץ לאתגר {idChallenge}
+//     </Typography>
+//     <input type="file" onChange={handleFileChange} style={{ marginBottom: '10px' }} />
+//     <Button variant="contained" color="primary" onClick={handleUpload} disabled={!file}>
+//       העלה קובץ
+//     </Button>
+//     {progress > 0 && (
+//       <Typography variant="body2" sx={{ marginTop: 2 }}>
+//         התקדמות: {progress}%
+//       </Typography>
+//     )}
+//   </Box>
 
 // import React, { useRef, useState } from 'react';
 // import axios from 'axios';

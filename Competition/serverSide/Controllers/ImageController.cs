@@ -66,23 +66,31 @@ namespace Comp.API.Controllers
             var count = await _imageService.GetVoteCountAsync(id);
             return Ok(count);
         }
-        [HttpGet("top/challenge/{id}")]
-        public async Task<ActionResult> GetTopImageByChallenge(int challengeId)
+        [HttpGet("topImageOfChallenge/{id}")]
+        public async Task<ActionResult> GetTopImageByChallenge(int id)
         {          
-                var image = await _imageService.GetTopImageByChallengeAsync(challengeId);
+                var image = await _imageService.GetTopImageByChallengeAsync(id);
                 if (image == null)
                 {
                     return NotFound("No top images found for this challenge.");
                 }
-                var imageDto = _mapper.Map<ImageDto>(image);
-                return Ok(imageDto);
+                //var imageDto = _mapper.Map<ImageDto>(image);
+                //imageDto.UserName
+                //return Ok(imageDto);
+                return Ok(image);
         }
         //============================
         [HttpGet("presigned-url")]
-        public async Task<ActionResult> GetPresignedUrl([FromQuery] string fileName, [FromQuery] string contentType)
+        [Authorize]
+        public async Task<ActionResult> GetPresignedUrl([FromQuery] string fileName, [FromQuery] string contentType, [FromQuery] int challengeId)
         {
             if (string.IsNullOrEmpty(fileName))
                 return BadRequest("Missing file name");
+            var userIdClaim =User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                return Unauthorized("Invalid user ID");
+            if (!await _imageService.UserUploadedAlready(userId, challengeId))
+                return Forbid("User has not uploaded the image");
             var url = await _s3Service.GetPresignedUrlAsync(fileName, contentType);
             return Ok(new { url });
         }
@@ -96,6 +104,7 @@ namespace Comp.API.Controllers
             return Ok(new { Url = downloadUrl });
         }
         [HttpPost("addImageToDB")]//insert to database the image details
+        [Authorize]
         public async Task<ActionResult> UploadImageSuccessful([FromBody] ImageDto image)
         {
             if (image == null)
@@ -113,31 +122,31 @@ namespace Comp.API.Controllers
         //        return Ok(image);
         //    return NotFound();
         //}
-        [HttpPost("upload")]
-        //[Authorize]
-        public async Task<IActionResult> UploadImage([FromForm] UploadImageDTO uploadDto)
-        {
-            //var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // זיהוי המשתמש המחובר
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(userIdClaim))
-            {
-                return Unauthorized("User is not authenticated.");
-            }
+        //[HttpPost("upload")]
+        ////[Authorize]
+        //public async Task<IActionResult> UploadImage([FromForm] UploadImageDTO uploadDto)
+        //{
+        //    //var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // זיהוי המשתמש המחובר
+        //    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //    if (string.IsNullOrEmpty(userIdClaim))
+        //    {
+        //        return Unauthorized("User is not authenticated.");
+        //    }
 
-            var userId = int.Parse(userIdClaim);
-            if (uploadDto.File == null || uploadDto.File.Length == 0)
-                return BadRequest("No file uploaded.");
+        //    var userId = int.Parse(userIdClaim);
+        //    if (uploadDto.File == null || uploadDto.File.Length == 0)
+        //        return BadRequest("No file uploaded.");
 
-            using (var stream = uploadDto.File.OpenReadStream())
-            {
-                var fileName = $"{userId}_{uploadDto.ChallengeId}_{Path.GetFileName(uploadDto.File.FileName)}";
-                var image = await _imageService.UploadImageAsync(userId, uploadDto.ChallengeId, stream, fileName);
-                var imageDTO = _mapper.Map<ImageDto>(image);
-                return Ok(imageDTO);
-            }
-        }
-        [Authorize]
+        //    using (var stream = uploadDto.File.OpenReadStream())
+        //    {
+        //        var fileName = $"{userId}_{uploadDto.ChallengeId}_{Path.GetFileName(uploadDto.File.FileName)}";
+        //        var image = await _imageService.UploadImageAsync(userId, uploadDto.ChallengeId, stream, fileName);
+        //        var imageDTO = _mapper.Map<ImageDto>(image);
+        //        return Ok(imageDTO);
+        //    }
+        //}
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteImage(int id)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // קבלת ה-ID של המשתמש המחובר
@@ -148,15 +157,15 @@ namespace Comp.API.Controllers
                 return Forbid(); // מחזיר 403 אם אין הרשאה
             return NoContent();
         }
-        [HttpGet("download/{id}")]
-        public async Task<IActionResult> DownloadImage(int id)
-        {
-            var imageStream = await _imageService.DownloadImageAsync(id);
-            if (imageStream == null)
-                return NotFound();
+        //[HttpGet("download/{id}")]
+        //public async Task<IActionResult> DownloadImage(int id)
+        //{
+        //    var imageStream = await _imageService.DownloadImageAsync(id);
+        //    if (imageStream == null)
+        //        return NotFound();
 
-            return File(imageStream, "image/png"); // ניתן לשנות בהתאם לסוג התמונה
-        }
+        //    return File(imageStream, "image/png"); // ניתן לשנות בהתאם לסוג התמונה
+        //}
 
     }
 }

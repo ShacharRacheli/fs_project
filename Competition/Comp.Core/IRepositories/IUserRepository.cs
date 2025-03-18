@@ -11,7 +11,7 @@ namespace Comp.Core.IRepositories
     public interface IUserRepository
     {
         Task<IEnumerable<User>> getAllUsersAsync();
-        //Task<User> GetUserByIDAsync(int id);
+        Task<User> GetUserByIDAsync(int id);
         Task<User> GetUserByEmailPasswordAsync( UserLoginDto user);
         Task<bool> AddUserAsync(User user);
         Task<bool> updateUserAsync(int id, User user);

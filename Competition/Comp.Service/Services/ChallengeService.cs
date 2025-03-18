@@ -13,9 +13,14 @@ namespace Comp.Service.Services
     public class ChallengeService:IChallengeService
     {
         private readonly IChallengeRepository _challengeRepository;
-        public ChallengeService(IChallengeRepository challengeRepository)
+        private readonly IUserRepository _userRepository;
+        private readonly IEmailService _emailService;
+
+        public ChallengeService(IChallengeRepository challengeRepository, IEmailService emailService,IUserRepository userRepository)
         {
             _challengeRepository = challengeRepository;
+            _emailService = emailService;
+            _userRepository = userRepository;
         }
         public async Task<IEnumerable<Challenge>> GetAllChallengesAsync()
         {
@@ -66,6 +71,26 @@ namespace Comp.Service.Services
                 await _challengeRepository.UpdateAsync(challenge);
             }
             return challenge;
+        }
+        public async Task ProcessExpiredChallengesAsync()
+        {
+            var expiredChallenges = await _challengeRepository.GetExpiredChallengesAsync();
+
+            foreach (var challenge in expiredChallenges)
+            {
+                var winnerId = await _challengeRepository.GetWinnerByTopImageAsync(challenge.Id);
+                var winner = await _userRepository.GetUserByIDAsync((int)winnerId);
+                if (winner == null) continue; // אם אין מנצח, ממשיכים הלאה
+
+                var subject = "You won the challenge!";
+                var body = $"Congratulations {winner.FullName}! You won the challenge '{challenge.Title}' 🎉";
+
+                await _emailService.SendEmailAsync(winner.Email, subject, body);
+
+                challenge.Status = EStatus.finished;
+                challenge.IsWinnerEmailSent = true;
+                await _challengeRepository.UpdateAsync(challenge);
+            }
         }
 
     }

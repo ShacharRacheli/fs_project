@@ -18,6 +18,7 @@ namespace Comp.Core
             CreateMap<Image,ImageDto>().ReverseMap();
             CreateMap<Challenge,ChallengeDto>().ReverseMap();
             CreateMap<Vote,VoteDto>().ReverseMap();
+            CreateMap<Image,TopImageDTO>().ReverseMap();
 //            CreateMap<UserDto, User>()
 //.ForMember(dest => dest.Password, opt => opt.MapFrom(src => VPassword.HashPassword(src.Password)))  // הצפנת הסיסמה
 //.ForMember(dest => dest.Role, opt => opt.MapFrom(src => Enum.IsDefined(typeof(ERole), src.Role) ? (ERole)Enum.Parse(typeof(ERole), src.Role) : ERole.user));  // המרת Role מ-String ל-ERole

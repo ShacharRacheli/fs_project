@@ -13,7 +13,7 @@ namespace Comp.Core.Models
         public int Id { get; set; }
         public int UserId{ get; set; }
         public virtual User User{ get; set; }
-        //public string FileName { get; set; }
+        public string FileName { get; set; }
         public int CountVotes { get; set; }
         public int ChallengeId { get; set; }
         public virtual Challenge Challenge { get; set; }

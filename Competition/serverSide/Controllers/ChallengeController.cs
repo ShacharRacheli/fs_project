@@ -47,7 +47,7 @@ namespace Comp.API.Controllers
         [Authorize(Roles = "admin")]
         public async Task<ActionResult> CreateChallenge([FromBody] ChallengeDto challengeDto)
         {
-            Console.WriteLine("in add chaleng+++++++++++++++++==");
+            //Console.WriteLine("in add chaleng+++++++++++++++++==");
             var challenge = await _challengeService.CreateChallengeAsync(challengeDto);
             var challengeResult = _mapper.Map<ChallengeDto>(challenge);
             return Ok(challengeResult);
@@ -67,8 +67,9 @@ namespace Comp.API.Controllers
         public async Task<IActionResult> GetFinishedChallenges()
         {
             var challenges = await _challengeService.GetFinishedChallengesAsync();
-            var challengeDtos = _mapper.Map<IEnumerable<ChallengeDto>>(challenges);
-            return Ok(challengeDtos);
+            //var challengeDtos = _mapper.Map<IEnumerable<ChallengeDto>>(challenges);
+            return Ok(challenges);
+            //return Ok(challengeDtos);
         }
 
         // הצגת תיאור של אתגר

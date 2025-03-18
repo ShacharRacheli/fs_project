@@ -48,5 +48,21 @@ namespace Comp.Data.Reposirories
             }
             await _dataContext.SaveChangesAsync();
         }
+        public async Task<List<Challenge>> GetExpiredChallengesAsync()
+        {
+            return await _dataContext.ChallengeList
+                .Where(c => c.EndDate <= DateTime.UtcNow && c.Status == EStatus.active && !c.IsWinnerEmailSent)
+                .ToListAsync();
+        }
+        public async Task<int?> GetWinnerByTopImageAsync(int challengeId)
+        {
+            var topImage = await _dataContext.ImagesList
+                .Where(img => img.ChallengeId == challengeId)
+                .OrderByDescending(img => img.CountVotes)
+                .FirstOrDefaultAsync();
+
+            return topImage?.UserId; // מחזיר את המשתמש שהעלה את התמונה
+        }
+    
     }
 }

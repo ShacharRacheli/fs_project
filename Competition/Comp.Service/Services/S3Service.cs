@@ -28,13 +28,14 @@ namespace Comp.Service.Services
         ///==================================
         public async Task<string> GetPresignedUrlAsync(string fileName, string contentType)
         {
+
             var request = new GetPreSignedUrlRequest
             {
                 BucketName = _bucketName,
                 Key = fileName,
                 Verb = HttpVerb.PUT,
-                Expires = DateTime.UtcNow.AddMinutes(10),
-                ContentType = contentType
+                Expires = DateTime.UtcNow.AddMinutes(60),
+                ContentType = contentType,
             };
             var url= _s3Client.GetPreSignedURL(request);
             return url;

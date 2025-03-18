@@ -1,6 +1,8 @@
-﻿using Comp.Core.IRepositories;
+﻿using Comp.Core.DTOs;
+using Comp.Core.IRepositories;
 using Comp.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Storage.Internal.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,15 +48,27 @@ namespace Comp.Data.Reposirories
         //{
         //    return await _context.Images.Include(i => i.User).FirstOrDefaultAsync(i => i.ID == id);
         //}
-        public async Task<Image> GetTopImageByChallengeAsync(int challengeId)
+        public async Task<TopImageDTO> GetTopImageByChallengeAsync(int challengeId)
         {
             // שליפת כל התמונות לאתגר הנתון
             var topImage = await _dataContext.ImagesList
             .Where(img => img.ChallengeId == challengeId)
             .OrderByDescending(img => img.CountVotes)
-            .FirstOrDefaultAsync(); 
+            .FirstOrDefaultAsync();
+            var user = await _dataContext.UsersList
+        .FirstOrDefaultAsync(u => u.Id == topImage.UserId);
 
-            return topImage;
+            // מיפוי ל-TopImageDTO
+            var topImageDTO = new TopImageDTO
+            {
+                Id = topImage.Id,
+                UserId = topImage.UserId,
+                ImageUrl = topImage.ImageUrl,
+                CountVotes = topImage.CountVotes,
+                FileName = topImage.FileName,
+                UserName = user?.FullName, // אם המשתמש לא נמצא, UserName יהיה null
+            };
+            return topImageDTO;
         }
         public async Task<bool> DeleteImageAsync(int id)
         {
@@ -65,5 +79,14 @@ namespace Comp.Data.Reposirories
             await _dataContext.SaveChangesAsync();
             return true;
         }
+        public async Task<bool> UserUploadedAlready(int userId,int challengeId)
+        {
+          
+                var exists = await _dataContext.ImagesList
+                    .AnyAsync(i => i.UserId == userId && i.ChallengeId == challengeId);
+                return !exists; // אם כבר יש תמונה, נחזיר false      
+        }
+     
+
     }
 }

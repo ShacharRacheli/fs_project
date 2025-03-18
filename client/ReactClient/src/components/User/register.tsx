@@ -2,7 +2,7 @@ import { Box, Button, FormControl, InputLabel, MenuItem, Modal, Select, TextFiel
 import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
 
-const Register=()=>{
+const Register=({ succeedFunc }: { succeedFunc: Function })=>{
     const [error, setError] = useState('');
 
     const [open, setOpen] = useState(false);
@@ -62,7 +62,7 @@ console.log(sessionStorage.getItem('testKey')); // Should log 'testValue'
             } else {
                 console.log('Token not found in response');
             }
-            
+            succeedFunc()
             handleClose();
         }
         catch (e: any) {

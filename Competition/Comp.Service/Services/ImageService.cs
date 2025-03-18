@@ -30,10 +30,15 @@ namespace Comp.Service.Services
         {
             return await _imageRepository.GetVoteCountByImageIdAsync(imageId);
         }
-        public async Task<Image> GetTopImageByChallengeAsync(int challengeId)
+        //public async Task<Image> GetTopImageByChallengeAsync(int challengeId)
+        //{
+        //    // שליפת התמונות המובילות
+        //    return await _imageRepository.GetTopImageByChallengeAsync(challengeId);
+        //}
+        public async Task<TopImageDTO> GetTopImageByChallengeAsync(int challengeId)
         {
             // שליפת התמונות המובילות
-           return await _imageRepository.GetTopImageByChallengeAsync(challengeId);
+            return await _imageRepository.GetTopImageByChallengeAsync(challengeId);
         }
         //public async Task<bool> AddImageAsync(Image image)
         //{
@@ -49,7 +54,7 @@ namespace Comp.Service.Services
         }
         public async Task<Image> UploadImageAsync(int userId, int challengeId, Stream fileStream, string fileName)
         {
-          await ListBucketsAsync();
+            await ListBucketsAsync();
             // העלאת התמונה ל-S3
             var imageUrl = await _s3Service.UploadFileAsync(fileStream, fileName);
 
@@ -103,6 +108,9 @@ namespace Comp.Service.Services
         {
             return await _imageRepository.GetImagesByChallengeAsync(challengeId);
         }
-
+        public async Task<bool> UserUploadedAlready(int userId, int challengeId)
+        {
+            return await _imageRepository.UserUploadedAlready(userId, challengeId);
+        }
     }
 }

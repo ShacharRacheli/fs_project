@@ -20,5 +20,14 @@ namespace Comp.Service.Services
         {
             return await _voteRepository.VoteImageAsync(userId, imageId);
         }
+        public async Task<bool> DeleteVoteAsync(int userId,int imageId)
+        {
+            return await _voteRepository.DeleteVoteAsync(userId,imageId);
+        }
+        public async Task<bool> IsSelfVotingAsync(int imageId, int userId)
+        {
+            return await _voteRepository.IsSelfVotingAsync(imageId, userId);
+        }
+
     }
 }
