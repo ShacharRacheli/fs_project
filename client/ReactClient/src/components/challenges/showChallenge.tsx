@@ -1,35 +1,6 @@
-// import { useDispatch, useSelector } from "react-redux";
-// import { useParams } from "react-router"
-// import { AppDispatch, RootState } from "../redux/store";
-// import { useEffect } from "react";
-// import { getImageByChallengeId } from "../redux/imageSlice";
-// import { Box } from "@mui/material";
-
-// const ShowChallenge=()=>{
-// const {id}=useParams();
-// const dispatch=useDispatch<AppDispatch>();
-// const ImagesOfChallenge=useSelector((state:RootState)=>state.iamges.imagesByChallenge);
-// useEffect(()=>{
-//     dispatch(getImageByChallengeId(Number(id)));
-// },[])
-
-// return(<>
-// {ImagesOfChallenge.map(i=>(
-//     <Box key={i.challengeId}>
-//         {i.challengeId} 
-//         {i.countVotes} 
-//         {i.userId} 
-//          {i.imageUrl}</Box>
-// ))}
-
-// </>)
-// }
-// export default ShowChallenge
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import axios from 'axios';
-import { Button, Grid, Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
+import { Button, Grid, Card, CardMedia, CardContent, Typography, Box, IconButton } from '@mui/material';
 import { AppDispatch, RootState } from '../redux/store';
 import { getImageByChallengeId } from '../redux/imageSlice';
 import { useParams } from 'react-router';
@@ -38,50 +9,51 @@ import FileUploader from '../Pictures/fileUploader';
 import { getChallengeById } from '../redux/challengeSlice';
 import ImageViewer from '../Pictures/imageViewr';
 import axios from 'axios';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const ShowChallenge = () => {
-//   const dispatch = useDispatch();
-//   const images = useSelector((state) => state.);
-const {id}=useParams();
+  //   const dispatch = useDispatch();
+  //   const images = useSelector((state) => state.);
+  const { id } = useParams();
 
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const dispatch=useDispatch<AppDispatch>();
-  const ImagesOfChallenge=useSelector((state:RootState)=>state.images.imagesByChallenge);
-  const challenge=useSelector((state:RootState)=>state.challenges.selectedChallenge);
-  useEffect(()=>{
-      dispatch(getImageByChallengeId(Number(id)));
-      dispatch(getChallengeById(Number(id)));
-  },[id,dispatch])
+  const dispatch = useDispatch<AppDispatch>();
+  const ImagesOfChallenge = useSelector((state: RootState) => state.images.imagesByChallenge);
+  const challenge = useSelector((state: RootState) => state.challenges.selectedChallenge);
+  useEffect(() => {
+    dispatch(getImageByChallengeId(Number(id)));
+    dispatch(getChallengeById(Number(id)));
+  }, [id, dispatch])
   const handleDownload = async (fileName: string) => {
     try {
       const response = await axios.get(`http://localhost:5070/api/Image/getImageUrl`, {
         params: { fileName } // שם הקובץ שאת רוצה להוריד
-    });
+      });
       const downloadUrl = response.data.url;
-  
+
       if (!downloadUrl) {
         console.error("No URL returned from server!");
         return;
       }
-  
+
       console.log("Download URL:", downloadUrl);
-  
+
       // בקשה לקבלת הקובץ בפורמט blob
       const fileResponse = await axios.get(downloadUrl, {
         responseType: 'blob' // גורם להחזרת קובץ במקום להציג אותו
       });
-  
+
       // יצירת כתובת URL לנתונים
       const blobUrl = URL.createObjectURL(fileResponse.data);
-  
+
       // יצירת קישור להורדה
       const link = document.createElement("a");
       link.href = blobUrl;
       link.setAttribute("download", fileName); // שם הקובץ שישמר
       document.body.appendChild(link);
       link.click();
-  
+
       // ניקוי הזיכרון
       document.body.removeChild(link);
       URL.revokeObjectURL(blobUrl);
@@ -90,8 +62,97 @@ const {id}=useParams();
     }
   };
   // console.log(ImagesOfChallenge.);
-  
+
   return (
+
+    // <Box sx={{ padding: 4 }}>
+    // {challenge ? ( // Check if challenge is not null
+    //     <>
+    //         <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', marginBottom: 3 }}>
+    //             {challenge.title} 
+    //         </Typography>
+    //         <FileUploader idChallenge={Number(id)} />
+    //         <Grid container spacing={3}>
+    //             {ImagesOfChallenge.map((image) => (
+    //                 <Grid item xs={12} sm={6} md={4} key={image.id}>
+    //                     <Card sx={{ boxShadow: 3 }}>
+    //                             <ImageViewer fileName={image.fileName}/>
+    //                         <CardContent>
+    //                             <Typography variant="h6">תמונה #{image.id}</Typography>
+    //                             <Vote imageId={image.id} challengeId={image.challengeId} />
+    //                             <Typography variant="h6">count #{image.countVotes}</Typography>
+    //                             <Button
+    //                 variant="contained"
+    //                 color="primary"
+    //                 onClick={() => handleDownload(image.fileName)}
+    //                 fullWidth
+    //               >
+    //                 Download
+    //               </Button>
+
+    //                         </CardContent>
+    //                     </Card>
+    //                 </Grid>
+    //             ))}
+    //         </Grid>
+    //     </>
+    // ) : (
+    //     <Typography variant="h6" sx={{ textAlign: 'center' }}>
+    //       Loading challenge ... {/* Loading message when challenge is null */}
+    //     </Typography>
+    // )}
+    // </Box>
+    <Box sx={{ padding: 4 }}>
+      {challenge ? (
+        <>
+          <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', marginBottom: 3 }}>
+            {challenge.title}
+          </Typography>
+          <FileUploader idChallenge={Number(id)} />
+          <Grid container spacing={3}>
+            {ImagesOfChallenge.map((image) => (
+              <Grid item xs={12} sm={6} md={4} key={image.id}>
+                <Card sx={{ boxShadow: 3, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)' } }}>
+                  <ImageViewer fileName={image.fileName} />
+                  <CardContent>
+                    <Typography variant="h6">תמונה #{image.id}</Typography>
+                    <Vote imageId={image.id} challengeId={image.challengeId} />
+                    <Typography variant="h6">count #{image.countVotes}</Typography>                 
+                      <IconButton
+            sx={{
+                backgroundColor: 'white', // רקע לבן
+                color: 'purple', // צבע האיקון סגול
+                '&:hover': {
+                    backgroundColor: 'lightgray', // צבע רקע בעת ריחוף
+                },
+                '&:active': {
+                    backgroundColor: 'purple', // צבע רקע בעת לחיצה
+                    color: 'white', // צבע האיקון בעת לחיצה
+                },
+            }}
+            onClick={() => handleDownload(image.fileName)}
+        >
+            <DownloadIcon sx={{ fontSize: 30 }} /> {/* גודל האיקון */}
+        </IconButton>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </>
+      ) : (
+        <Typography variant="h6" sx={{ textAlign: 'center' }}>
+          Loading challenge ...
+        </Typography>
+      )}
+    </Box>
+  );
+};
+
+export default ShowChallenge;
+
+
+
 //     <div style={{ padding: '20px' }}>
 //       <Typography variant="h4" gutterBottom>
 //         אתגר {id}
@@ -127,55 +188,6 @@ const {id}=useParams();
 //         ))}
 //       </Grid>
 //     </div>
-<Box sx={{ padding: 4 }}>
-{challenge ? ( // Check if challenge is not null
-    <>
-        <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', marginBottom: 3 }}>
-            {challenge.title} {/* Display the title of the challenge */}
-        </Typography>
-        <FileUploader idChallenge={Number(id)} />
-        <Grid container spacing={3}>
-            {ImagesOfChallenge.map((image) => (
-                <Grid item xs={12} sm={6} md={4} key={image.id}>
-                    <Card sx={{ boxShadow: 3 }}>
-                        {/* <CardMedia
-                            component="img"
-                            height="200"
-                            image={image.imageUrl}
-                            alt={`תמונה של אתגר ${id}`}
-                        />
-                      <img src={image.imageUrl} 
-                            alt={`תמונה של אתגר ${id}`}/> */}
-                            <ImageViewer fileName={image.fileName}/>
-                        <CardContent>
-                            <Typography variant="h6">תמונה #{image.id}</Typography>
-                            <Vote imageId={image.id} challengeId={image.challengeId} />
-                            <Typography variant="h6">count #{image.countVotes}</Typography>
-                            <Button
-                variant="contained"
-                color="primary"
-                onClick={() => handleDownload(image.fileName)}
-                fullWidth
-              >
-                Download
-              </Button>
-
-                        </CardContent>
-                    </Card>
-                </Grid>
-            ))}
-        </Grid>
-    </>
-) : (
-    <Typography variant="h6" sx={{ textAlign: 'center' }}>
-        טוען אתגר... {/* Loading message when challenge is null */}
-    </Typography>
-)}
-</Box>
-  );
-};
-
-export default ShowChallenge;
 //   const handleUpload = async () => {
 //     if (!image) {
 //       alert("אנא בחר תמונה להעלות");
@@ -205,7 +217,7 @@ export default ShowChallenge;
 //     }
 //   };
 
-  // שליפת התמונות של אתגר
+// שליפת התמונות של אתגר
 //   useEffect(() => {
 //     dispatch(fetchImages(challengeId)); // שליפה מ-Redux
 //   }, [dispatch, challengeId]);

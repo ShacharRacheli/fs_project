@@ -17,27 +17,23 @@ useEffect(()=>{
     
 },[dispatch]);
 
-
-// const handleNavigate = (challengeId:number) => {
-//     navigate(`${challengeId}`); // Adjust the path as needed
-// };
 const handleNavigate = (challengeId: number) => {
-    navigate(`/allChallenges/${challengeId}`); // Adjusted path to include the dynamic segment
+    navigate(`/allChallenges/${challengeId}`); 
 };
 
 return(<>
-        <Typography variant="h4" sx={{ margin: 2 }}>
+        {/* <Typography variant="h4" sx={{ margin: 2 }}>
                 Challenges List
             </Typography>
             <List>
                 {Array.isArray(challengesList) && challengesList.length > 0 ? (
                     challengesList.map((challenge) => (
-                        <ListItem key={challenge.id}> {/* Ensure this ID is unique */}
+                        <ListItem key={challenge.id}> 
                             <ListItemText primary={challenge.title} secondary={challenge.description} />
                             <Button 
                                 variant="contained" 
                                 onClick={() => handleNavigate(challenge.id)}
-                                sx={{ marginLeft: 2 }} // Add some spacing
+                                sx={{ marginLeft: 2 }} 
                             >
                                 View Challenge
                             </Button>
@@ -49,8 +45,55 @@ return(<>
             </List>
             <Box>
             <Outlet/>
+            </Box> */}
+<Typography variant="h4" sx={{ margin: 2 }}>
+                Challenges List
+            </Typography>
+            <List>
+                {Array.isArray(challengesList) && challengesList.length > 0 ? (
+                    challengesList.map((challenge) => (
+                        <ListItem 
+                            key={challenge.id} 
+                            sx={{ 
+                                padding: 2,
+                                borderBottom: '1px solid #ccc', // גבול תחתון
+                                display: 'flex',
+                                alignItems: 'center',
+                                opacity: challenge.status ? 1 : 0.5 // שקיפות לאתגרים לא פעילים
+                            }}
+                        >
+                            <ListItemText 
+                                primary={challenge.title} 
+                                secondary={challenge.description} 
+                                sx={{ 
+                                    color: challenge.status ? 'black' : 'gray' // צבע טקסט שונה
+                                }} 
+                            />
+                            <Button 
+                                variant="contained" 
+                                onClick={() => handleNavigate(challenge.id)}
+                                sx={{ 
+                                    marginLeft: 2, 
+                                    backgroundColor: 'rgb(132 255 124)', 
+                                    color: 'white', 
+                                    borderRadius: '20px', // מעגלים את הכפתור
+                                    padding: '10px 20px', // מרווח פנימי
+                                    '&:hover': {
+                                        backgroundColor: '#45a049' // צבע כפתור בהעברה
+                                    }
+                                }} 
+                            >
+                                View Challenge
+                            </Button>
+                        </ListItem>
+                    ))
+                ) : (
+                    <Typography sx={{ padding: 2 }}>No challenges available.</Typography>
+                )}
+            </List>
+            <Box>
+                <Outlet />
             </Box>
-
 </>)
 }
 export default AllChallenges

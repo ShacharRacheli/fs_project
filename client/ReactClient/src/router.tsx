@@ -3,6 +3,7 @@ import AppLayout from "./components/appLayout";
 import AllChallenges from "./components/challenges/allChallenges";
 import ShowChallenge from "./components/challenges/showChallenge";
 import HomePage from "./components/homePage";
+import Winners from "./components/challenges/winners";
 
 export const router = createBrowserRouter([
     {

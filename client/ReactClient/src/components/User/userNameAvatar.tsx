@@ -1,4 +1,4 @@
-import { Avatar, Box, Stack, Typography } from "@mui/material"
+import { Avatar, Box, colors, Stack, Typography } from "@mui/material"
 import { getUserNameByToken } from "../store/getFromToken";
 import React from "react";
 // import React from "react";
@@ -17,16 +17,18 @@ const UserNameAvatar=()=>{
         };
     }
 return(<>
- <Box sx={{ position: 'absolute', top: 10, left: 10 }}>
+ <Box sx={{ position: 'absolute', top: 10, left: 5 }}>
             <Stack direction="row" spacing={2}>
-                <Avatar {...stringAvatar(userName)} />
-                <Typography variant="h4">
+                {/* <Avatar {...stringAvatar(userName)} /> */}
+                <Typography variant="h4" sx={{color:'black'}}>
                     Hi {userName}!
                 </Typography>
-                {/* <Button onClick={handleShowUpdate} sx={{ color: 'var(--secondary-color)' }} >Update details</Button>
-                {showUpdate && <Update succeedUpdateFunc={handleCloseUpdate} />} */}
+                
             </Stack>
         </Box>
 </>)
 }
 export default UserNameAvatar
+
+{/* <Button onClick={handleShowUpdate} sx={{ color: 'var(--secondary-color)' }} >Update details</Button>
+                {showUpdate && <Update succeedUpdateFunc={handleCloseUpdate} />} */}
