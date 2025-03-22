@@ -36,7 +36,7 @@ const AllChallenges = () => {
                             borderBottom: '1px solid purple', // גבול תחתון סגול
                             display: 'flex',
                             alignItems: 'center',
-                            opacity: challenge.status ? 1 : 0.5,
+                            // opacity: challenge.status ? 1 : 0.5,
                             backgroundColor: 'white' // צבע רקע לבן
                         }}
                     >
@@ -51,6 +51,7 @@ const AllChallenges = () => {
                             marginLeft: 2,
                             color: 'purple', // Date text color purple
                             fontStyle: 'italic', // Italic style for dates
+                            opacity: challenge.status ? 1 : 0.5 // Only apply opacity to date//////================
                         }}
                     >
                         Start: {new Date(challenge.startDate).toLocaleDateString()} - End: {new Date(challenge.endDate).toLocaleDateString()}

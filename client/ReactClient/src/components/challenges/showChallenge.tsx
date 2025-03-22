@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Grid, Card, CardMedia, CardContent, Typography, Box, IconButton } from '@mui/material';
+import { Button, Grid, Card, CardMedia, CardContent, Typography, Box, IconButton, Paper } from '@mui/material';
 import { AppDispatch, RootState } from '../redux/store';
 import { getImageByChallengeId } from '../redux/imageSlice';
 import { useParams } from 'react-router';
@@ -121,7 +121,7 @@ const ShowChallenge = () => {
     <Box sx={{ padding: 4 }}>
       {challenge ? (
         <>
-          <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', marginBottom: 3 }}>
+          <Typography variant="h3" gutterBottom sx={{ textAlign: 'center', marginBottom: 3 }}>
             {challenge.title}
           </Typography>
           <FileUploader idChallenge={Number(id)} />
@@ -129,9 +129,11 @@ const ShowChallenge = () => {
           <Grid container spacing={3}>
             {ImagesOfChallenge.map((image) => (
               <Grid item xs={12} sm={6} md={4} key={image.id}>
-                <Card sx={{ boxShadow: 3, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)' } }}>
+                            <Paper sx={{ padding: 2, textAlign: "center" }}>
+              {/* <Grid item xs={12} sm={6} md={4} key={image.id}> */}
+                {/* <Card sx={{ boxShadow: 3, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)' } }}> */}
                   <ImageViewer fileName={image.fileName} />
-                  <CardContent>
+                  {/* <CardContent> */}
                 <Vote imageId={image.id} challengeId={image.challengeId} />
                     <Typography variant="h6">count #{image.countVotes}</Typography>                 
                       <IconButton
@@ -150,8 +152,9 @@ const ShowChallenge = () => {
         >
             <DownloadIcon sx={{ fontSize: 30 }} /> 
         </IconButton>
-                  </CardContent>
-                </Card>
+                  {/* </CardContent> */}
+                {/* </Card> */}
+                </Paper>
               </Grid>
             ))}
           </Grid>

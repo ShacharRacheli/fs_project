@@ -77,21 +77,36 @@ import { Box, Button, Modal, TextField } from "@mui/material";
 import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
 import { getEmailByToken, getUserIdByToken } from "../store/getFromToken";
+import { object, string } from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import {useForm}from "react-hook-form"
 
+const schema = object({
+    email: string().email('Invalid email format').required('Email is required'),
+    fullName: string().min(5, 'Name must be at least 6 characters').required('Name is required'),
+});
 const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open: boolean, handleClose: () => void }) => {
-    const emailRef = useRef<HTMLInputElement>(null);
-    const fullNameRef = useRef<HTMLInputElement>(null);
-
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
+    // const emailRef = useRef<HTMLInputElement>(null);
+    // const fullNameRef = useRef<HTMLInputElement>(null);
+  const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({
+        resolver: yupResolver(schema),
+    });
+    const onSubmit = async (data: { email: string;  fullName: string }) => {
+        // e.preventDefault();
         const userId = getUserIdByToken();
         console.log("in updateeeeeeeeeeeee");
         console.log(userId);
 
         try {
             const res = await axios.put(`http://localhost:5070/api/User/${userId}`, {
-                Email: emailRef.current?.value || getEmailByToken(),
-                FullName: fullNameRef.current?.value,
+                // Email: emailRef.current?.value || getEmailByToken(),
+                // FullName: fullNameRef.current?.value,
+                Email: data.email || getEmailByToken(),
+                FullName: data.fullName,
             }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,16 +133,23 @@ const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, ope
     return (
         <Modal open={open} onClose={handleClose}>
             <Box sx={style}>
-                <form onSubmit={handleSubmit}>
-                    <TextField type='text' fullWidth label='FullName'
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <TextField 
+                        {...register('fullName')}
+                        type='text' fullWidth label='FullName'
                         variant="outlined"
-                        inputRef={fullNameRef}
+                        error={!!errors.fullName}
+                        helperText={errors.fullName?.message}
+                        // inputRef={fullNameRef}
                         sx={{ marginBottom: 2 }}
                     />
                     <TextField type='email' fullWidth
                         label="Email"
+                        {...register('email')}
                         variant="outlined"
-                        inputRef={emailRef}
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                        // inputRef={emailRef}
                         sx={{ marginBottom: 2 }}
                     />
                     <Button fullWidth type='submit'sx={{ backgroundColor: 'purple', color: 'white', '&:hover': { backgroundColor: 'darkviolet' } }} // Purple button

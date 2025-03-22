@@ -6,57 +6,50 @@ import { Box, Button, Grid, Toolbar } from "@mui/material";
 import UserNameAvatar from "./User/userNameAvatar";
 
 const HomePage=()=>{
-
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-    const [succeed, setSucceed] = useState(false)
+  const images = [
+'./pic1.jpg',
+];
+    // const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // const [succeed, setSucceed] = useState(false)
     // const LoginSucceed = () => setSucceed(true)  
-    const IsToken=()=>{
-        const token = sessionStorage.getItem('token');
-        if (token) {
-            setIsAuthenticated(true);
-            console.log(isAuthenticated);            
-        }
-    }
-      useEffect(() => {
-        const token = sessionStorage.getItem('token');
-        if (token) {
-            setIsAuthenticated(true);
-            console.log(isAuthenticated);            
-        }
-    }, []);
-    const handleLogout = () => {
-        sessionStorage.removeItem('token');
-        setIsAuthenticated(false);
-        console.log("hghghghghgh");
+    // const IsToken=()=>{
+    //     const token = sessionStorage.getItem('token');
+    //     if (token) {
+    //         setIsAuthenticated(true);
+    //         console.log(isAuthenticated);            
+    //     }
+    // }
+    //   useEffect(() => {
+    //     const token = sessionStorage.getItem('token');
+    //     if (token) {
+    //         setIsAuthenticated(true);
+    //         console.log(isAuthenticated);            
+    //     }
+    // }, []);
+    // const handleLogout = () => {
+    //     sessionStorage.removeItem('token');
+    //     setIsAuthenticated(false);
+    //     console.log("hghghghghgh");
         
-    };
-return(<>
-{/* <Box component="main" sx={{ p: 3, pt: 8 }}>
+    // };
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-            {!isAuthenticated && <><Login succeedFunc={IsToken}/> <Register succeedFunc={IsToken}/></>}     
-            {isAuthenticated &&<><Button sx={{ position: 'absolute', top: 50, left: 80 }} onClick={handleLogout}>Log out</Button><Update /></>}       
-            {isAuthenticated&&<UserNameAvatar/>}
-</Box> */}
- <Box component="main" sx={{ p: 3, pt: 10 }}>
-      <Grid container spacing={2} justifyContent="flex-start" alignItems="center">
-        <Grid item>
-          {!isAuthenticated && (
-            <>
-              {/* <Login succeedFunc={IsToken} /> */}
-              {/* <Register succeedFunc={IsToken} /> */}
-            </>
-          )}
-          {isAuthenticated && (
-            <>
-              {/* <Button onClick={handleLogout} sx={{ color: 'rgb(0, 0, 0)' }}>Log out</Button> */}
-              {/* <Update /> */}
-            </>
-          )}
-          {/* {isAuthenticated && <UserNameAvatar />} */}
-        </Grid>
-      </Grid>
-    </Box>
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, 3000); // Change image every 3 seconds
+
+        return () => clearInterval(interval); // Cleanup on unmount
+    }, [images.length]);
+return(<>
+ <div>
+  {/* <img src="./pic1.jpg"/> */}
+            <img src={images[currentIndex]} alt="Slider" style={{ width: '100%', height: 'auto' }} />
+        </div>
+        <Box>
+          every week we have different challenges 
+        </Box>
+     
 </>)
 }
 export default HomePage

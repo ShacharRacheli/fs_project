@@ -28,6 +28,7 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
   const dispatch = useDispatch<AppDispatch>();
+  const token=sessionStorage.getItem('token');
 // useEffect(() => {
 //     dispatch(getImageByChallengeId(Number(idChallenge)));
 //     // dispatch(getChallengeById(Number(id)));
@@ -146,11 +147,12 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
             backgroundColor: 'purple',
             color: 'white',
             '&:hover': {
-                backgroundColor: 'darkviolet',
+                backgroundColor: 'rgb(210 118 214)',
             },
         }}
+        // disabled={!token}
     >
-        {file ? file.name : 'בחר קובץ'}
+        {file ? file.name : 'Select a file'}
     </Button>
 </label>
 <input
@@ -175,11 +177,11 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
         },
     }}
 >
-    העלה קובץ
+   upload file
 </Button>
 {progress > 0 && (
     <Typography sx={{ color: 'purple', fontWeight: 'bold' }}>
-        התקדמות: {progress}%
+        progress: {progress}%
     </Typography>
 )}
 </Box>

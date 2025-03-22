@@ -72,33 +72,38 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box, Button, IconButton, Modal, TextField } from "@mui/material";
 import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
-
+import {  object, string } from "yup";
+import { yupResolver } from "@hookform/resolvers/yup"
+import {useForm}from "react-hook-form"
+const schema = object({
+    email: string().email('Invalid email format').required('Email is required'),
+    password: string().min(5, 'Password must be at least 6 characters').required('Password is required'),
+});
 const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open: boolean, handleClose: () => void }) => {
-    const emailRef = useRef<HTMLInputElement>(null);
-    const passwordRef = useRef<HTMLInputElement>(null);
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
+    // const emailRef = useRef<HTMLInputElement>(null);
+    // const passwordRef = useRef<HTMLInputElement>(null);
+    // const [emailError, setEmailError] = useState('');
+    // const [passwordError, setPasswordError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        setEmailError('');
-        setPasswordError('');
-        const email = emailRef.current?.value;
-        const password = passwordRef.current?.value;
-
-        // Basic validation
-        // if (!email || !/\S+@\S+\.\S+/.test(email)) {
-        //     setEmailError('Please enter a valid email address.');
-        //     return;
-        // }
-        // if (!password || password.length < 6) {
-        //     setPasswordError('Password must be at least 6 characters long.');
-        //     return;
-        // }
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(schema),
+    });
+    const onSubmit= async (data: { email: string; password: string })  => {
+        // e.preventDefault();
         try {
             const res = await axios.post(`http://localhost:5070/api/User/login`, {
-                Email: emailRef.current?.value,
-                Password: passwordRef.current?.value,
+                // Email: emailRef.current?.value,
+                // Password: passwordRef.current?.value,
+                Email: data.email,
+                Password: data.password,
             }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -117,36 +122,34 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
             }
         }
     }
-    const [showPassword, setShowPassword] = useState(false);
-
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
+  
 
     return (
 <Modal open={open} onClose={handleClose}>
 <Box sx={style}>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
         <TextField 
+          {...register('email')}
             type='email' 
             fullWidth 
             label="Email" 
             variant="outlined" 
-            required
-            inputRef={emailRef} 
-            error={!!emailError}
-            helperText={emailError}
+            // required
+            // inputRef={emailRef} 
+            error={!!errors.email}
+            helperText={errors.email?.message}
             sx={{ marginBottom: 2 }} // Space between inputs
         />
         <TextField 
             type={showPassword ? 'text' : 'password'}
             fullWidth 
+            {...register('password')}
             label='Password' 
             variant="outlined" 
-            required
-            inputRef={passwordRef} 
-            error={!!passwordError}
-            helperText={passwordError}
+            // required
+            // inputRef={passwordRef} 
+            error={!!errors.password}
+            helperText={errors.password?.message}           
             sx={{ marginBottom: 2 }} 
             slotProps={{
                 input: {
@@ -184,6 +187,8 @@ const style = {
     p: 4,
 };
 export default Login;
+
+
 //         <Modal open={open} onClose={handleClose}>
 //             <Box sx={style}>
 //                 <form onSubmit={handleSubmit}>

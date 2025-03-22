@@ -14,7 +14,7 @@
 //     const passwordRef = useRef<HTMLInputElement>(null);
 //     const fullNameRef=useRef<HTMLInputElement>(null)
 //     // const roleRef=useRef<string>('')
-  
+
 //     const validateForm = () => {
 //         const email = emailRef.current?.value;
 //         const password = passwordRef.current?.value;
@@ -74,7 +74,7 @@
 //             }
 //         }
 //     }
-   
+
 //    return(<>
 //    <Box sx={{ position: 'absolute', top: 10, left: 100 }}>
 //             <Button onClick={handleOpen}>Sign up</Button>
@@ -112,28 +112,47 @@
 
 // export default Register
 
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box, Button, IconButton, Modal, TextField } from "@mui/material";
 import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
+import { object, string } from "yup";
+import {useForm}from "react-hook-form"
 
+const schema = object({
+    email: string().email('Invalid email format').required('Email is required'),
+    password: string().min(5, 'Password must be at least 6 characters').required('Password is required'),
+    fullName: string().min(5, 'Name must be at least 6 characters').required('Name is required'),
+});
 const Register = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open: boolean, handleClose: () => void }) => {
-    const emailRef = useRef<HTMLInputElement>(null);
-    const passwordRef = useRef<HTMLInputElement>(null);
-    const fullNameRef = useRef<HTMLInputElement>(null);
+    // const emailRef = useRef<HTMLInputElement>(null);
+    // const passwordRef = useRef<HTMLInputElement>(null);
+    // const fullNameRef = useRef<HTMLInputElement>(null);
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({
+        resolver: yupResolver(schema),
+    });
 
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
+    const onSubmit = async (data: { email: string; password: string; fullName: string }) => {
+        // e.preventDefault();
+
         try {
             const res = await axios.post(`http://localhost:5070/api/User/register`, {
-                FullName: fullNameRef.current?.value,
-                Password: passwordRef.current?.value,
-                Email: emailRef.current?.value,
+                // FullName: fullNameRef.current?.value,
+                // Password: passwordRef.current?.value,
+                // Email: emailRef.current?.value,
+                FullName: data.fullName,
+                Password: data.password,
+                Email: data.email,
             }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -142,7 +161,7 @@ const Register = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, o
             });
             if (res.data && res.data.token) {
                 sessionStorage.setItem('token', res.data.token);
-                succeedFunc(res.data.token); 
+                succeedFunc(res.data.token);
             }
             // succeedFunc();
             handleClose();
@@ -156,28 +175,43 @@ const Register = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, o
     return (
         <Modal open={open} onClose={handleClose}>
             <Box sx={style}>
-                <form onSubmit={handleSubmit}>
-                    <TextField type='email'
-                     fullWidth label="Email"
-                     variant="outlined" 
-                    inputRef={emailRef}         
-                    required          
-                      sx={{ marginBottom: 2 }} 
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <TextField
+                        {...register('email')}
+                        type='email'
+                        fullWidth 
+                        label="Email"
+                        variant="outlined"
+                        // inputRef={emailRef}
+                        // required       
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                        sx={{ marginBottom: 2 }}
                     />
-                    <TextField type='password' fullWidth label='Password' variant="outlined" inputRef={passwordRef} 
-                    required
-                    sx={{ marginBottom: 2 }} 
-                    slotProps={{
-                        input: {
-                            endAdornment: (
-                                <IconButton onClick={togglePasswordVisibility}>
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            ),
-                        },
-                    }}/>
-                    <TextField type='text' fullWidth label='Full Name' variant="outlined" inputRef={fullNameRef} required 
-                    sx={{ marginBottom: 2 }} 
+                    <TextField type='password' fullWidth label='Password' variant="outlined" 
+                    // inputRef={passwordRef}
+                        {...register('password')}
+                        // required
+                        error={!!errors.password}
+                        helperText={errors.password?.message}
+                        sx={{ marginBottom: 2 }}
+                        slotProps={{
+                            input: {
+                                endAdornment: (
+                                    <IconButton onClick={togglePasswordVisibility}>
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                ),
+                            },
+                        }} />
+                    <TextField
+                        error={!!errors.fullName}
+                        helperText={errors.fullName?.message}
+                        type='text' fullWidth label='Full Name' variant="outlined" 
+                        // inputRef={fullNameRef}
+                        {...register('fullName')}
+                        //  required 
+                        sx={{ marginBottom: 2 }}
                     />
                     <Button fullWidth type='submit' sx={{ backgroundColor: 'purple', color: 'white', '&:hover': { backgroundColor: 'darkviolet' } }} // Purple button
                     >Sign Up</Button>

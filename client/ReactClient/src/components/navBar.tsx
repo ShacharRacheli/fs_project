@@ -157,7 +157,7 @@ import UserNameAvatar from './User/userNameAvatar';
 import { Menu, MenuItem } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import Update from './User/update';
-import { getUserIdByToken, getUserNameByToken } from './store/getFromToken';
+import { getUserNameByToken } from './store/getFromToken';
 // import Update from './User/update';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -326,7 +326,7 @@ const NavBar = (props: any) => {
               )}
             </Box>
             <Typography variant="h6" component="div" sx={{ color: 'white', textAlign: 'center' }}>
-              My App
+              Pick A Pic
             </Typography>
             <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'flex-end', gap: 2 }}>
               {navItems.map((item) => (
@@ -338,7 +338,6 @@ const NavBar = (props: any) => {
           </Box>
         </Toolbar>
       </AppBar>
-
       <nav>
         <Drawer
           container={container}

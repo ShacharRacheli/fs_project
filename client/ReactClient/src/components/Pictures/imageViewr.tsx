@@ -51,14 +51,14 @@ const ImageViewer = ({ fileName }:{fileName:string}) => {
       sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
     />
   ) : (
-    <Card>
-      <CardMedia
+    // <Card>
+       <CardMedia 
         component="img"
         image={imageUrl || ''}
         alt="Uploaded"
         sx={{ height: '100%', width: '100%', objectFit: 'contain' }} // Fixed width and height
       />
-    </Card>
+    // </Card>
   )}
 </Box>
   );

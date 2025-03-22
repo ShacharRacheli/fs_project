@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { useEffect } from "react";
-import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Grid, Paper, Typography } from "@mui/material";
 import ImageViewer from "../Pictures/imageViewr";
 import { getTopImagesByChallenge } from "../redux/topImagesSlice";
 
@@ -35,22 +35,25 @@ return(<>
         </Grid> */}
    <Grid container spacing={2}>
             {winnersList.map((winner) => (
-                <Grid item xs={12} sm={4} md={4} key={winner.id}> {/* Adjusted to 4 for 3 cards per row */}
-                    <Card sx={{ width: '100%', boxShadow: 3 }}> {/* Set width to 100% */}
+                // <Grid item xs={12} sm={4} md={4} key={winner.id}> {/* Adjusted to 4 for 3 cards per row */}
+                //     <Card sx={{ width: '100%', boxShadow: 3 }}> {/* Set width to 100% */}
+                <Grid item xs={12} sm={6} md={4} key={winner.id}>
+                            <Paper sx={{ padding: 2, textAlign: "center" }}>
                         <CardMedia
                             component={ImageViewer}
                             fileName={winner.fileName}
                             sx={{ height: 200 }} // Adjust height as needed
                         />
-                        <CardContent>
+                        {/* <CardContent> */}
                             <Typography variant="h6" component="div" gutterBottom>
                                 {winner.title}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
                                 Winner: {winner.userName}
                             </Typography>
-                        </CardContent>
-                    </Card>
+                        {/* </CardContent> */}
+                    {/* </Card> */}
+                    </Paper>
                 </Grid>
             ))}
         </Grid>

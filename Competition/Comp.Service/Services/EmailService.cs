@@ -1,4 +1,5 @@
 ﻿using Comp.Core.IServices;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +11,31 @@ namespace Comp.Service.Services
 {
    public class EmailService:IEmailService
     {
+        private readonly IConfiguration _configuration;
+        public EmailService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public async Task SendEmailAsync(string to, string subject, string body)
         {
             try
             {
+                var smtpServer = _configuration["EmailSettings:SmtpServer"];
+                var port = int.Parse(_configuration["EmailSettings:Port"]);
+                var senderEmail = _configuration["EmailSettings:SenderEmail"];
+                var senderPassword = _configuration["EmailSettings:SenderPassword"];
+
                 using var smtp = new SmtpClient("smtp.gmail.com")
                 {
                     Port = 587,
-                    Credentials = new System.Net.NetworkCredential("@gmail.com", ""),
+                    Credentials = new System.Net.NetworkCredential(senderEmail, senderPassword),
+                    //Credentials = new System.Net.NetworkCredential("@gmail.com", ""),
                     EnableSsl = true
                 };
                 var mail = new MailMessage
                 {
-                    From = new MailAddress("@gmail.com"),
+                    From = new MailAddress(senderEmail),
+                    //From = new MailAddress("@gmail.com"),
                     Subject = subject,
                     Body = body,
                     IsBodyHtml = true
