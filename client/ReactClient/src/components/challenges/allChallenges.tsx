@@ -5,51 +5,86 @@ import { getChallenges } from "../redux/challengeSlice";
 import { Box, Button, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
 
-const AllChallenges=()=>{
-const dispatch=useDispatch<AppDispatch>();
-const challengesList=useSelector((state:RootState)=>state.challenges.list);
-const navigate = useNavigate();
+const AllChallenges = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const challengesList = useSelector((state: RootState) => state.challenges.list);
+    const navigate = useNavigate();
 
 
-useEffect(()=>{
-    dispatch(getChallenges());
-    console.log(challengesList.values);
-    
-},[dispatch]);
+    useEffect(() => {
+        dispatch(getChallenges());
+        console.log(challengesList);
 
-const handleNavigate = (challengeId: number) => {
-    navigate(`/allChallenges/${challengeId}`); 
-};
+    }, [dispatch]);
 
-return(<>
-        {/* <Typography variant="h4" sx={{ margin: 2 }}>
-                Challenges List
-            </Typography>
-            <List>
-                {Array.isArray(challengesList) && challengesList.length > 0 ? (
-                    challengesList.map((challenge) => (
-                        <ListItem key={challenge.id}> 
-                            <ListItemText primary={challenge.title} secondary={challenge.description} />
-                            <Button 
-                                variant="contained" 
-                                onClick={() => handleNavigate(challenge.id)}
-                                sx={{ marginLeft: 2 }} 
-                            >
-                                View Challenge
-                            </Button>
-                        </ListItem>
-                    ))
-                ) : (
-                    <Typography sx={{ padding: 2 }}>No challenges available.</Typography>
-                )}
-            </List>
-            <Box>
-            <Outlet/>
-            </Box> */}
-<Typography variant="h4" sx={{ margin: 2 }}>
-                Challenges List
-            </Typography>
-            <List>
+    const handleNavigate = (challengeId: number) => {
+        navigate(`/allChallenges/${challengeId}`);
+    };
+    console.log(challengesList);
+
+    return (<>
+       <Typography variant="h4" sx={{ margin: 2 }}>
+            Challenges List
+        </Typography>
+        <List>
+            {Array.isArray(challengesList) && challengesList.length > 0 ? (
+                challengesList.map((challenge) => (
+                    <ListItem
+                        key={challenge.id}
+                        sx={{
+                            padding: 2,
+                            borderBottom: '1px solid purple', // גבול תחתון סגול
+                            display: 'flex',
+                            alignItems: 'center',
+                            opacity: challenge.status ? 1 : 0.5,
+                            backgroundColor: 'white' // צבע רקע לבן
+                        }}
+                    >
+                        <ListItemText
+                            primary={challenge.title}
+                            secondary={challenge.description}
+                            sx={{
+                                color: challenge.status ? 'black' : 'gray' // צבע טקסט שונה
+                            }}
+                        />     <Typography
+                        sx={{
+                            marginLeft: 2,
+                            color: 'purple', // Date text color purple
+                            fontStyle: 'italic', // Italic style for dates
+                        }}
+                    >
+                        Start: {new Date(challenge.startDate).toLocaleDateString()} - End: {new Date(challenge.endDate).toLocaleDateString()}
+                    </Typography>
+                        <Button
+                            variant="contained"
+                            onClick={() => handleNavigate(challenge.id)}
+                            sx={{
+                                marginLeft: 2,
+                                backgroundColor: 'white', // צבע רקע לבן
+                                color: 'purple', // צבע טקסט סגול
+                                borderRadius: '20px',
+                                padding: '10px 20px',
+                                border: '1px solid purple', // גבול סגול
+                                '&:hover': {
+                                    backgroundColor: 'lightgray' // צבע כפתור בהעברה
+                                }
+                            }}
+                        >
+                            View Challenge
+                        </Button>
+                    </ListItem>
+                ))
+            ) : (
+                <Typography sx={{ padding: 2 }}>No challenges available.</Typography>
+            )}
+        </List>
+        <Box>
+            <Outlet />
+        </Box>
+    </>)
+}
+export default AllChallenges
+{/* <List>
                 {Array.isArray(challengesList) && challengesList.length > 0 ? (
                     challengesList.map((challenge) => (
                         <ListItem 
@@ -90,10 +125,29 @@ return(<>
                 ) : (
                     <Typography sx={{ padding: 2 }}>No challenges available.</Typography>
                 )}
+            </List> */}
+
+{/* <Typography variant="h4" sx={{ margin: 2 }}>
+                Challenges List
+            </Typography>
+            <List>
+                {Array.isArray(challengesList) && challengesList.length > 0 ? (
+                    challengesList.map((challenge) => (
+                        <ListItem key={challenge.id}> 
+                            <ListItemText primary={challenge.title} secondary={challenge.description} />
+                            <Button 
+                                variant="contained" 
+                                onClick={() => handleNavigate(challenge.id)}
+                                sx={{ marginLeft: 2 }} 
+                            >
+                                View Challenge
+                            </Button>
+                        </ListItem>
+                    ))
+                ) : (
+                    <Typography sx={{ padding: 2 }}>No challenges available.</Typography>
+                )}
             </List>
             <Box>
-                <Outlet />
-            </Box>
-</>)
-}
-export default AllChallenges
+            <Outlet/>
+            </Box> */}

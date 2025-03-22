@@ -54,7 +54,7 @@ namespace Comp.Service.Services
 
         public async Task<IEnumerable<Challenge>> GetFinishedChallengesAsync()
         {
-            return await _challengeRepository.GetChallengesByStatusAsync(EStatus.finished);
+            return await _challengeRepository.GetChallengesByStatusAsync(EStatus.notActive);
         }
 
         public async Task<Challenge> GetChallengeByIdAsync(int id)
@@ -67,7 +67,7 @@ namespace Comp.Service.Services
             var challenge = await _challengeRepository.GetByIdAsync(id);
             if (challenge != null)
             {
-                challenge.Status = EStatus.finished;
+                challenge.Status = EStatus.notActive;
                 await _challengeRepository.UpdateAsync(challenge);
             }
             return challenge;
@@ -75,7 +75,6 @@ namespace Comp.Service.Services
         public async Task ProcessExpiredChallengesAsync()
         {
             var expiredChallenges = await _challengeRepository.GetExpiredChallengesAsync();
-
             foreach (var challenge in expiredChallenges)
             {
                 var winnerId = await _challengeRepository.GetWinnerByTopImageAsync(challenge.Id);
@@ -87,8 +86,8 @@ namespace Comp.Service.Services
 
                 await _emailService.SendEmailAsync(winner.Email, subject, body);
 
-                challenge.Status = EStatus.finished;
-                challenge.IsWinnerEmailSent = true;
+                //challenge.Status = EStatus.notActive;
+                //challenge.IsWinnerEmailSent = true;
                 await _challengeRepository.UpdateAsync(challenge);
             }
         }

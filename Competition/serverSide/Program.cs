@@ -68,7 +68,7 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IS3Service, S3Service>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddDbContext<DataContext>();
-//builder.Services.AddHostedService<ChallengeExpirationJob>();
+builder.Services.AddHostedService<ChallengeExpirationJob>();
 //        builder.Services.AddDbContext<DataContext>(options =>
 //options.UseMySql("server=localhost;database=competition;user=root;password=Rs0583237001",
 //    new MySqlServerVersion(new Version(8, 0, 21))));

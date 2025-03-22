@@ -1,13 +1,39 @@
 // React Component
-import React, { useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
 import { getUserIdByToken } from '../store/getFromToken';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, styled, Typography } from '@mui/material';
+import UploadRoundedIcon from '@mui/icons-material/UploadRounded';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
+import { getImageByChallengeId } from '../redux/imageSlice';
+import { getChallengeById } from '../redux/challengeSlice';
+
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 const FileUploader = ({idChallenge}:{idChallenge:number}) => {
+  // const FileUploader = ({idChallenge,setImages}:{idChallenge:number,setImages: React.Dispatch<SetStateAction<any[]>>}) => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
-
+  const dispatch = useDispatch<AppDispatch>();
+// useEffect(() => {
+//     dispatch(getImageByChallengeId(Number(idChallenge)));
+//     // dispatch(getChallengeById(Number(id)));
+//     console.log("11111");
+    
+//   }, [dispatch,progress])
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
@@ -62,23 +88,101 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
         challengeId: idChallenge,
         fileName:file.name,
     };
-      await axios.post('http://localhost:5070/api/Image/addImageToDB', imageData, {
+   const res= await axios.post('http://localhost:5070/api/Image/addImageToDB', imageData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
+      // const newImage= res.data.newImage;
+      // console.log(newImage);      
+      // setImages((prevImages) => [...prevImages, newImage]);     
       alert('הקובץ הועלה בהצלחה!');
+      dispatch(getImageByChallengeId(idChallenge));
     } catch (error) {
       console.error('שגיאה בהעלאה:', error);
     }
   };
-
+  const HiddenInput = styled('input')({
+    display: 'none',
+  });
+  
+  {/* <input type="file" onChange={handleFileChange} />
+  <button onClick={handleUpload}>העלה קובץ</button>
+  {progress > 0 && <div>התקדמות: {progress}%</div>}
+*/}
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>העלה קובץ</button>
-      {progress > 0 && <div>התקדמות: {progress}%</div>}
-    </div>
+//     <div>
+// <div>
+//       <label htmlFor="file-upload">
+//         <Button
+//           variant="contained"
+//           component="span"
+//           startIcon={<CloudUploadIcon />}
+//         >
+//           {file ? file.name : 'בחר קובץ'}
+//         </Button>
+//       </label>
+//       <HiddenInput
+//         id="file-upload"
+//         type="file"
+//         onChange={handleFileChange}
+//         onClick={(event) => {
+//           event.stopPropagation();
+//         }}
+//       />
+//       <Button onClick={handleUpload} variant="outlined" disabled={!file}>
+//         העלה קובץ
+//       </Button>
+//       {progress > 0 && <div>התקדמות: {progress}%</div>}
+//     </div>
+//     </div>
+<Box>
+<label htmlFor="file-upload">
+    <Button
+        variant="contained"
+        component="span"
+        startIcon={<CloudUploadIcon />}
+        sx={{
+            backgroundColor: 'purple',
+            color: 'white',
+            '&:hover': {
+                backgroundColor: 'darkviolet',
+            },
+        }}
+    >
+        {file ? file.name : 'בחר קובץ'}
+    </Button>
+</label>
+<input
+    id="file-upload"
+    type="file"
+    onChange={handleFileChange}
+    onClick={(event) => {
+        event.stopPropagation();
+    }}
+    style={{ display: 'none' }} // Hidden input
+/>
+<Button 
+    onClick={handleUpload} 
+    variant="outlined" 
+    disabled={!file} 
+    sx={{
+        borderColor: 'purple',
+        color: 'purple',
+        '&:hover': {
+            backgroundColor: 'purple',
+            color: 'white',
+        },
+    }}
+>
+    העלה קובץ
+</Button>
+{progress > 0 && (
+    <Typography sx={{ color: 'purple', fontWeight: 'bold' }}>
+        התקדמות: {progress}%
+    </Typography>
+)}
+</Box>
   );
 };
 

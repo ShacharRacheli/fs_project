@@ -10,20 +10,38 @@ import { getChallengeById } from '../redux/challengeSlice';
 import ImageViewer from '../Pictures/imageViewr';
 import axios from 'axios';
 import DownloadIcon from '@mui/icons-material/Download';
+import { ImageType } from '../models/images';
 
 const ShowChallenge = () => {
   //   const dispatch = useDispatch();
   //   const images = useSelector((state) => state.);
   const { id } = useParams();
 
-  const [image, setImage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // const [image, setImage] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  // const [creation,setCreation]=useState()
+  // const [images, setImages] = useState<ImageType[]>([]);
+
   const dispatch = useDispatch<AppDispatch>();
   const ImagesOfChallenge = useSelector((state: RootState) => state.images.imagesByChallenge);
   const challenge = useSelector((state: RootState) => state.challenges.selectedChallenge);
   useEffect(() => {
-    dispatch(getImageByChallengeId(Number(id)));
+  //  const newImages= dispatch(getImageByChallengeId(Number(id)));
+  //  setImages(newImages!)
+  // console.log(images);
+    // const fetchImages = async () => {
+    //   console.log(images);
+    //   const result = await dispatch(getImageByChallengeId(Number(id))) 
+    //   console.log(result);  
+    //   if (getImageByChallengeId.fulfilled.match(result)) {
+    //     setImages(result.payload); // עדכון הסטייט עם התוצאה
+    //   console.log(result.payload);
+    //   }      
+    //   dispatch(getChallengeById(Number(id)));
+    // };
+    // fetchImages();
     dispatch(getChallengeById(Number(id)));
+    dispatch(getImageByChallengeId(Number(id)))
   }, [id, dispatch])
   const handleDownload = async (fileName: string) => {
     try {
@@ -61,8 +79,6 @@ const ShowChallenge = () => {
       console.error("Error downloading the image:", error);
     }
   };
-  // console.log(ImagesOfChallenge.);
-
   return (
 
     // <Box sx={{ padding: 4 }}>
@@ -109,30 +125,30 @@ const ShowChallenge = () => {
             {challenge.title}
           </Typography>
           <FileUploader idChallenge={Number(id)} />
+          {/* <FileUploader idChallenge={Number(id)} setImages={setImages}/> */}
           <Grid container spacing={3}>
             {ImagesOfChallenge.map((image) => (
               <Grid item xs={12} sm={6} md={4} key={image.id}>
                 <Card sx={{ boxShadow: 3, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)' } }}>
                   <ImageViewer fileName={image.fileName} />
                   <CardContent>
-                    <Typography variant="h6">תמונה #{image.id}</Typography>
-                    <Vote imageId={image.id} challengeId={image.challengeId} />
+                <Vote imageId={image.id} challengeId={image.challengeId} />
                     <Typography variant="h6">count #{image.countVotes}</Typography>                 
                       <IconButton
             sx={{
-                backgroundColor: 'white', // רקע לבן
-                color: 'purple', // צבע האיקון סגול
+                backgroundColor: 'white', 
+                color: 'purple', 
                 '&:hover': {
-                    backgroundColor: 'lightgray', // צבע רקע בעת ריחוף
+                    backgroundColor: 'lightgray', 
                 },
                 '&:active': {
-                    backgroundColor: 'purple', // צבע רקע בעת לחיצה
-                    color: 'white', // צבע האיקון בעת לחיצה
+                    backgroundColor: 'purple', 
+                    color: 'white', 
                 },
             }}
             onClick={() => handleDownload(image.fileName)}
         >
-            <DownloadIcon sx={{ fontSize: 30 }} /> {/* גודל האיקון */}
+            <DownloadIcon sx={{ fontSize: 30 }} /> 
         </IconButton>
                   </CardContent>
                 </Card>

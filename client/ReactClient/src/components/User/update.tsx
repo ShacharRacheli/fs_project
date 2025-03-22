@@ -16,7 +16,7 @@
 // //        const userId=getUserIdByToken()
 // //        console.log("in updateeeeeeeeeeeee");
 // //        console.log(userId);
-       
+
 // //         try {
 // //             const res = await axios.put(`http://localhost:5070/api/User/${+userId}`, {
 // //                 Email: emailRef.current?.value||getEmailByToken(),
@@ -32,7 +32,7 @@
 // //             } else {
 // //                 console.log('Token not found in response');
 // //             }
-            
+
 // //             handleClose();
 // //         }
 // //         catch (e: any) {
@@ -73,70 +73,82 @@
 // //     p: 4,
 // // };
 // // export default Update
-// import { Box, Button, Modal, TextField } from "@mui/material";
-// import axios from "axios";
-// import { FormEvent, useRef, useState } from "react";
-// import { getEmailByToken, getUserIdByToken } from "../store/getFromToken";
+import { Box, Button, Modal, TextField } from "@mui/material";
+import axios from "axios";
+import { FormEvent, useRef, useState } from "react";
+import { getEmailByToken, getUserIdByToken } from "../store/getFromToken";
 
-// const Update = ({ handleClose }:{handleClose:Function}) => {
-//     const emailRef = useRef<HTMLInputElement>(null);
-//     const fullNameRef = useRef<HTMLInputElement>(null);
+const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open: boolean, handleClose: () => void }) => {
+    const emailRef = useRef<HTMLInputElement>(null);
+    const fullNameRef = useRef<HTMLInputElement>(null);
 
-//     const handleSubmit = async (e: FormEvent) => {
-//         e.preventDefault();
-//         const userId = getUserIdByToken();
-//         console.log("in updateeeeeeeeeeeee");
-//         console.log(userId);
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        const userId = getUserIdByToken();
+        console.log("in updateeeeeeeeeeeee");
+        console.log(userId);
 
-//         try {
-//             const res = await axios.put(`http://localhost:5070/api/User/${userId}`, {
-//                 Email: emailRef.current?.value || getEmailByToken(),
-//                 FullName: fullNameRef.current?.value,
-//             }, {
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     'Accept': 'application/json'
-//                 }
-//             });
-//             if (res.data && res.data.token) {
-//                 sessionStorage.setItem('token', res.data.token);
-//                 console.log('Token stored:', res.data.token);
-//             } else {
-//                 console.log('Token not found in response');
-//             }
+        try {
+            const res = await axios.put(`http://localhost:5070/api/User/${userId}`, {
+                Email: emailRef.current?.value || getEmailByToken(),
+                FullName: fullNameRef.current?.value,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+            if (res.data && res.data.token) {
+                sessionStorage.setItem('token', res.data.token);
+                console.log('Token stored:', res.data.token);
+                succeedFunc(res.data.token);
+            } else {
+                console.log('Token not found in response');
+            }
 
-//             handleClose();
-//         } catch (e: any) {
-//             console.log(e);
-//             if ((e.response && e.response.status === 401) || e.response.status === 400) {
-//                 alert('Email or password are not correct');
-//             }
-//         }
-//     };
+            handleClose();
+        } catch (e: any) {
+            console.log(e);
+            if ((e.response && e.response.status === 401) || e.response.status === 400) {
+                alert('Email or password are not correct');
+            }
+        }
+    };
 
-//     return (
-//         <Modal open={true} onClose={handleClose}>
-//             <Box sx={style}>
-//                 <form onSubmit={handleSubmit}>
-//                     <TextField type='text' fullWidth label='FullName' variant="outlined" inputRef={fullNameRef} />
-//                     <TextField type='email' fullWidth label="Email" variant="outlined" inputRef={emailRef} />
-//                     <Button fullWidth type='submit' sx={{ color: 'var(--secondary-color)' }}>Update</Button>
-//                 </form>
-//             </Box>
-//         </Modal>
-//     );
-// };
+    return (
+        <Modal open={open} onClose={handleClose}>
+            <Box sx={style}>
+                <form onSubmit={handleSubmit}>
+                    <TextField type='text' fullWidth label='FullName'
+                        variant="outlined"
+                        inputRef={fullNameRef}
+                        sx={{ marginBottom: 2 }}
+                    />
+                    <TextField type='email' fullWidth
+                        label="Email"
+                        variant="outlined"
+                        inputRef={emailRef}
+                        sx={{ marginBottom: 2 }}
+                    />
+                    <Button fullWidth type='submit'sx={{ backgroundColor: 'purple', color: 'white', '&:hover': { backgroundColor: 'darkviolet' } }} // Purple button
+                    >Update</Button>
+                </form>
+            </Box>
+        </Modal>
+    );
+};
 
-// const style = {
-//     position: 'absolute',
-//     top: '50%',
-//     left: '50%',
-//     transform: 'translate(-50%, -50%)',
-//     width: 400,
-//     bgcolor: 'background.paper',
-//     border: '2px solid #000',
-//     boxShadow: 24,
-//     p: 4,
-// };
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid purple', // Changed border color to purple
+    borderRadius: '8px', // Added border radius
+    boxShadow: 24,
+    p: 4,
+};
 
-// export default Update;
+export default Update;

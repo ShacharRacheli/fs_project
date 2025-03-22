@@ -68,16 +68,33 @@
 // export default Login
 
 
-import { Box, Button, Modal, TextField } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Box, Button, IconButton, Modal, TextField } from "@mui/material";
 import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
 
 const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open: boolean, handleClose: () => void }) => {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setEmailError('');
+        setPasswordError('');
+        const email = emailRef.current?.value;
+        const password = passwordRef.current?.value;
+
+        // Basic validation
+        // if (!email || !/\S+@\S+\.\S+/.test(email)) {
+        //     setEmailError('Please enter a valid email address.');
+        //     return;
+        // }
+        // if (!password || password.length < 6) {
+        //     setPasswordError('Password must be at least 6 characters long.');
+        //     return;
+        // }
         try {
             const res = await axios.post(`http://localhost:5070/api/User/login`, {
                 Email: emailRef.current?.value,
@@ -100,18 +117,58 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
             }
         }
     }
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     return (
-        <Modal open={open} onClose={handleClose}>
-            <Box sx={style}>
-                <form onSubmit={handleSubmit}>
-                    <TextField type='email' fullWidth label="Email" variant="outlined" inputRef={emailRef} />
-                    <TextField type='password' fullWidth label='Password' variant="outlined" inputRef={passwordRef} />
-                    <Button fullWidth type='submit'>Sign In</Button>
-                </form>
-            </Box>
-        </Modal>
-    );
+<Modal open={open} onClose={handleClose}>
+<Box sx={style}>
+    <form onSubmit={handleSubmit}>
+        <TextField 
+            type='email' 
+            fullWidth 
+            label="Email" 
+            variant="outlined" 
+            required
+            inputRef={emailRef} 
+            error={!!emailError}
+            helperText={emailError}
+            sx={{ marginBottom: 2 }} // Space between inputs
+        />
+        <TextField 
+            type={showPassword ? 'text' : 'password'}
+            fullWidth 
+            label='Password' 
+            variant="outlined" 
+            required
+            inputRef={passwordRef} 
+            error={!!passwordError}
+            helperText={passwordError}
+            sx={{ marginBottom: 2 }} 
+            slotProps={{
+                input: {
+                    endAdornment: (
+                        <IconButton onClick={togglePasswordVisibility}>
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    ),
+                },
+            }}
+        />
+        <Button 
+            fullWidth 
+            type='submit' 
+            sx={{ backgroundColor: 'purple', color: 'white', '&:hover': { backgroundColor: 'darkviolet' } }} // Purple button
+        >
+            Sign In
+        </Button>
+    </form>
+</Box>
+</Modal>
+);
 }
 
 const style = {
@@ -121,9 +178,32 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '2px solid purple', // Changed border color to purple
+    borderRadius: '8px', // Added border radius
     boxShadow: 24,
     p: 4,
 };
-
 export default Login;
+//         <Modal open={open} onClose={handleClose}>
+//             <Box sx={style}>
+//                 <form onSubmit={handleSubmit}>
+//                     <TextField type='email' fullWidth label="Email" variant="outlined" inputRef={emailRef} />
+//                     <TextField type='password' fullWidth label='Password' variant="outlined" inputRef={passwordRef} />
+//                     <Button fullWidth type='submit'>Sign In</Button>
+//                 </form>
+//             </Box>
+//         </Modal>
+//     );
+// }
+
+// const style = {
+//     position: 'absolute',
+//     top: '50%',
+//     left: '50%',
+//     transform: 'translate(-50%, -50%)',
+//     width: 400,
+//     bgcolor: 'background.paper',
+//     border: '2px solid #000',
+//     boxShadow: 24,
+//     p: 4,
+// };

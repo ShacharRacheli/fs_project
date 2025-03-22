@@ -112,7 +112,8 @@
 
 // export default Register
 
-import { Box, Button, Modal, TextField } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Box, Button, IconButton, Modal, TextField } from "@mui/material";
 import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
 
@@ -120,6 +121,11 @@ const Register = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, o
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const fullNameRef = useRef<HTMLInputElement>(null);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -151,10 +157,30 @@ const Register = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, o
         <Modal open={open} onClose={handleClose}>
             <Box sx={style}>
                 <form onSubmit={handleSubmit}>
-                    <TextField type='email' fullWidth label="Email" variant="outlined" inputRef={emailRef} />
-                    <TextField type='password' fullWidth label='Password' variant="outlined" inputRef={passwordRef} />
-                    <TextField type='text' fullWidth label='Full Name' variant="outlined" inputRef={fullNameRef} />
-                    <Button fullWidth type='submit'>Sign Up</Button>
+                    <TextField type='email'
+                     fullWidth label="Email"
+                     variant="outlined" 
+                    inputRef={emailRef}         
+                    required          
+                      sx={{ marginBottom: 2 }} 
+                    />
+                    <TextField type='password' fullWidth label='Password' variant="outlined" inputRef={passwordRef} 
+                    required
+                    sx={{ marginBottom: 2 }} 
+                    slotProps={{
+                        input: {
+                            endAdornment: (
+                                <IconButton onClick={togglePasswordVisibility}>
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            ),
+                        },
+                    }}/>
+                    <TextField type='text' fullWidth label='Full Name' variant="outlined" inputRef={fullNameRef} required 
+                    sx={{ marginBottom: 2 }} 
+                    />
+                    <Button fullWidth type='submit' sx={{ backgroundColor: 'purple', color: 'white', '&:hover': { backgroundColor: 'darkviolet' } }} // Purple button
+                    >Sign Up</Button>
                 </form>
             </Box>
         </Modal>
@@ -168,7 +194,8 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '2px solid purple', // Changed border color to purple
+    borderRadius: '8px', // Added border radius
     boxShadow: 24,
     p: 4,
 };

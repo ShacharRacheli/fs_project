@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Comp.Service.Services;
 using Microsoft.EntityFrameworkCore;
+using Comp.Data.Migrations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -110,8 +111,9 @@ namespace Comp.API.Controllers
             if (image == null)
                 return BadRequest("Invalid image data");
             var imageDto=_mapper.Map<Image>(image);
-            await _imageService.AddImageAsync(imageDto);
-            return Ok(image);
+             await _imageService.AddImageAsync(imageDto);
+            //Console.WriteLine(i.FileName + i.ChallengeId+"jkhg");
+            return Ok(new {newImage=image});
         }
         //=======================================
         // POST api/<ImageController>
@@ -151,10 +153,9 @@ namespace Comp.API.Controllers
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // קבלת ה-ID של המשתמש המחובר
             var isAdmin = User.IsInRole("admin"); // בדיקה אם המשתמש הוא ADMIN
-
             var result = await _imageService.DeleteImageAsync(id, userId, isAdmin);
             if (!result)
-                return Forbid(); // מחזיר 403 אם אין הרשאה
+                return Forbid(); //מחזיר 403 אם אין הרשאה
             return NoContent();
         }
         //[HttpGet("download/{id}")]

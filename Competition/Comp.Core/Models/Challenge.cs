@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Comp.Core.Models
 {
-    public enum EStatus{ active,finished}
+    public enum EStatus{ notActive, active}
     public class Challenge
     {
         [Key]

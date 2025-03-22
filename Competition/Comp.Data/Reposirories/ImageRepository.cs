@@ -38,6 +38,7 @@ namespace Comp.Data.Reposirories
         {
           await _dataContext.AddAsync(image);
              await _dataContext.SaveChangesAsync();
+            Console.WriteLine(image.FileName+image.ChallengeId+"jgfds");
             return image;
         }
         public async Task<Image> GetImageByIdAsync(int id)
@@ -80,8 +81,7 @@ namespace Comp.Data.Reposirories
             return true;
         }
         public async Task<bool> UserUploadedAlready(int userId,int challengeId)
-        {
-          
+        {         
                 var exists = await _dataContext.ImagesList
                     .AnyAsync(i => i.UserId == userId && i.ChallengeId == challengeId);
                 return !exists; // אם כבר יש תמונה, נחזיר false      

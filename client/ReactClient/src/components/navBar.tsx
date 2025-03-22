@@ -149,41 +149,59 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Register from './User/register';
 import Login from './User/login';
 import { useEffect, useState } from 'react';
 import UserNameAvatar from './User/userNameAvatar';
+import { Menu, MenuItem } from '@mui/material';
+import { AccountCircle } from '@mui/icons-material';
+import Update from './User/update';
+import { getUserIdByToken, getUserNameByToken } from './store/getFromToken';
 // import Update from './User/update';
-
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 const drawerWidth = 240;
 const navItems = [
   { name: 'Home', path: '/' },
   { name: 'Challenges', path: '/allChallenges' },
   { name: 'Winners', path: '/winners' },
 ];
+const buttonStyles = () => ({
+  color: 'white', // Default text color
+  fontWeight: 'bold', // Make text bold
+  fontSize:'17px',
+  backgroundColor: 'transparent', // Ensure background is transparent by default
+  '&:hover': {
+    backgroundColor: 'transparent', // Keep background transparent on hover
+    color: 'purple', // Change text color to purple on hover
+  },
+});
 
 const NavBar = (props: any) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token,setToken]=useState<string|null>(sessionStorage.getItem('token'))
+  const [token, setToken] = useState<string | null>(sessionStorage.getItem('token'))
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [userName, setUserName] = useState(getUserNameByToken())
+  const navigate = useNavigate();
+
+  // const userName=getUserIdByToken()
   useEffect(() => {
     // setToken(sessionStorage.getItem('token')||null)
     setIsLoggedIn(!!token); // אם יש טוקן, setIsLoggedIn ל-true
-    console.log(isLoggedIn+"jdkjskjksjkjk");
-    
-  }, [token]);
+    setUserName(getUserNameByToken())
+  }, [token, userName]);
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
   const handleLoginOpen = () => {
-setLoginOpen(true);
-console.log(isLoggedIn+"llllllllll");
-
+    setLoginOpen(true);
   };
 
   const handleLoginClose = () => {
@@ -196,21 +214,32 @@ console.log(isLoggedIn+"llllllllll");
 
   const handleRegisterClose = () => {
     setRegisterOpen(false);
-// setIsLoggedIn()
   };
-const  handleUpdateOpen=()=>{
-
-}
+  const handleUpdateOpen = () => {
+    setUpdateOpen(true)
+  }
+  const handleUpdateClose = () => {
+    setUpdateOpen(false);
+  };
   const handleLogout = () => {
     sessionStorage.removeItem('token');
     setIsLoggedIn(false);
     setToken(null);
+    navigate('/');
   };
   const handleLoginSuccess = (newToken: string) => {
     sessionStorage.setItem('token', newToken); // שמירת הטוקן ב-sessionStorage
     setToken(newToken); // עדכון הטוקן במצב
     // handleLoginClose(); // סגירת חלון הכניסה
   };
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -234,14 +263,235 @@ const  handleUpdateOpen=()=>{
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar component="nav" sx={{ width: '100%', background: "rgb(229, 244, 226)", borderRadius: 2 }}>
+
+      <AppBar component="nav" sx={{ width: '100%', background: "rgb(0, 0, 0)", borderRadius: 2 }}>
+        <Toolbar>
+          <IconButton
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' }, color: "rgb(255, 255, 255)" }}
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              {isLoggedIn ? (
+                <>
+                  <Button
+                    aria-controls="menu--account"
+                    aria-label={userName}
+                    aria-expanded="false"
+                    onClick={handleMenu}
+                    variant="text" // או "contained" לפי הצורך
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '10px 15px',
+                      ...buttonStyles()
+                    }}
+                  >
+                    {userName}
+                    <ArrowDropDownIcon sx={{ color: 'white' }} />
+                  </Button>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={handleUpdateOpen}>Profile</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </>
+              ) : (
+                <>
+                  <Button onClick={handleLoginOpen} sx={buttonStyles()}>
+                    Login
+                  </Button>
+                  <Button onClick={handleRegisterOpen} sx={buttonStyles()}>
+                    Sign Up
+                  </Button>
+                </>
+              )}
+            </Box>
+            <Typography variant="h6" component="div" sx={{ color: 'white', textAlign: 'center' }}>
+              My App
+            </Typography>
+            <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'flex-end', gap: 2 }}>
+              {navItems.map((item) => (
+                <Button key={item.name} component={Link} to={item.path} sx={buttonStyles()}>
+                  {item.name}
+                </Button>
+              ))}
+            </Box>
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      <nav>
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </nav>
+      <Box component="main" sx={{ p: 3 }}>
+        <Toolbar />
+      </Box>
+      <Login succeedFunc={handleLoginSuccess} open={loginOpen} handleClose={handleLoginClose} />
+      <Register succeedFunc={handleLoginSuccess} open={registerOpen} handleClose={handleRegisterClose} />
+      <Update succeedFunc={handleLoginSuccess} open={updateOpen} handleClose={handleUpdateClose} />
+    </Box>
+  );
+};
+
+export default NavBar;
+{/* <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center' }}>
+         
+            <Box sx={{ display: { xs: 'none', sm: 'block' }, justifyContent: 'flex-end', gap: 2 }}>
+              {navItems.map((item) => (
+                <Button key={item.name} component={Link} to={item.path} sx={{ color: 'white', '&:hover': { color: 'purple' }, '&:active': { color: 'purple' } }}>
+                  {item.name}
+                </Button>
+              ))}
+            <Typography variant="h6" component="div" sx={{ color: 'white', textAlign: 'center' }}>
+              My App
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 2 }}>
+            {isLoggedIn && (
+                <>
+                  <Button
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
+                  >
+                    {userName}
+                  </Button>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={handleUpdateOpen}>Profile</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </>
+              )}
+              {!isLoggedIn && (
+                <>
+                  <Button
+                    onClick={handleLoginOpen}
+                    sx={{ color: "rgb(255, 255, 255)", '&:hover': { color: 'purple' }, '&:active': { color: 'purple' } }}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    onClick={handleRegisterOpen}
+                    sx={{ color: "rgb(255, 255, 255)", '&:hover': { color: 'purple' }, '&:active': { color: 'purple' } }}
+                  >
+                    Sign Up
+                  </Button>
+                </>
+              )}
+            </Box>
+            </Box>
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      <nav>
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </nav>
+      <Box component="main" sx={{ p: 3 }}>
+        <Toolbar />
+      </Box>
+      <Login succeedFunc={handleLoginSuccess} open={loginOpen} handleClose={handleLoginClose} />
+      <Register succeedFunc={handleLoginSuccess} open={registerOpen} handleClose={handleRegisterClose} />
+      <Update succeedFunc={handleLoginSuccess} open={updateOpen} handleClose={handleUpdateClose} />
+    </Box> */}
+{/* {!isLoggedIn && (
+                <>
+                  <Button
+                    onClick={handleLoginOpen}
+                    sx={{ color: "rgb(255, 255, 255)", '&:hover': { color: 'purple' }, '&:active': { color: 'purple' } }}   
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    onClick={handleRegisterOpen}
+                    sx={{ color: "rgb(255, 255, 255)", '&:hover': { color: 'purple' }, '&:active': { color: 'purple' } }}
+                  >
+                    Sign Up
+                  </Button>
+                </>
+              )}
+              {isLoggedIn && (
+                <>
+                  <Button
+                    onClick={handleLogout}
+                    sx={{ left: 80, color: "rgb(255, 255, 255)", '&:hover': { color: 'purple' }, '&:active': { color: 'purple' } }} // צבע סגול בעת רחיפה ולחיצה
+                  >
+                    Logout
+                  </Button>
+                  <UserNameAvatar />
+                </>
+              )}*/}
+{/* <AppBar component="nav" sx={{ width: '100%', background: "rgb(0, 0, 0)", borderRadius: 2 }}>
       <Toolbar>
   <IconButton
-    color="inherit"
+   
     aria-label="open drawer"
     edge="start"
     onClick={handleDrawerToggle}
-    sx={{ mr: 2, display: { sm: 'none' } }}
+    sx={{ mr: 2, display: { sm: 'none' } , color:"rgb(255, 255, 255)"}}
   >
     <MenuIcon />
   </IconButton>
@@ -249,7 +499,7 @@ const  handleUpdateOpen=()=>{
     <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
       {!isLoggedIn && (
         <>
-          <Button onClick={handleLoginOpen} sx={{ color: 'black' }}>Login</Button>
+          <Button onClick={handleLoginOpen} sx={{ color: "rgb(255, 255, 255)" }}>Login</Button>
           <Button onClick={handleRegisterOpen} sx={{ color: 'black' }}>Sign Up</Button>
         </>
       )}
@@ -273,37 +523,7 @@ const  handleUpdateOpen=()=>{
   </Box>
 </Toolbar>
 
-      </AppBar>
-      <nav>
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </nav>
-      <Box component="main" sx={{ p: 3 }}>
-        <Toolbar />
-        {/* תוכן נוסף כאן */}
-      </Box>
-      <Login succeedFunc={handleLoginSuccess} open={loginOpen} handleClose={handleLoginClose} />
-      <Register succeedFunc={handleLoginSuccess} open={registerOpen} handleClose={handleRegisterClose} />
-      {/* <Update handleClose={} /> */}
-    </Box>
-  );
-};
-
-export default NavBar;
-
+      </AppBar> */}
 // import * as React from 'react';
 // import AppBar from '@mui/material/AppBar';
 // import Box from '@mui/material/Box';

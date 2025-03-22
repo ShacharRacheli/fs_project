@@ -20,7 +20,7 @@ return(<>
  <Box sx={{ position: 'absolute', top: 10, left: 5 }}>
             <Stack direction="row" spacing={2}>
                 {/* <Avatar {...stringAvatar(userName)} /> */}
-                <Typography variant="h4" sx={{color:'black'}}>
+                <Typography variant="h4" sx={{color:'white'}}>
                     Hi {userName}!
                 </Typography>
                 

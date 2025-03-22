@@ -14,21 +14,19 @@ namespace Comp.Service.Services
         {
             try
             {
-                using var smtp = new SmtpClient("smtp.your-email.com")
+                using var smtp = new SmtpClient("smtp.gmail.com")
                 {
                     Port = 587,
-                    Credentials = new System.Net.NetworkCredential("your-email@example.com", "your-password"),
+                    Credentials = new System.Net.NetworkCredential("@gmail.com", ""),
                     EnableSsl = true
                 };
-
                 var mail = new MailMessage
                 {
-                    From = new MailAddress("r0583237001@gmail.com"),
+                    From = new MailAddress("@gmail.com"),
                     Subject = subject,
                     Body = body,
                     IsBodyHtml = true
                 };
-
                 mail.To.Add(to);
                 await smtp.SendMailAsync(mail);
             }

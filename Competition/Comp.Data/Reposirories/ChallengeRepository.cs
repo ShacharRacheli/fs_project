@@ -44,7 +44,8 @@ namespace Comp.Data.Reposirories
             var c = await _dataContext.ChallengeList.FirstOrDefaultAsync(c => c.Id == challenge.Id);
             if (c != null)
             {
-                c.Status = challenge.Status;
+                c.Status = EStatus.notActive;
+                c.IsWinnerEmailSent = true;
             }
             await _dataContext.SaveChangesAsync();
         }
