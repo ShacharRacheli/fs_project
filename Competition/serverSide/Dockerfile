@@ -1,21 +1,20 @@
-﻿# בסיס התמונה של .NET 8
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+﻿
+# שלב הבנייה
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 
 WORKDIR /source
 
-# העתקת קבצים לתוך הקונטיינר
-COPY ./Comp.API.csproj ./Comp.API.csproj
-COPY ./Program.cs ./Program.cs
-# אם יש קבצים נוספים, הוסף אותם כאן
+COPY . .
 
-# התקנת תלויות
-RUN dotnet restore "Comp.API.csproj"
+WORKDIR /source/serverSide
 
-# שלב הבנייה
-RUN dotnet publish "Comp.API.csproj" -c Release -o /app --self-contained false
+ARG TARGETARCH
+
+RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
+    dotnet publish -c Release -a ${TARGETARCH/amd64/x64} --use-current-runtime --self-contained false -o /app
 
 # שלב ההרצה
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
 
 WORKDIR /app
 
@@ -30,4 +29,4 @@ ENV ASPNETCORE_URLS=http://+:80
 EXPOSE 80
 
 # קביעת הפקודה להרצה
-ENTRYPOINT ["dotnet", "Comp.API.dll"]
+ENTRYPOINT ["dotnet", "Comp.Api.dll"]
