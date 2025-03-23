@@ -12,7 +12,7 @@ WORKDIR /source/serverSide
 ARG TARGETARCH
 
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
-    dotnet publish "Comp.Api.csproj" -c Release -a ${TARGETARCH/amd64/x64} --use-current-runtime --self-contained false -o /app
+    dotnet publish "Comp.API.csproj" -c Release -a ${TARGETARCH/amd64/x64} --use-current-runtime --self-contained false -o /app
 
 # שלב ההרצה
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
@@ -30,4 +30,4 @@ ENV ASPNETCORE_URLS=http://+:80
 EXPOSE 80
 
 # קביעת הפקודה להרצה
-ENTRYPOINT ["dotnet", "Comp.Api.dll"]
+ENTRYPOINT ["dotnet", "Comp.API.dll"]
