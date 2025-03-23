@@ -1,4 +1,3 @@
-
 using Comp.Data;
 using System;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +12,8 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using DotNetEnv;
 using Comp.API.Jobs;
+using Pomelo.EntityFrameworkCore.MySql;
+
 //namespace serverSide
 //{
 //    public class Program
@@ -67,11 +68,12 @@ builder.Services.AddScoped<IChallengeService, ChallengeService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IS3Service, S3Service>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddDbContext<DataContext>();
-builder.Services.AddHostedService<ChallengeExpirationJob>();
-//        builder.Services.AddDbContext<DataContext>(options =>
-//options.UseMySql("server=localhost;database=competition;user=root;password=Rs0583237001",
-//    new MySqlServerVersion(new Version(8, 0, 21))));
+//builder.Services.AddDbContext<DataContext>();
+//builder.Services.AddHostedService<ChallengeExpirationJob>();
+builder.Services.AddDbContext<DataContext>(options =>
+options.UseMySql(builder.Configuration["ConnectionStrings:DefaultConnection"],
+new MySqlServerVersion(new Version(8, 0, 41))));
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddAuthentication(options =>

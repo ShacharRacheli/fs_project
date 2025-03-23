@@ -18,30 +18,30 @@ namespace Comp.Data.Reposirories
         }
         public async Task<IEnumerable<Challenge>> GetAllChallengesAsync()
         {
-            return await _dataContext.ChallengeList.ToListAsync();
+            return await _dataContext.Challenges.ToListAsync();
         }
         public async Task<bool> AddNewChallengeAsync(Challenge challenge)
         {
             Console.WriteLine("in add chalerepositoryyyyyyyceeeee++++++==");
 
-            await _dataContext.ChallengeList.AddAsync(challenge);
+            await _dataContext.Challenges.AddAsync(challenge);
             return await _dataContext.SaveChangesAsync() > 0;
         }
         public async Task AddAsync(Challenge challenge)
         {
-            await _dataContext.ChallengeList.AddAsync(challenge);
+            await _dataContext.Challenges.AddAsync(challenge);
         }
         public async Task<Challenge> GetByIdAsync(int id)
         {
-            return await _dataContext.ChallengeList.FirstOrDefaultAsync(c => c.Id == id);
+            return await _dataContext.Challenges.FirstOrDefaultAsync(c => c.Id == id);
         }
         public async Task<IEnumerable<Challenge>> GetChallengesByStatusAsync(EStatus status)
         {
-            return await _dataContext.ChallengeList.Where(c => c.Status == status).ToListAsync();
+            return await _dataContext.Challenges.Where(c => c.Status == status).ToListAsync();
         }
         public async Task UpdateAsync(Challenge challenge)
         {
-            var c = await _dataContext.ChallengeList.FirstOrDefaultAsync(c => c.Id == challenge.Id);
+            var c = await _dataContext.Challenges.FirstOrDefaultAsync(c => c.Id == challenge.Id);
             if (c != null)
             {
                 c.Status = EStatus.notActive;
@@ -51,13 +51,13 @@ namespace Comp.Data.Reposirories
         }
         public async Task<List<Challenge>> GetExpiredChallengesAsync()
         {
-            return await _dataContext.ChallengeList
+            return await _dataContext.Challenges
                 .Where(c => c.EndDate <= DateTime.UtcNow && c.Status == EStatus.active && !c.IsWinnerEmailSent)
                 .ToListAsync();
         }
         public async Task<int?> GetWinnerByTopImageAsync(int challengeId)
         {
-            var topImage = await _dataContext.ImagesList
+            var topImage = await _dataContext.Images
                 .Where(img => img.ChallengeId == challengeId)
                 .OrderByDescending(img => img.CountVotes)
                 .FirstOrDefaultAsync();

@@ -44,14 +44,18 @@ const AllChallenges = () => {
                             primary={challenge.title}
                             secondary={challenge.description}
                             sx={{
-                                color: challenge.status ? 'black' : 'gray' // צבע טקסט שונה
-                            }}
+                                color: challenge.status ? 'black' : 'gray', // צבע טקסט שונ                        
+                                overflow: "hidden",
+                                whiteSpace: "nowrap",
+                                textOverflow: "ellipsis",
+                                maxWidth: "300px", }}
                         />     <Typography
                         sx={{
                             marginLeft: 2,
                             color: 'purple', // Date text color purple
                             fontStyle: 'italic', // Italic style for dates
-                            opacity: challenge.status ? 1 : 0.5 // Only apply opacity to date//////================
+                            opacity: challenge.status ? 1 : 0.5, // Only apply opacity to date//////================
+                
                         }}
                     >
                         Start: {new Date(challenge.startDate).toLocaleDateString()} - End: {new Date(challenge.endDate).toLocaleDateString()}

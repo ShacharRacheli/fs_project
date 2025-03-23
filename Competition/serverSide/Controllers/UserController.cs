@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Comp.Core.DTOs;
 using Comp.Core.IServices;
 using Comp.Core.Models;
@@ -117,6 +116,7 @@ namespace Comp.API.Controllers
         }
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
+        //[Authorize]
         public async Task<ActionResult> Put(int id, [FromBody] UserUpdateDto user)
         {
             var userEntity = _mapper.Map<User>(user);
@@ -147,6 +147,7 @@ namespace Comp.API.Controllers
             return NotFound();
         }
         [HttpPatch("DeleteUser/{id}")]
+        //[Authorize(Roles = "admin")]
         public async Task<ActionResult> DeleteUser(int id)
         {
             if (await _userService.DeleteUserAsync(id))

@@ -21,32 +21,32 @@ namespace Comp.Data.Reposirories
         }
         public async Task<IEnumerable<User>> getAllUsersAsync()
         {
-            return await _dataContext.UsersList.ToListAsync();  
+            return await _dataContext.Users.ToListAsync();  
         }
         public async Task<User> GetUserByIDAsync(int id)
         {
-            return await _dataContext.UsersList.FirstOrDefaultAsync(u => u.Id == id);
+            return await _dataContext.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
         public async Task<User> GetUserByEmailPasswordAsync(UserLoginDto user)
         {
-            return await _dataContext.UsersList.FirstOrDefaultAsync(u => u.Email==user.Email);
+            return await _dataContext.Users.FirstOrDefaultAsync(u => u.Email==user.Email);
         }
         public async Task<bool> EmailExistsAsync(int id,string email)
         {
-            return await _dataContext.UsersList.AnyAsync(u => u.Email == email&&id!=u.Id);
+            return await _dataContext.Users.AnyAsync(u => u.Email == email&&id!=u.Id);
         }
         public async Task<bool> EmailExistsAsync( string email)
         {
-            return await _dataContext.UsersList.AnyAsync(u => u.Email == email);
+            return await _dataContext.Users.AnyAsync(u => u.Email == email);
         }
         public async Task<bool> AddUserAsync(User user)
         { 
-           await _dataContext.UsersList.AddAsync(user);
+           await _dataContext.Users.AddAsync(user);
            return await _dataContext.SaveChangesAsync() > 0;
         }
         public async Task<bool> updateUserAsync(int id, User user) 
         {
-            var tempUser = await _dataContext.UsersList.FirstOrDefaultAsync(u => u.Id == id);
+            var tempUser = await _dataContext.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (tempUser != null)
             {
                 if (!string.IsNullOrEmpty(user.Email) && await EmailExistsAsync(id,user.Email))
@@ -81,7 +81,7 @@ namespace Comp.Data.Reposirories
         }
         public async Task<bool> deleteUserAsync(int id)
         {
-            User user =await _dataContext.UsersList.FirstOrDefaultAsync(u=>u.Id == id);
+            User user =await _dataContext.Users.FirstOrDefaultAsync(u=>u.Id == id);
             if (user != null) { 
             //_dataContext.UsersList.Remove(user);
             user.IsDeleted= !user.IsDeleted;

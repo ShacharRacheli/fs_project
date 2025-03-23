@@ -35,7 +35,7 @@ namespace Comp.API.Controllers
         //    return "value";
         //}
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> VoteImage([FromBody] VoteDto voteRequest)
         {
             //var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);

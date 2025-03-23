@@ -31,8 +31,8 @@ isAddChallenge:boolean=false;
   }
   ngOnInit(): void {
 this.challengeForm=this.fb.group({
-  title:['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
- description:['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
+  title:['', [Validators.required, Validators.minLength(4)]],
+ description:['', [Validators.required, Validators.minLength(4)]],
 //  startDate:[],
 //  endDate:[],
 //  status:['', [Validators.required]],

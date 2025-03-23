@@ -19,7 +19,7 @@ namespace Comp.Data.Reposirories
         public async Task<Vote> VoteImageAsync(int userId, int imageId)
         {
             // בדיקה אם המשתמש כבר הצביע לתמונה הזאת
-            var existingVote = await _dataContext.VoteList
+            var existingVote = await _dataContext.Votes
                 .FirstOrDefaultAsync(v => v.UserId == userId && v.ImageId == imageId);
 
             if (existingVote != null)
@@ -35,14 +35,14 @@ namespace Comp.Data.Reposirories
                 VoteDate = DateTime.UtcNow
             };
 
-            await _dataContext.VoteList.AddAsync(vote);
+            await _dataContext.Votes.AddAsync(vote);
 
             // עדכון ספירת ההצבעות בתמונה
-            var image = await _dataContext.ImagesList.FirstOrDefaultAsync(i => i.Id == imageId);
+            var image = await _dataContext.Images.FirstOrDefaultAsync(i => i.Id == imageId);
             if (image != null)
             {
                 image.CountVotes++;
-                _dataContext.ImagesList.Update(image);
+                _dataContext.Images.Update(image);
             }
 
             await _dataContext.SaveChangesAsync();
@@ -50,21 +50,21 @@ namespace Comp.Data.Reposirories
         }
         public async Task<bool> DeleteVoteAsync(int userId, int imageId)
         {
-            var vote = await _dataContext.VoteList.FirstOrDefaultAsync(v => v.UserId == userId && v.ImageId == imageId);
+            var vote = await _dataContext.Votes.FirstOrDefaultAsync(v => v.UserId == userId && v.ImageId == imageId);
             if (vote == null)
                 return false;
-            var image = await _dataContext.ImagesList.FirstOrDefaultAsync(i => i.Id == imageId);
+            var image = await _dataContext.Images.FirstOrDefaultAsync(i => i.Id == imageId);
             if (image != null)
             {
                 image.CountVotes--;
-                _dataContext.ImagesList.Update(image);
+                _dataContext.Images.Update(image);
             }
-            _dataContext.VoteList.Remove(vote);
+            _dataContext.Votes.Remove(vote);
             return await _dataContext.SaveChangesAsync() > 0;
         }
         public async Task<bool> IsSelfVotingAsync(int imageId, int userId)
         {
-            return await _dataContext.ImagesList
+            return await _dataContext.Images
                 .AnyAsync(i => i.Id == imageId && i.UserId == userId);
         }
     }

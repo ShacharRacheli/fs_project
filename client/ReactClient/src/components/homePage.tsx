@@ -44,10 +44,10 @@ const HomePage=()=>{
 return(<>
  <div>
   {/* <img src="./pic1.jpg"/> */}
-            <img src={images[currentIndex]} alt="Slider" style={{ width: '100%', height: 'auto' }} />
+            {/* <img src={images[currentIndex]} alt="Slider" style={{ width: '100%', height: 'auto' }} /> */}
         </div>
         <Box>
-          every week we have different challenges 
+          {/* every week we have different challenges  */}
         </Box>
      
 </>)
