@@ -15,6 +15,7 @@ namespace Comp.Core
         {
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserUpdateDto>().ReverseMap();
+            CreateMap<User, GetUserDto>().ReverseMap();
             CreateMap<Image,ImageDto>().ReverseMap();
             CreateMap<Challenge,ChallengeDto>().ReverseMap();
             CreateMap<Vote,VoteDto>().ReverseMap();
