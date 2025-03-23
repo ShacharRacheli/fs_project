@@ -4,22 +4,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>14da645c-0fa3-4fbd-8116-ffee69b531dd</UserSecretsId>
+    <UserSecretsId>6029c0db-65d4-4257-aede-80780ad63d46</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Dockerfile" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Dockerfile" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AWSSDK.S3" Version="3.7.415.18" />
-    <PackageReference Include="DotNetEnv" Version="3.1.1" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.415.23" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.13">
       <PrivateAssets>all</PrivateAssets>
@@ -27,14 +17,14 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Comp.Core\Comp.Core.csproj" />
     <ProjectReference Include="..\Comp.Data\Comp.Data.csproj" />
-    <ProjectReference Include="..\COmp.Service\Comp.Service.csproj" />
-    <ProjectReference Include="..\Share\Share.csproj" />
+    <ProjectReference Include="..\Comp.Service\Comp.Service.csproj" />
   </ItemGroup>
 
 </Project>

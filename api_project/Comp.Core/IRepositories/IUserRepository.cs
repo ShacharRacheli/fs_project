@@ -16,7 +16,6 @@ namespace Comp.Core.IRepositories
         Task<bool> AddUserAsync(User user);
         Task<bool> updateUserAsync(int id, User user);
         Task<bool> deleteUserAsync(int id);
-
         Task<bool> EmailExistsAsync(int id,string email);
         Task<bool> EmailExistsAsync(string email);
     }

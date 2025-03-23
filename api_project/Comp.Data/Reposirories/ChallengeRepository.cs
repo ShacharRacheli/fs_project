@@ -1,4 +1,5 @@
-﻿using Comp.Core.IRepositories;
+﻿
+using Comp.Core.IRepositories;
 using Comp.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System;

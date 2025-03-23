@@ -1,31 +1,20 @@
-using Comp.Data;
-using System;
-using Microsoft.EntityFrameworkCore;
-using Comp.Core.IRepositories;
-using Comp.Data.Reposirories;
-using Comp.Core.IServices;
-using Comp.Service.Services;
 using Comp.Core;
+using Comp.Core.IRepositories;
+using Comp.Core.IServices;
+using Comp.Data;
+using Comp.Data.Reposirories;
+using Comp.Service.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
-using DotNetEnv;
-using Comp.API.Jobs;
-using Pomelo.EntityFrameworkCore.MySql;
-
-//namespace serverSide
-//{
-//    public class Program
-//    {
-//        public static void Main(string[] args)
-//        {
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 //Env.Load();
-DotNetEnv.Env.Load();
+//DotNetEnv.Env.Load();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
