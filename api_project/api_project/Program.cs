@@ -78,15 +78,16 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        //ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
         ValidIssuer = builder.Configuration["JWT:Issuer"],
-        //ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
         ValidAudience = builder.Configuration["JWT:Audience"],
-        //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")))
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
     };
 });
 builder.Services.AddCors();
+//ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+//ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+//IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")))
+
 //builder.Services.AddCors(options =>
 //{
 //    options.AddPolicy("AllowAllOrigins",
