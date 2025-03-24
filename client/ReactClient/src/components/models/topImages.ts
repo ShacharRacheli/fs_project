@@ -1,5 +1,3 @@
-import { ImageType } from "./images"
-
 export type TopImagesType={
     // id:number,
     title:string,

@@ -12,10 +12,11 @@ import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 const Vote=({imageId,challengeId}:{imageId:number,challengeId:number})=>{
 const userId=getUserIdByToken();
 const dispatch=useDispatch<AppDispatch>();
-const vote=useSelector((state:RootState)=>state.images.imagesByChallenge);
+// const vote=
+useSelector((state:RootState)=>state.images.imagesByChallenge);
   const challenge = useSelector((state: RootState) => state.challenges.selectedChallenge);
   const [isVote,setIsVote]=useState(true);
-  const [token,setToken]=useState<string|null>(sessionStorage.getItem('token'))
+  const [token,_]=useState<string|null>(sessionStorage.getItem('token'))
 //   const isTokenPresent = !!token;
 //   useEffect(()=>{
 // //       dispatch(getChallengeById(challengeId));

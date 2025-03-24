@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { getUserIdByToken } from '../store/getFromToken';
-import { Box, Button, styled, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
@@ -89,7 +89,8 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
         challengeId: idChallenge,
         fileName:file.name,
     };
-   const res= await axios.post(`${apiUrl}/Image/addImageToDB`, imageData, {
+  //  const res=
+    await axios.post(`${apiUrl}/Image/addImageToDB`, imageData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -103,9 +104,9 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
       console.error('שגיאה בהעלאה:', error);
     }
   };
-  const HiddenInput = styled('input')({
-    display: 'none',
-  });
+  // const HiddenInput = styled('input')({
+  //   display: 'none',
+  // });
   
   {/* <input type="file" onChange={handleFileChange} />
   <button onClick={handleUpload}>העלה קובץ</button>
