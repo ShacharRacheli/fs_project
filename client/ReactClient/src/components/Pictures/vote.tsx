@@ -7,7 +7,7 @@ import {  useState } from "react";
 
 import AddIcon from '@mui/icons-material/Add';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
-const apiUrl = import.meta.env.VITE_API_URL;
+// const apiUrl = import.meta.env.VITE_API_URL;
 
 const Vote=({imageId,challengeId}:{imageId:number,challengeId:number})=>{
 const userId=getUserIdByToken();
@@ -16,7 +16,7 @@ const vote=useSelector((state:RootState)=>state.images.imagesByChallenge);
   const challenge = useSelector((state: RootState) => state.challenges.selectedChallenge);
   const [isVote,setIsVote]=useState(true);
   const [token,setToken]=useState<string|null>(sessionStorage.getItem('token'))
-  const isTokenPresent = !!token;
+//   const isTokenPresent = !!token;
 //   useEffect(()=>{
 // //       dispatch(getChallengeById(challengeId));
 // setToken(sessionStorage.getItem('token') || null);

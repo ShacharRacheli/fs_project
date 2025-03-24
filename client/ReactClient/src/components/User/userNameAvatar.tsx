@@ -1,21 +1,20 @@
-import { Avatar, Box, colors, Stack, Typography } from "@mui/material"
+import {  Box,  Stack, Typography } from "@mui/material"
 import { getUserNameByToken } from "../store/getFromToken";
-import React from "react";
 // import React from "react";
 
 const UserNameAvatar=()=>{
 
   const  userName=getUserNameByToken()
-    function stringAvatar(name: string) {
-        console.log(userName);
+    // function stringAvatar(name: string) {
+    //     console.log(userName);
         
-        return {
-            sx: {
-                bgcolor: 'rgb(4, 213, 151)',
-            },
-            children: `${name.split(' ')[0][0]}`,
-        };
-    }
+    //     return {
+    //         sx: {
+    //             bgcolor: 'rgb(4, 213, 151)',
+    //         },
+    //         children: `${name.split(' ')[0][0]}`,
+    //     };
+    // }
 return(<>
  <Box sx={{ position: 'absolute', top: 10, left: 5 }}>
             <Stack direction="row" spacing={2}>

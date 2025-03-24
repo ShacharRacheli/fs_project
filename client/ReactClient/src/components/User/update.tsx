@@ -75,7 +75,6 @@
 // // export default Update
 import { Box, Button, Modal, TextField } from "@mui/material";
 import axios from "axios";
-import { FormEvent, useRef, useState } from "react";
 import { getEmailByToken, getUserIdByToken } from "../store/getFromToken";
 import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";

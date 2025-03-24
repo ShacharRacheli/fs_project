@@ -10,24 +10,24 @@ import { getImageByChallengeId } from '../redux/imageSlice';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
-  height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  whiteSpace: 'nowrap',
-  width: 1,
-});
+// const VisuallyHiddenInput = styled('input')({
+//   clip: 'rect(0 0 0 0)',
+//   clipPath: 'inset(50%)',
+//   height: 1,
+//   overflow: 'hidden',
+//   position: 'absolute',
+//   bottom: 0,
+//   left: 0,
+//   whiteSpace: 'nowrap',
+//   width: 1,
+// });
 
 const FileUploader = ({idChallenge}:{idChallenge:number}) => {
   // const FileUploader = ({idChallenge,setImages}:{idChallenge:number,setImages: React.Dispatch<SetStateAction<any[]>>}) => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
   const dispatch = useDispatch<AppDispatch>();
-  const token=sessionStorage.getItem('token');
+  // const token=sessionStorage.getItem('token');
 // useEffect(() => {
 //     dispatch(getImageByChallengeId(Number(idChallenge)));
 //     // dispatch(getChallengeById(Number(id)));
@@ -89,7 +89,7 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
         challengeId: idChallenge,
         fileName:file.name,
     };
-   const res= await axios.post('http://localhost:5070/api/Image/addImageToDB', imageData, {
+   const res= await axios.post(`${apiUrl}/Image/addImageToDB`, imageData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

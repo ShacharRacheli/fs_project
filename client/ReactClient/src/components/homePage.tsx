@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 // import Update from "./User/update";
 
 const HomePage=()=>{
-  const images = [
-'./pic1.jpg',
-];
+//   const images = [
+// './pic1.jpg',
+// ];
     // const [isAuthenticated, setIsAuthenticated] = useState(false);
     // const [succeed, setSucceed] = useState(false)
     // const LoginSucceed = () => setSucceed(true)  
@@ -29,15 +28,15 @@ const HomePage=()=>{
     //     console.log("hghghghghgh");
         
     // };
-    const [currentIndex, setCurrentIndex] = useState(0);
+    // const [currentIndex, setCurrentIndex] = useState(0);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 3000); // Change image every 3 seconds
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    //     }, 3000); // Change image every 3 seconds
 
-        return () => clearInterval(interval); // Cleanup on unmount
-    }, [images.length]);
+    //     return () => clearInterval(interval); // Cleanup on unmount
+    // }, [images.length]);
 return(<>
  <div>
   {/* <img src="./pic1.jpg"/> */}
