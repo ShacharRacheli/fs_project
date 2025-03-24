@@ -30,8 +30,8 @@ namespace Share.Helper
                     new Claim(ClaimTypes.Email, user.Email)
                 }),
                 Expires = DateTime.UtcNow.AddHours(4),
-                Issuer = "http://localhost:5070", 
-                Audience = "http://localhost:5070", 
+                Issuer = "https://fs-project-qz0v.onrender.com", 
+                Audience = "https://fs-project-qz0v.onrender.com", 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

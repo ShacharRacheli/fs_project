@@ -1,14 +1,13 @@
 // React Component
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { getUserIdByToken } from '../store/getFromToken';
 import { Box, Button, styled, Typography } from '@mui/material';
-import UploadRoundedIcon from '@mui/icons-material/UploadRounded';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
 import { getImageByChallengeId } from '../redux/imageSlice';
-import { getChallengeById } from '../redux/challengeSlice';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 
 const VisuallyHiddenInput = styled('input')({
@@ -47,7 +46,8 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
     try {
       const token = sessionStorage.getItem('token')
       // שלב 1: קבלת Presigned URL מהשרת
-      const response = await axios.get('http://localhost:5070/api/Image/presigned-url', {
+      const response = await axios.get(`${apiUrl}/Image/presigned-url`, {
+      // const response = await axios.get('http://localhost:5070/api/Image/presigned-url', {
         params: {
           fileName: file.name,
           contentType: file.type,

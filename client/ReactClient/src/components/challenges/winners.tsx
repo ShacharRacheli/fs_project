@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { useEffect } from "react";
-import { Card, CardContent, CardMedia, Grid, Paper, Typography } from "@mui/material";
+import { CardMedia, Grid, Paper, Typography } from "@mui/material";
 import ImageViewer from "../Pictures/imageViewr";
 import { getTopImagesByChallenge } from "../redux/topImagesSlice";
 

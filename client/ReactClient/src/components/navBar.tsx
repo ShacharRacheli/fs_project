@@ -153,13 +153,10 @@ import { Link, useNavigate } from 'react-router';
 import Register from './User/register';
 import Login from './User/login';
 import { useEffect, useState } from 'react';
-import UserNameAvatar from './User/userNameAvatar';
 import { Menu, MenuItem } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
 import Update from './User/update';
 import { getUserNameByToken } from './store/getFromToken';
 // import Update from './User/update';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 const drawerWidth = 240;
 const navItems = [

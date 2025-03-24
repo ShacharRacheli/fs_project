@@ -80,6 +80,7 @@ import { getEmailByToken, getUserIdByToken } from "../store/getFromToken";
 import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {useForm}from "react-hook-form"
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const schema = object({
     email: string().email('Invalid email format').required('Email is required'),
@@ -102,7 +103,8 @@ const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, ope
         console.log(userId);
 
         try {
-            const res = await axios.put(`http://localhost:5070/api/User/${userId}`, {
+            const res = await axios.put(`${apiUrl}/User/${userId}`, {
+            // const res = await axios.put(`http://localhost:5070/api/User/${userId}`, {
                 // Email: emailRef.current?.value || getEmailByToken(),
                 // FullName: fullNameRef.current?.value,
                 Email: data.email || getEmailByToken(),

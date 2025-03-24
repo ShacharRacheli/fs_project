@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Grid, Card, CardMedia, CardContent, Typography, Box, IconButton, Paper } from '@mui/material';
+import {  Grid,  Typography, Box, IconButton, Paper } from '@mui/material';
 import { AppDispatch, RootState } from '../redux/store';
 import { getImageByChallengeId } from '../redux/imageSlice';
 import { useParams } from 'react-router';
@@ -10,7 +10,7 @@ import { getChallengeById } from '../redux/challengeSlice';
 import ImageViewer from '../Pictures/imageViewr';
 import axios from 'axios';
 import DownloadIcon from '@mui/icons-material/Download';
-import { ImageType } from '../models/images';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const ShowChallenge = () => {
   //   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const ShowChallenge = () => {
   }, [id, dispatch])
   const handleDownload = async (fileName: string) => {
     try {
-      const response = await axios.get(`http://localhost:5070/api/Image/getImageUrl`, {
+      const response = await axios.get(`${apiUrl}/Image/getImageUrl`, {
         params: { fileName } // שם הקובץ שאת רוצה להוריד
       });
       const downloadUrl = response.data.url;

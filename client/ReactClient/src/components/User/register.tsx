@@ -119,6 +119,7 @@ import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
 import { object, string } from "yup";
 import {useForm}from "react-hook-form"
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const schema = object({
     email: string().email('Invalid email format').required('Email is required'),
@@ -146,7 +147,8 @@ const Register = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, o
         // e.preventDefault();
 
         try {
-            const res = await axios.post(`http://localhost:5070/api/User/register`, {
+            const res = await axios.post(`${apiUrl}/User/register`, {
+            // const res = await axios.post(`http://localhost:5070/api/User/register`, {
                 // FullName: fullNameRef.current?.value,
                 // Password: passwordRef.current?.value,
                 // Email: emailRef.current?.value,

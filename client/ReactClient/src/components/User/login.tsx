@@ -75,6 +75,8 @@ import { FormEvent, useRef, useState } from "react";
 import {  object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup"
 import {useForm}from "react-hook-form"
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const schema = object({
     email: string().email('Invalid email format').required('Email is required'),
     password: string().min(5, 'Password must be at least 6 characters').required('Password is required'),
@@ -99,7 +101,8 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
     const onSubmit= async (data: { email: string; password: string })  => {
         // e.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:5070/api/User/login`, {
+            const res = await axios.post(`${apiUrl}/User/login`, {
+            // const res = await axios.post(`http://localhost:5070/api/User/login`, {
                 // Email: emailRef.current?.value,
                 // Password: passwordRef.current?.value,
                 Email: data.email,

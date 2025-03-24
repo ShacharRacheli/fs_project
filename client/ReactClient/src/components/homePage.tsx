@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import Login from "./User/login";
-import Register from "./User/register";
-import { Box, Button, Grid, Toolbar } from "@mui/material";
+import { Box } from "@mui/material";
 // import Update from "./User/update";
-import UserNameAvatar from "./User/userNameAvatar";
 
 const HomePage=()=>{
   const images = [

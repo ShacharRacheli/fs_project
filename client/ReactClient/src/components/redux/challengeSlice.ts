@@ -2,10 +2,12 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ChallengeType } from "../models/challenge";
 import { RootState } from "./store";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const getChallenges = createAsyncThunk('challenges/get', async (_, thunkApi) => {
     try {
-        const res = await axios.get(`http://localhost:5070/api/Challenge/getAllChallenges`);
+        const res = await axios.get(`${apiUrl}/Challenge/getAllChallenges`);
+        // const res = await axios.get(`http://localhost:5070/api/Challenge/getAllChallenges`);
         return res.data as ChallengeType[];
     } catch (error) {
         return thunkApi.rejectWithValue(error);
@@ -14,7 +16,8 @@ export const getChallenges = createAsyncThunk('challenges/get', async (_, thunkA
 
 export const getChallengeById = createAsyncThunk('challengeId/get', async (challengeId: number, thunkApi) => {
     try {
-        const res = await axios.get(`http://localhost:5070/api/Challenge/getChallengeById/${challengeId}`)
+        const res = await axios.get(`${apiUrl}/Challenge/getChallengeById/${challengeId}`)
+        // const res = await axios.get(`http://localhost:5070/api/Challenge/getChallengeById/${challengeId}`)
         return res.data as ChallengeType;
     } catch (error) {
         return thunkApi.rejectWithValue(error);

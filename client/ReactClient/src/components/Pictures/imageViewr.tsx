@@ -1,6 +1,7 @@
 import  { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, CardMedia, CircularProgress, Box } from '@mui/material';
+import {  CardMedia, CircularProgress, Box } from '@mui/material';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const ImageViewer = ({ fileName }:{fileName:string}) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -10,7 +11,7 @@ const ImageViewer = ({ fileName }:{fileName:string}) => {
     // שלב 1: שלח בקשה ל-API לקבלת ה-Presigned URL
     const fetchImageUrl = async () => {
       try {
-        const response = await axios.get('http://localhost:5070/api/Image/getImageUrl', {
+        const response = await axios.get(`${apiUrl}/Image/getImageUrl`, {
           params: { fileName } // שם הקובץ שאת רוצה להוריד
 
         });

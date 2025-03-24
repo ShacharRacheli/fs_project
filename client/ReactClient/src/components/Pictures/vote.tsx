@@ -1,17 +1,14 @@
-import { Box, Button, IconButton } from "@mui/material"
+import {  IconButton } from "@mui/material"
 import { getUserIdByToken } from "../store/getFromToken"
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { addVote, deleteVote } from "../redux/imageSlice";
-import { useEffect, useState } from "react";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
-import ThumbDownOffAltRoundedIcon from '@mui/icons-material/ThumbDownOffAltRounded';
-import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import {  useState } from "react";
+
 import AddIcon from '@mui/icons-material/Add';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
-import { getChallengeById } from "../redux/challengeSlice";
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const Vote=({imageId,challengeId}:{imageId:number,challengeId:number})=>{
 const userId=getUserIdByToken();
 const dispatch=useDispatch<AppDispatch>();
