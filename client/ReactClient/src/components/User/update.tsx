@@ -79,7 +79,7 @@ import { getEmailByToken, getUserIdByToken } from "../store/getFromToken";
 import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {useForm}from "react-hook-form"
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const schema = object({
     email: string().email('Invalid email format').required('Email is required'),

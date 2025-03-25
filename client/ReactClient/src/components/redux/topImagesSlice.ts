@@ -3,7 +3,7 @@ import axios from "axios";
 import { TopImagesType } from "../models/topImages";
 import { ChallengeType } from "../models/challenge";
 import { RootState } from "./store";
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 export const getTopImagesByChallenge = createAsyncThunk('topImagesByChallenge/get', async (_, thunkApi) => {
     try {

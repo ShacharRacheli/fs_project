@@ -7,7 +7,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
 import { getImageByChallengeId } from '../redux/imageSlice';
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 
 // const VisuallyHiddenInput = styled('input')({

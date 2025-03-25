@@ -1,7 +1,7 @@
 import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import {  CardMedia, CircularProgress, Box } from '@mui/material';
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const ImageViewer = ({ fileName }:{fileName:string}) => {
   const [imageUrl, setImageUrl] = useState(null);

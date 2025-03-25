@@ -10,7 +10,7 @@ import { getChallengeById } from '../redux/challengeSlice';
 import ImageViewer from '../Pictures/imageViewr';
 import axios from 'axios';
 import DownloadIcon from '@mui/icons-material/Download';
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const ShowChallenge = () => {
   //   const dispatch = useDispatch();
