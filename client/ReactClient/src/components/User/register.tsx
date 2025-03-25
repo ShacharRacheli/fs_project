@@ -147,7 +147,7 @@ const Register = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, o
         // e.preventDefault();
 
         try {
-            const res = await axios.post(`${apiUrl}/User/register`, {
+            const res = await axios.post(`${apiUrl}/api/User/register`, {
             // const res = await axios.post(`http://localhost:5070/api/User/register`, {
                 // FullName: fullNameRef.current?.value,
                 // Password: passwordRef.current?.value,

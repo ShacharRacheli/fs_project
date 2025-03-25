@@ -45,7 +45,7 @@ const ShowChallenge = () => {
   }, [id, dispatch])
   const handleDownload = async (fileName: string) => {
     try {
-      const response = await axios.get(`${apiUrl}/Image/getImageUrl`, {
+      const response = await axios.get(`${apiUrl}/api/Image/getImageUrl`, {
         params: { fileName } // שם הקובץ שאת רוצה להוריד
       });
       const downloadUrl = response.data.url;

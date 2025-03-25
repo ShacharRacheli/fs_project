@@ -101,7 +101,7 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
     const onSubmit= async (data: { email: string; password: string })  => {
         // e.preventDefault();
         try {
-            const res = await axios.post(`${apiUrl}/User/login`, {
+            const res = await axios.post(`${apiUrl}/api/User/login`, {
             // const res = await axios.post(`http://localhost:5070/api/User/login`, {
                 // Email: emailRef.current?.value,
                 // Password: passwordRef.current?.value,

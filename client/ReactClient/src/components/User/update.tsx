@@ -102,7 +102,7 @@ const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, ope
         console.log(userId);
 
         try {
-            const res = await axios.put(`${apiUrl}/User/${userId}`, {
+            const res = await axios.put(`${apiUrl}/api/User/${userId}`, {
             // const res = await axios.put(`http://localhost:5070/api/User/${userId}`, {
                 // Email: emailRef.current?.value || getEmailByToken(),
                 // FullName: fullNameRef.current?.value,

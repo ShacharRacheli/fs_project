@@ -46,7 +46,7 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
     try {
       const token = sessionStorage.getItem('token')
       // שלב 1: קבלת Presigned URL מהשרת
-      const response = await axios.get(`${apiUrl}/Image/presigned-url`, {
+      const response = await axios.get(`${apiUrl}/api/Image/presigned-url`, {
       // const response = await axios.get('http://localhost:5070/api/Image/presigned-url', {
         params: {
           fileName: file.name,
@@ -90,7 +90,7 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
         fileName:file.name,
     };
   //  const res=
-    await axios.post(`${apiUrl}/Image/addImageToDB`, imageData, {
+    await axios.post(`${apiUrl}/api/Image/addImageToDB`, imageData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

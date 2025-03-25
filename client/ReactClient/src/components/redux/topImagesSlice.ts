@@ -7,13 +7,13 @@ const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 export const getTopImagesByChallenge = createAsyncThunk('topImagesByChallenge/get', async (_, thunkApi) => {
     try {
-        const res = await axios.get(`${apiUrl}/Challenge/notActiveChallenges`);
+        const res = await axios.get(`${apiUrl}/api/Challenge/notActiveChallenges`);
         // const res = await axios.get(`http://localhost:5070/api/Challenge/notActiveChallenges`);
         const challenges = res.data as ChallengeType[];
         console.log(challenges); 
         // Step 2: Fetch images for each challenge
         const challengesWithImages = await Promise.all(challenges.map(async (challenge) => {
-            const imageRes = await axios.get(`${apiUrl}/Image/topImageOfChallenge/${challenge.id}`);
+            const imageRes = await axios.get(`${apiUrl}/api/Image/topImageOfChallenge/${challenge.id}`);
             // const imageRes = await axios.get(`http://localhost:5070/api/Image/topImageOfChallenge/${challenge.id}`);
             const topImage = imageRes.data; // Assuming this is of type TopImageDTO
 
