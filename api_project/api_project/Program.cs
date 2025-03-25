@@ -60,7 +60,7 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 //builder.Services.AddDbContext<DataContext>();
 //builder.Services.AddHostedService<ChallengeExpirationJob>();
 builder.Services.AddDbContext<DataContext>(options =>
-options.UseMySql(builder.Configuration["ConnectionStrings:DefaultConnection"],
+options.UseMySql(Environment.GetEnvironmentVariable("DATABASE_CONECTION"),
 new MySqlServerVersion(new Version(8, 0, 41))));
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -79,9 +79,11 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["JWT:Issuer"],
-        ValidAudience = builder.Configuration["JWT:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+        ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+        //ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+        //ValidAudience = builder.Configuration["JWT:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")))
     };
 });
 builder.Services.AddCors();

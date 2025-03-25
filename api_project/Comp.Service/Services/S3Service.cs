@@ -17,15 +17,15 @@ namespace Comp.Service.Services
 
         public S3Service(IConfiguration configuration)
         {
-            var awsOptions = configuration.GetSection("AWS");
-            //var accessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY");
-            var accessKey = awsOptions["AccessKey"];
-            //var secretKey = Environment.GetEnvironmentVariable("AWS_SECRET_KEY");
-            var secretKey = awsOptions["SecretKey"];
-            //var region = Environment.GetEnvironmentVariable("AWS_REGION");
-            var region = awsOptions["Region"];
-            //_bucketName = Environment.GetEnvironmentVariable("AWS_BUCKET_NAME");
-            _bucketName = awsOptions["BucketName"];
+            //var awsOptions = configuration.GetSection("AWS");
+            var accessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY");
+            //var accessKey = awsOptions["AccessKey"];
+            var secretKey = Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY");
+            //var secretKey = awsOptions["SecretKey"];
+            var region = Environment.GetEnvironmentVariable("AWS_REGION");
+            //var region = awsOptions["Region"];
+            _bucketName = Environment.GetEnvironmentVariable("AWS_S3_BUCKET");
+            //_bucketName = awsOptions["BucketName"];
             //_bucketName = "racheli-project";
             //Console.WriteLine($"AWS_ACCESS_KEY: {Environment.GetEnvironmentVariable("AWS_ACCESS_KEY")}");
             //Console.WriteLine($"AWS_SECRET_KEY: {Environment.GetEnvironmentVariable("AWS_SECRET_KEY")}");
