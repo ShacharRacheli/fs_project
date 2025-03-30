@@ -12,11 +12,11 @@ const Footer = () => {
                     color: 'black', // שינוי צבע הטקסט לשחור כדי שיהיה קריא
                     textAlign: 'center',
                     padding: 2,
-                    position: 'fixed', // שינוי ל-fixed כדי להדביק אותו לתחתית
+                    position: 'absolute', // שינוי ל-fixed כדי להדביק אותו לתחתית
                     bottom: 0,
                     left: 0, // הוספת left כדי להדביק את הפוטר לשמאל
-                    right: 0, // הוספת right כדי להדביק את הפוטר לימין
-                    width: '100%', // לוודא שהפוטר תופס 100% רוחב
+                    right: 0, 
+                    width: '100%', 
                 }}
             >
                 <Typography variant="body1">

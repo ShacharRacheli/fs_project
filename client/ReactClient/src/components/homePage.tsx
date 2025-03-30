@@ -1,5 +1,4 @@
-import {  Typography } from "@mui/material";
-// import Update from "./User/update";
+import { Typography } from "@mui/material";
 import './homePage.css'
 const HomePage=()=>{
 //   const images = [
@@ -48,7 +47,6 @@ const HomePage=()=>{
     // };
 return(<>
  <div >
-
  <Typography variant="body1" sx={{ fontSize: '1.4rem', mb: 3, color: '#333' }}>
             Every week, a new AI image challenge is presented.  
             <br />Registered users can share their AI-generated creations.  
@@ -64,7 +62,7 @@ return(<>
              Your image must follow the challenge theme.  
             <br /> No duplicate uploads – only one entry per user.  
             <br /> You can't vote twice for the same image!  
-            <br/>You can't vote for your own image.
+            <br/>You can't vote for your own image!
           </Typography>
         </div>
             {/* <img src='./pickbg.png' alt="Slider" style={{ width: '100%', height: '100%' }} /> */}
