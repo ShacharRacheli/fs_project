@@ -12,10 +12,10 @@ const Winners=()=>{
     useEffect(()=>{
         dispatch(getTopImagesByChallenge());
         // console.log(challengesList.values);   
-    console.log("in winnerrrrrr1111");
-console.log(winnersList.map(r=>{
-    r.fileName+"   "+r.title
-}));
+//     console.log("in winnerrrrrr1111");
+// console.log(winnersList.map(r=>{
+//     r.fileName+"   "+r.title
+// }));
 
     },[dispatch]);
 
@@ -32,7 +32,7 @@ return(<>
                 // <Grid item xs={12} sm={4} md={4} key={winner.id}> {/* Adjusted to 4 for 3 cards per row */}
                 //     <Card sx={{ width: '100%', boxShadow: 3 }}> {/* Set width to 100% */}
                 <Grid item xs={12} sm={6} md={4} key={winner.id}>
-                            <Paper sx={{ padding: 2, textAlign: "center" }}>
+                            <Paper sx={{ padding: 2, textAlign: "center", width:'100%'}}>
                         <CardMedia
                             component={ImageViewer}
                             fileName={winner.fileName}
