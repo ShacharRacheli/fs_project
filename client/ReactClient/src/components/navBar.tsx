@@ -158,6 +158,9 @@ import Update from './User/update';
 import { getUserNameByToken } from './store/getFromToken';
 // import Update from './User/update';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ExitToApp from '@mui/icons-material/ExitToApp';
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import { Edit } from '@mui/icons-material';
 const drawerWidth = 240;
 const navItems = [
   { name: 'Home', path: '/home' },
@@ -260,7 +263,6 @@ const NavBar = (props: any) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-
       <AppBar component="nav" sx={{ width: '100%', background: "rgb(0, 0, 0)", borderRadius: 2 }}>
         <Toolbar>
           <IconButton
@@ -292,47 +294,64 @@ const NavBar = (props: any) => {
                     {userName}
                     <ArrowDropDownIcon sx={{ color: 'white' }} />
                   </Button>
-                  {/* <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                  > */}
                   <Menu
-                    id="menu-appbar"
+                    // id="menu-appbar"
+                    // anchorEl={anchorEl}
+                    // anchorOrigin={{
+                    //   vertical: 'bottom',
+                    //   horizontal: 'right',
+                    // }}
+                    // keepMounted
+                    // transformOrigin={{
+                    //   vertical: 'top',
+                    //   horizontal: 'right',
+                    // }}
+                    // open={Boolean(anchorEl)}
+                    // onClose={handleClose}
                     anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                     sx={{
-                      backgroundColor: '#4B0082', // Dark purple background
-                      color: '#FFFFFF', // White text color
-                      '& .MuiMenuItem-root': {
-                        '&:hover': {
-                          backgroundColor: '#6A0DAD', // Lighter purple on hover
-                        },
+                      "& .MuiPaper-root": {
+                        marginTop: "7px",
+                        marginRight: "10px",
+                        backgroundColor: "white", // רקע לבן
+                        color: "black", // צבע טקסט שחור
+                        border: "2px solid purple", // מסגרת סגולה
+                        borderRadius: "8px", // רדיוס פינות
+                        padding: "10px",
+                        width: "320px",
+                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                      },
+                      "& .MuiTypography-root": {
+                        fontSize: "18px",
+                        fontWeight: "bold",
+                        textAlign: "center",
+                        marginBottom: "8px",
+                        fontFamily: "Plus Jakarta Sans, Arial, Helvetica, sans-serif",
+                      },
+                      "& .MuiTypography-subtitle1": {
+                        fontSize: "13px",
+                        textAlign: "center",
+                        color: "#BBB",
+                        marginTop: "4px",
+                        fontFamily: "Plus Jakarta Sans, Arial, Helvetica, sans-serif",
                       },
                     }}
                   >
-                    <MenuItem onClick={handleUpdateOpen}>Profile</MenuItem>
+                    {/* <MenuItem onClick={handleUpdateOpen} >Profile</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </> */}
+                    <Typography variant="h6">Profile</Typography>
+                    <Typography variant="subtitle1">
+                      Your profile helps improve your interactions with select.
+                    </Typography>
+                    <MenuItem onClick={handleUpdateOpen} >Update Profile <Edit sx={{ marginLeft: "8px", fontSize: "19px" }} />
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                      Logout <ExitToApp sx={{ marginLeft: "8px", fontSize: "20px" }} />
+                    </MenuItem>
                   </Menu>
                 </>
               ) : (
@@ -345,20 +364,16 @@ const NavBar = (props: any) => {
                   </Button>
                 </>
               )}
+              </Box>
+              <img src='./pickapic2.png' style={{ height: '80px' }} />
+              <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'flex-end', gap: 2 }}>
+                {navItems.map((item) => (
+                  <Button key={item.name} component={Link} to={item.path} sx={buttonStyles()}>
+                    {item.name}
+                  </Button>
+                ))}
+              </Box>
             </Box>
-            {/* <Typography variant="h6" component="div" sx={{ color: 'white', textAlign: 'center' }}>
-              Pick A Pic
-            </Typography> */}
-            {/* <img src='./pickapic.png'  style={{  height: '80px' }}/> */}
-            <img src='./pickapic2.png' style={{ height: '80px' }} />
-            <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'flex-end', gap: 2 }}>
-              {navItems.map((item) => (
-                <Button key={item.name} component={Link} to={item.path} sx={buttonStyles()}>
-                  {item.name}
-                </Button>
-              ))}
-            </Box>
-          </Box>
         </Toolbar>
       </AppBar>
       <nav>

@@ -1,4 +1,3 @@
-// React Component
 import React, { useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import { getUserIdByToken } from '../store/getFromToken';
@@ -9,25 +8,13 @@ import { AppDispatch } from '../redux/store';
 import { getImageByChallengeId } from '../redux/imageSlice';
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
-
-// const VisuallyHiddenInput = styled('input')({
-//   clip: 'rect(0 0 0 0)',
-//   clipPath: 'inset(50%)',
-//   height: 1,
-//   overflow: 'hidden',
-//   position: 'absolute',
-//   bottom: 0,
-//   left: 0,
-//   whiteSpace: 'nowrap',
-//   width: 1,
-// });
-
 const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
   // const FileUploader = ({idChallenge,setImages}:{idChallenge:number,setImages: React.Dispatch<SetStateAction<any[]>>}) => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const dispatch = useDispatch<AppDispatch>();
+  const token =sessionStorage.getItem('token');
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectedFile = e.target.files[0];
@@ -42,40 +29,40 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
     try {
       const token = sessionStorage.getItem('token')
       try {
-      const response = await axios.get(`${apiUrl}/api/Image/presigned-url`, {
-        params: {
-          fileName: file.name,
-          contentType: file.type,
-          challengeId: idChallenge,
-        }, headers: {
-          'Content-Type': file.type,
-          'Authorization': `Bearer ${token}`
-        },
-      });
-       presignedUrl = response.data.url;
-    }catch(error){
-      const axiosError = error as AxiosError;
-      alert(axiosError.response?.data);
-      return;
-    }
+        const response = await axios.get(`${apiUrl}/api/Image/presigned-url`, {
+          params: {
+            fileName: file.name,
+            contentType: file.type,
+            challengeId: idChallenge,
+          }, headers: {
+            'Content-Type': file.type,
+            'Authorization': `Bearer ${token}`
+          },
+        });
+        presignedUrl = response.data.url;
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        alert(axiosError.response?.data);
+        return;
+      }
 
-    try{
-      await axios.put(presignedUrl, file, {
-        headers: {
-          'Content-Type': file.type,
-        },
-        onUploadProgress: (progressEvent) => {
-          const percent = Math.round(
-            (progressEvent.loaded * 100) / (progressEvent.total || 1)
-          );
-          setProgress(percent);
-        },
-      });
-    }catch(error){
-      const axiosError = error as AxiosError;
-      alert(axiosError.response?.data);
-      return;
-    }
+      try {
+        await axios.put(presignedUrl, file, {
+          headers: {
+            'Content-Type': file.type,
+          },
+          onUploadProgress: (progressEvent) => {
+            const percent = Math.round(
+              (progressEvent.loaded * 100) / (progressEvent.total || 1)
+            );
+            setProgress(percent);
+          },
+        });
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        alert(axiosError.response?.data);
+        return;
+      }
       const imageUrl = presignedUrl.split('?')[0];
       const imageData = {
         imageUrl: imageUrl, // Use the base URL here
@@ -83,32 +70,24 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
         challengeId: idChallenge,
         fileName: file.name,
       };
-      //  const res=
       await axios.post(`${apiUrl}/api/Image/addImageToDB`, imageData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      // const newImage= res.data.newImage;
-      // console.log(newImage);      
-      // setImages((prevImages) => [...prevImages, newImage]);     
-      alert('File uploaded successfully!');
+          alert('File uploaded successfully!');
       dispatch(getImageByChallengeId(idChallenge));
+      setFile(null);
+      setImagePreview(null);
+      setProgress(0);
     } catch (error) {
       console.error('שגיאה בהעלאה:', error);
       alert('There was an error while uploading plese try later');
     }
   };
-  // const HiddenInput = styled('input')({
-  //   display: 'none',
-  // });
 
-  {/* <input type="file" onChange={handleFileChange} />
-  <button onClick={handleUpload}>העלה קובץ</button>
-  {progress > 0 && <div>התקדמות: {progress}%</div>}
-*/}
   return (
-    <Box>
+    <Box display="flex" flexDirection="column" alignItems="flex-end">
       <label htmlFor="file-upload">
         <Button
           variant="contained"
@@ -121,7 +100,7 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
               backgroundColor: 'rgb(210 118 214)',
             },
           }}
-        // disabled={!token}
+          disabled={!token} 
         >
           {file ? file.name : 'Select a file'}
         </Button>
@@ -131,14 +110,19 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
         type="file"
         onChange={handleFileChange}
         onClick={(event) => {
+          if (!token) {///===================
+            event.preventDefault(); // Prevent file selection if not logged in
+            alert('You must be logged in to select a file.');
+          }
           event.stopPropagation();
         }}
         style={{ display: 'none' }} // Hidden input
+        disabled={!token} 
       />
       <Button
         onClick={handleUpload}
         variant="outlined"
-        disabled={!file}
+        disabled={!token||!file}///=============
         sx={{
           borderColor: 'purple',
           color: 'purple',
@@ -146,20 +130,20 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
             backgroundColor: 'purple',
             color: 'white',
           },
+          marginTop: 2,
         }}
       >
         upload file
       </Button>
       {progress > 0 && (
-        <Typography sx={{ color: 'purple', fontWeight: 'bold' }}>
+        <Typography sx={{ color: 'purple', fontWeight: 'bold', marginTop: 1 }}>
           progress: {progress}%
         </Typography>
       )}
       {imagePreview && (
-         <Card sx={{ maxWidth: 250 }}>
-         <CardMedia component="img" height="140" image={imagePreview} alt="Preview" />
-       </Card>
-        // <img src={imagePreview} alt="Preview" style={{ width: '100px', height: 'auto', marginTop: '10px' }} />
+        <Card sx={{ maxWidth: 250, marginTop: 2 }}>
+          <CardMedia component="img" height="140" image={imagePreview} alt="Preview" />
+        </Card>
       )}
     </Box>
   );
