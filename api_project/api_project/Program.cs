@@ -1,3 +1,4 @@
+using Comp.API.Jobs;
 using Comp.Core;
 using Comp.Core.IRepositories;
 using Comp.Core.IServices;
@@ -58,7 +59,7 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IS3Service, S3Service>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 //builder.Services.AddDbContext<DataContext>();
-//builder.Services.AddHostedService<ChallengeExpirationJob>();
+builder.Services.AddHostedService<ChallengeExpirationJob>();
 builder.Services.AddDbContext<DataContext>(options =>
 options.UseMySql(Environment.GetEnvironmentVariable("DATABASE_CONECTION"),
 new MySqlServerVersion(new Version(8, 0, 41))));
