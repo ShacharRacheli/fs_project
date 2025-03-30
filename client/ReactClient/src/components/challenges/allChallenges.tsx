@@ -51,18 +51,27 @@ const AllChallenges = () => {
                                 <>
                                 <Typography 
                                     onClick={() => toggleDescription(challenge.id)} 
-                                    sx={{ cursor: 'pointer', color: 'blue' }}
+                                    sx={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
                                 >
-                                    {expandedChallengeId === challenge.id ? challenge.description : `${challenge.description.substring(0, 50)}...`}
+                                    {expandedChallengeId === challenge.id ? "Show Less" : "Show More"}
+                                </Typography>
+                                <Typography 
+                                    sx={{
+                                        display: expandedChallengeId === challenge.id ? 'block' : 'none',
+                                        marginTop: 1,
+                                        whiteSpace: 'pre-wrap', // מאפשר טקסט מרובה שורות
+                                    }}
+                                >
+                                    {challenge.description}
                                 </Typography>
                             </>
                             }                            
                             sx={{
                                 color: challenge.status ? 'black' : 'gray', // צבע טקסט שונ                        
                                 overflow: "hidden",
-                                whiteSpace: "nowrap",
-                                textOverflow: "ellipsis",
-                                maxWidth: "400px", }}
+                                // whiteSpace: "nowrap",
+                                // textOverflow: "ellipsis",
+                                maxWidth: "350px", }}
                         />     <Typography
                         sx={{
                             marginLeft: 2,
