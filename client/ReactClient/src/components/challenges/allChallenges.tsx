@@ -27,7 +27,7 @@ const AllChallenges = () => {
     console.log(challengesList);
 
     return (<>
-       <Typography variant="h4" sx={{ margin: 2 }}>
+       <Typography variant="h4" sx={{ margin: 2 ,fontWeight:'bold'}}>
             Challenges List
         </Typography>
         <List>
@@ -41,17 +41,23 @@ const AllChallenges = () => {
                             display: 'flex',
                             alignItems: 'center',
                             // opacity: challenge.status ? 1 : 0.5,
-                            backgroundColor: 'white' // צבע רקע לבן
+                            backgroundColor: 'white', // צבע רקע לבן
+                            marginBottom: 2, // מרווח בין פריטים
                         }}
                     >
                         <ListItemText
-                            primary={challenge.title}
+                            primary={
+                                // challenge.title
+                                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                                {challenge.title}
+                            </Typography>                    
+                            }
                             secondary={
                                 // challenge.description
                                 <>
                                 <Typography 
                                     onClick={() => toggleDescription(challenge.id)} 
-                                    sx={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
+                                    sx={{ color: 'purple', cursor: 'pointer',  textDecoration: 'underline', marginBottom: 1  }}
                                 >
                                     {expandedChallengeId === challenge.id ? "Show Less" : "Show More"}
                                 </Typography>
