@@ -124,7 +124,7 @@ const ShowChallenge = () => {
           <Typography variant="h3" gutterBottom sx={{ textAlign: 'center', marginBottom: 3 }}>
             {challenge.title}
           </Typography>
-        {challenge.status&&  <FileUploader idChallenge={Number(id)} />}
+        {challenge.status?(<FileUploader idChallenge={Number(id)} />):<></>}
           {/* <FileUploader idChallenge={Number(id)} setImages={setImages}/> */}
           <Grid container spacing={3}>
             {ImagesOfChallenge.map((image) => (
