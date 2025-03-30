@@ -159,6 +159,7 @@ import { getUserNameByToken } from './store/getFromToken';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ExitToApp from '@mui/icons-material/ExitToApp';
 import { Edit } from '@mui/icons-material';
+// import Footer from './footer';
 
 const drawerWidth = 240;
 const navItems = [
@@ -260,6 +261,7 @@ const NavBar = (props: any) => {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
+    <>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar component="nav" sx={{ width: '100%', background: "rgb(0, 0, 0)", borderRadius: 2 }}>
@@ -399,6 +401,8 @@ const NavBar = (props: any) => {
       <Register succeedFunc={handleLoginSuccess} open={registerOpen} handleClose={handleRegisterClose} />
       <Update succeedFunc={handleLoginSuccess} open={updateOpen} handleClose={handleUpdateClose} />
     </Box>
+        {/* <Footer/> */}
+</>
   );
 };
 

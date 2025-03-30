@@ -7,10 +7,13 @@ const Footer = () => {
     return (
         <footer style={{
             textAlign: 'center',
-            backgroundColor: '#0b0f17',
-            color: 'white',
-            padding: '40px 20px',
-            position: 'relative',
+            backgroundColor: 'white',
+            color: 'black', // צבע טקסט שחור כדי שיהיה קריא על רקע לבן
+            padding: '20px 20px',
+            // position: 'fixed', // דבק את הפוטר לתחתית
+            // bottom: 0,
+            // left: 0,
+            // right: 0,
             fontFamily: '"Plus Jakarta Sans", Arial, Helvetica, sans-serif',
         }}>
             <Typography variant="body1">

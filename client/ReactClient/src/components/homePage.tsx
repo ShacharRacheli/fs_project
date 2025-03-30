@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import './homePage.css'
+// import Footer from "./footer";
 const HomePage=()=>{
 //   const images = [
 // './pic1.jpg',
@@ -70,7 +71,7 @@ return(<>
         {/* <Box> */}
           {/* every week we have different challenges  */}
         {/* </Box> */}
-     
+     {/* <Footer/> */}
 </>)
 }
 export default HomePage
