@@ -10,7 +10,8 @@ export const router = createBrowserRouter([
         path: '/',
         element: <AppLayout />,
         children: [
-            { path: 'home', element: <HomePage /> },
+            { index: true, element: <HomePage /> },
+            // { path: 'home', element: <HomePage /> },
             { path: 'allChallenges', element: <AllChallenges /> },
             { path: 'winners', element: <Winners/> },
             { path: 'allChallenges/:id', element: <ShowChallenge /> },

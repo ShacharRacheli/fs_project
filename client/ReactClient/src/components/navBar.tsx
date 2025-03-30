@@ -162,7 +162,7 @@ import { Edit } from '@mui/icons-material';
 
 const drawerWidth = 240;
 const navItems = [
-  { name: 'Home', path: '/home' },
+  { name: 'Home', path: '/' },
   { name: 'Challenges', path: '/allChallenges' },
   { name: 'Winners', path: '/winners' },
 ];
