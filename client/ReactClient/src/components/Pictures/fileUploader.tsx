@@ -1,8 +1,8 @@
 // React Component
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { getUserIdByToken } from '../store/getFromToken';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Card, CardMedia, Typography } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
@@ -22,50 +22,47 @@ const apiUrl = import.meta.env.VITE_APP_API_URL;
 //   width: 1,
 // });
 
-const FileUploader = ({idChallenge}:{idChallenge:number}) => {
+const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
   // const FileUploader = ({idChallenge,setImages}:{idChallenge:number,setImages: React.Dispatch<SetStateAction<any[]>>}) => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const dispatch = useDispatch<AppDispatch>();
-  // const token=sessionStorage.getItem('token');
-// useEffect(() => {
-//     dispatch(getImageByChallengeId(Number(idChallenge)));
-//     // dispatch(getChallengeById(Number(id)));
-//     console.log("11111");
-    
-//   }, [dispatch,progress])
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
+      const selectedFile = e.target.files[0];
       setFile(e.target.files[0]);
+      setImagePreview(URL.createObjectURL(selectedFile)); // יצירת URL לתצוגה מקדימה
     }
   };
 
   const handleUpload = async () => {
     if (!file) return;
-
+    let presignedUrl;
     try {
       const token = sessionStorage.getItem('token')
-      // שלב 1: קבלת Presigned URL מהשרת
+      try {
       const response = await axios.get(`${apiUrl}/api/Image/presigned-url`, {
-      // const response = await axios.get('http://localhost:5070/api/Image/presigned-url', {
         params: {
           fileName: file.name,
           contentType: file.type,
-          challengeId:idChallenge,
+          challengeId: idChallenge,
         }, headers: {
           'Content-Type': file.type,
           'Authorization': `Bearer ${token}`
         },
       });
+       presignedUrl = response.data.url;
+    }catch(error){
+      const axiosError = error as AxiosError;
+      alert(axiosError.response?.data);
+      return;
+    }
 
-      const presignedUrl = response.data.url;
-      console.log(presignedUrl);
-
-      // שלב 2: העלאת הקובץ ישירות ל-S3
+    try{
       await axios.put(presignedUrl, file, {
         headers: {
           'Content-Type': file.type,
-          // 'Authorization': `Bearer ${token}`
         },
         onUploadProgress: (progressEvent) => {
           const percent = Math.round(
@@ -74,23 +71,20 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
           setProgress(percent);
         },
       });
-
-    //   const imageData = {
-    //     imageUrl: presignedUrl,
-    //     userId: getUserIdByToken(),
-    //     challengeId: idChallenge,   //=??????????????????????????????????????
-    //     // הוסף כאן שדות נוספים אם יש צורך
-    //   };
-    const imageUrl = presignedUrl.split('?')[0];
-
-    const imageData = {
+    }catch(error){
+      const axiosError = error as AxiosError;
+      alert(axiosError.response?.data);
+      return;
+    }
+      const imageUrl = presignedUrl.split('?')[0];
+      const imageData = {
         imageUrl: imageUrl, // Use the base URL here
         userId: getUserIdByToken(),
         challengeId: idChallenge,
-        fileName:file.name,
-    };
-  //  const res=
-    await axios.post(`${apiUrl}/api/Image/addImageToDB`, imageData, {
+        fileName: file.name,
+      };
+      //  const res=
+      await axios.post(`${apiUrl}/api/Image/addImageToDB`, imageData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -98,21 +92,80 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
       // const newImage= res.data.newImage;
       // console.log(newImage);      
       // setImages((prevImages) => [...prevImages, newImage]);     
-      alert('הקובץ הועלה בהצלחה!');
+      alert('File uploaded successfully!');
       dispatch(getImageByChallengeId(idChallenge));
     } catch (error) {
       console.error('שגיאה בהעלאה:', error);
+      alert('There was an error while uploading plese try later');
     }
   };
   // const HiddenInput = styled('input')({
   //   display: 'none',
   // });
-  
+
   {/* <input type="file" onChange={handleFileChange} />
   <button onClick={handleUpload}>העלה קובץ</button>
   {progress > 0 && <div>התקדמות: {progress}%</div>}
 */}
   return (
+    <Box>
+      <label htmlFor="file-upload">
+        <Button
+          variant="contained"
+          component="span"
+          startIcon={<CloudUploadIcon />}
+          sx={{
+            backgroundColor: 'purple',
+            color: 'white',
+            '&:hover': {
+              backgroundColor: 'rgb(210 118 214)',
+            },
+          }}
+        // disabled={!token}
+        >
+          {file ? file.name : 'Select a file'}
+        </Button>
+      </label>
+      <input
+        id="file-upload"
+        type="file"
+        onChange={handleFileChange}
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+        style={{ display: 'none' }} // Hidden input
+      />
+      <Button
+        onClick={handleUpload}
+        variant="outlined"
+        disabled={!file}
+        sx={{
+          borderColor: 'purple',
+          color: 'purple',
+          '&:hover': {
+            backgroundColor: 'purple',
+            color: 'white',
+          },
+        }}
+      >
+        upload file
+      </Button>
+      {progress > 0 && (
+        <Typography sx={{ color: 'purple', fontWeight: 'bold' }}>
+          progress: {progress}%
+        </Typography>
+      )}
+      {imagePreview && (
+         <Card sx={{ maxWidth: 250 }}>
+         <CardMedia component="img" height="140" image={imagePreview} alt="Preview" />
+       </Card>
+        // <img src={imagePreview} alt="Preview" style={{ width: '100px', height: 'auto', marginTop: '10px' }} />
+      )}
+    </Box>
+  );
+};
+
+export default FileUploader;
 //     <div>
 // <div>
 //       <label htmlFor="file-upload">
@@ -138,58 +191,6 @@ const FileUploader = ({idChallenge}:{idChallenge:number}) => {
 //       {progress > 0 && <div>התקדמות: {progress}%</div>}
 //     </div>
 //     </div>
-<Box>
-<label htmlFor="file-upload">
-    <Button
-        variant="contained"
-        component="span"
-        startIcon={<CloudUploadIcon />}
-        sx={{
-            backgroundColor: 'purple',
-            color: 'white',
-            '&:hover': {
-                backgroundColor: 'rgb(210 118 214)',
-            },
-        }}
-        // disabled={!token}
-    >
-        {file ? file.name : 'Select a file'}
-    </Button>
-</label>
-<input
-    id="file-upload"
-    type="file"
-    onChange={handleFileChange}
-    onClick={(event) => {
-        event.stopPropagation();
-    }}
-    style={{ display: 'none' }} // Hidden input
-/>
-<Button 
-    onClick={handleUpload} 
-    variant="outlined" 
-    disabled={!file} 
-    sx={{
-        borderColor: 'purple',
-        color: 'purple',
-        '&:hover': {
-            backgroundColor: 'purple',
-            color: 'white',
-        },
-    }}
->
-   upload file
-</Button>
-{progress > 0 && (
-    <Typography sx={{ color: 'purple', fontWeight: 'bold' }}>
-        progress: {progress}%
-    </Typography>
-)}
-</Box>
-  );
-};
-
-export default FileUploader;
 //     <Box sx={{ padding: 2, border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
 //     <Typography variant="h6" gutterBottom>
 //       העלאת קובץ לאתגר {idChallenge}

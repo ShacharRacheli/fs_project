@@ -160,14 +160,14 @@ import { getUserNameByToken } from './store/getFromToken';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 const drawerWidth = 240;
 const navItems = [
-  { name: 'Home', path: '/' },
+  { name: 'Home', path: '/home' },
   { name: 'Challenges', path: '/allChallenges' },
   { name: 'Winners', path: '/winners' },
 ];
 const buttonStyles = () => ({
   color: 'white', // Default text color
   fontWeight: 'bold', // Make text bold
-  fontSize:'17px',
+  fontSize: '17px',
   backgroundColor: 'transparent', // Ensure background is transparent by default
   '&:hover': {
     backgroundColor: 'transparent', // Keep background transparent on hover
@@ -222,7 +222,7 @@ const NavBar = (props: any) => {
     sessionStorage.removeItem('token');
     setIsLoggedIn(false);
     setToken(null);
-    navigate('/');
+    navigate('/home');
   };
   const handleLoginSuccess = (newToken: string) => {
     sessionStorage.setItem('token', newToken); // שמירת הטוקן ב-sessionStorage
@@ -292,6 +292,21 @@ const NavBar = (props: any) => {
                     {userName}
                     <ArrowDropDownIcon sx={{ color: 'white' }} />
                   </Button>
+                  {/* <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  > */}
                   <Menu
                     id="menu-appbar"
                     anchorEl={anchorEl}
@@ -306,6 +321,15 @@ const NavBar = (props: any) => {
                     }}
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
+                    sx={{
+                      backgroundColor: '#4B0082', // Dark purple background
+                      color: '#FFFFFF', // White text color
+                      '& .MuiMenuItem-root': {
+                        '&:hover': {
+                          backgroundColor: '#6A0DAD', // Lighter purple on hover
+                        },
+                      },
+                    }}
                   >
                     <MenuItem onClick={handleUpdateOpen}>Profile</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
@@ -322,9 +346,11 @@ const NavBar = (props: any) => {
                 </>
               )}
             </Box>
-            <Typography variant="h6" component="div" sx={{ color: 'white', textAlign: 'center' }}>
+            {/* <Typography variant="h6" component="div" sx={{ color: 'white', textAlign: 'center' }}>
               Pick A Pic
-            </Typography>
+            </Typography> */}
+            {/* <img src='./pickapic.png'  style={{  height: '80px' }}/> */}
+            <img src='./pickapic2.png' style={{ height: '80px' }} />
             <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'flex-end', gap: 2 }}>
               {navItems.map((item) => (
                 <Button key={item.name} component={Link} to={item.path} sx={buttonStyles()}>

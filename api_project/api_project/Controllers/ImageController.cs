@@ -90,7 +90,7 @@ namespace Comp.API.Controllers
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
                 return Unauthorized("Invalid user ID");
             if (!await _imageService.UserUploadedAlready(userId, challengeId))
-                return Forbid("User has not uploaded the image");
+                return Forbid("You can't upload more than 1 image");
             var url = await _s3Service.GetPresignedUrlAsync(fileName, contentType);
             return Ok(new { url });
         }

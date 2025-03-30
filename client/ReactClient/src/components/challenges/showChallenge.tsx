@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  Grid,  Typography, Box, IconButton, Paper } from '@mui/material';
+import { Grid, Typography, Box, IconButton, Paper } from '@mui/material';
 import { AppDispatch, RootState } from '../redux/store';
 import { getImageByChallengeId } from '../redux/imageSlice';
 import { useParams } from 'react-router';
@@ -26,9 +26,9 @@ const ShowChallenge = () => {
   const ImagesOfChallenge = useSelector((state: RootState) => state.images.imagesByChallenge);
   const challenge = useSelector((state: RootState) => state.challenges.selectedChallenge);
   useEffect(() => {
-  //  const newImages= dispatch(getImageByChallengeId(Number(id)));
-  //  setImages(newImages!)
-  // console.log(images);
+    //  const newImages= dispatch(getImageByChallengeId(Number(id)));
+    //  setImages(newImages!)
+    // console.log(images);
     // const fetchImages = async () => {
     //   console.log(images);
     //   const result = await dispatch(getImageByChallengeId(Number(id))) 
@@ -124,36 +124,36 @@ const ShowChallenge = () => {
           <Typography variant="h3" gutterBottom sx={{ textAlign: 'center', marginBottom: 3 }}>
             {challenge.title}
           </Typography>
-          <FileUploader idChallenge={Number(id)} />
+        {challenge.status&&  <FileUploader idChallenge={Number(id)} />}
           {/* <FileUploader idChallenge={Number(id)} setImages={setImages}/> */}
           <Grid container spacing={3}>
             {ImagesOfChallenge.map((image) => (
               <Grid item xs={12} sm={6} md={4} key={image.id}>
-                            <Paper sx={{ padding: 2, textAlign: "center" }}>
-              {/* <Grid item xs={12} sm={6} md={4} key={image.id}> */}
-                {/* <Card sx={{ boxShadow: 3, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)' } }}> */}
+                <Paper sx={{ padding: 2, textAlign: "center" }}>
+                  {/* <Grid item xs={12} sm={6} md={4} key={image.id}> */}
+                  {/* <Card sx={{ boxShadow: 3, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)' } }}> */}
                   <ImageViewer fileName={image.fileName} />
                   {/* <CardContent> */}
-                <Vote imageId={image.id} challengeId={image.challengeId} />
-                    <Typography variant="h6">count #{image.countVotes}</Typography>                 
-                      <IconButton
-            sx={{
-                backgroundColor: 'white', 
-                color: 'purple', 
-                '&:hover': {
-                    backgroundColor: 'lightgray', 
-                },
-                '&:active': {
-                    backgroundColor: 'purple', 
-                    color: 'white', 
-                },
-            }}
-            onClick={() => handleDownload(image.fileName)}
-        >
-            <DownloadIcon sx={{ fontSize: 30 }} /> 
-        </IconButton>
+                  <Vote imageId={image.id} challengeId={image.challengeId} />
+                  <Typography variant="h6">count #{image.countVotes}</Typography>
+                  <IconButton
+                    sx={{
+                      backgroundColor: 'white',
+                      color: 'purple',
+                      '&:hover': {
+                        backgroundColor: 'lightgray',
+                      },
+                      '&:active': {
+                        backgroundColor: 'purple',
+                        color: 'white',
+                      },
+                    }}
+                    onClick={() => handleDownload(image.fileName)}
+                  >
+                    <DownloadIcon sx={{ fontSize: 30 }} />
+                  </IconButton>
                   {/* </CardContent> */}
-                {/* </Card> */}
+                  {/* </Card> */}
                 </Paper>
               </Grid>
             ))}
