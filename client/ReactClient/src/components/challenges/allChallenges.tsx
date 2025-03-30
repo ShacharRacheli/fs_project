@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../redux/store"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getChallenges } from "../redux/challengeSlice";
 import { Box, Button, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
@@ -9,6 +9,7 @@ const AllChallenges = () => {
     const dispatch = useDispatch<AppDispatch>();
     const challengesList = useSelector((state: RootState) => state.challenges.list);
     const navigate = useNavigate();
+    const [expandedChallengeId, setExpandedChallengeId] = useState<number | null>(null);
 
 
     useEffect(() => {
@@ -19,6 +20,10 @@ const AllChallenges = () => {
 
     const handleNavigate = (challengeId: number) => {
         navigate(`/allChallenges/${challengeId}`);
+    };
+    
+    const handleShowMore = (challengeId: number) => {
+        setExpandedChallengeId(expandedChallengeId === challengeId ? null : challengeId);
     };
     console.log(challengesList);
 
@@ -42,8 +47,14 @@ const AllChallenges = () => {
                     >
                         <ListItemText
                             primary={challenge.title}
-                            secondary={challenge.description}
-                            sx={{
+                            secondary={
+                                <>
+                                    {expandedChallengeId === challenge.id ? challenge.description : `${challenge.description.substring(0, 50)}...`}
+                                    <Button onClick={() => handleShowMore(challenge.id)} sx={{ marginLeft: 1 }}>
+                                        {expandedChallengeId === challenge.id ? "Show Less" : "Show More"}
+                                    </Button>
+                                </>
+                            }                            sx={{
                                 color: challenge.status ? 'black' : 'gray', // צבע טקסט שונ                        
                                 overflow: "hidden",
                                 whiteSpace: "nowrap",
