@@ -130,7 +130,7 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
             backgroundColor: 'purple',
             color: 'white',
           },
-          marginTop: 2,
+          // marginTop: 2,
         }}
       >
         upload file
