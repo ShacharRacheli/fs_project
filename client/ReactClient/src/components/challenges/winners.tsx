@@ -23,16 +23,10 @@ console.log(winnersList.map(r=>{
     
 return(<>
 
+<Typography variant="h4" component="h2" align="center" gutterBottom>
+                Our Winners
+            </Typography>
 
-{/* <Grid container spacing={2}>
-            {winnersList.map((winner) => (
-                <Grid item xs={12} sm={6} md={4} key={winner.id}>
-                    <Typography variant="h6">{winner.title}</Typography>
-                    <Typography variant="h6">{winner.userName}</Typography>
-                    <ImageViewer fileName={winner.fileName} />
-                </Grid>
-            ))}
-        </Grid> */}
    <Grid container spacing={2}>
             {winnersList.map((winner) => (
                 // <Grid item xs={12} sm={4} md={4} key={winner.id}> {/* Adjusted to 4 for 3 cards per row */}
@@ -60,3 +54,13 @@ return(<>
 </>)
 }
 export default Winners
+
+{/* <Grid container spacing={2}>
+            {winnersList.map((winner) => (
+                <Grid item xs={12} sm={6} md={4} key={winner.id}>
+                    <Typography variant="h6">{winner.title}</Typography>
+                    <Typography variant="h6">{winner.userName}</Typography>
+                    <ImageViewer fileName={winner.fileName} />
+                </Grid>
+            ))}
+        </Grid> */}

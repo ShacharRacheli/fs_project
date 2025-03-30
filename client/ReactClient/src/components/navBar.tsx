@@ -156,11 +156,10 @@ import { useEffect, useState } from 'react';
 import { Menu, MenuItem } from '@mui/material';
 import Update from './User/update';
 import { getUserNameByToken } from './store/getFromToken';
-// import Update from './User/update';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ExitToApp from '@mui/icons-material/ExitToApp';
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import { Edit } from '@mui/icons-material';
+
 const drawerWidth = 240;
 const navItems = [
   { name: 'Home', path: '/home' },
@@ -315,7 +314,7 @@ const NavBar = (props: any) => {
                       "& .MuiPaper-root": {
                         marginTop: "7px",
                         marginRight: "10px",
-                        backgroundColor: "white", // רקע לבן
+                        backgroundColor: "white", // ר
                         color: "black", // צבע טקסט שחור
                         border: "2px solid purple", // מסגרת סגולה
                         borderRadius: "8px", // רדיוס פינות
