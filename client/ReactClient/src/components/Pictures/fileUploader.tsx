@@ -85,9 +85,9 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
       alert('There was an error while uploading plese try later');
     }
   };
-
+//display="flex" flexDirection="column" alignItems="flex-end"
   return (
-    <Box display="flex" flexDirection="column" alignItems="flex-end">
+    <Box >
       <label htmlFor="file-upload">
         <Button
           variant="contained"
