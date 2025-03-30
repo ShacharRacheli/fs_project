@@ -21,8 +21,7 @@ const AllChallenges = () => {
     const handleNavigate = (challengeId: number) => {
         navigate(`/allChallenges/${challengeId}`);
     };
-    
-    const handleShowMore = (challengeId: number) => {
+    const toggleDescription = (challengeId: number) => {
         setExpandedChallengeId(expandedChallengeId === challengeId ? null : challengeId);
     };
     console.log(challengesList);
@@ -48,18 +47,22 @@ const AllChallenges = () => {
                         <ListItemText
                             primary={challenge.title}
                             secondary={
+                                // challenge.description
                                 <>
+                                <Typography 
+                                    onClick={() => toggleDescription(challenge.id)} 
+                                    sx={{ cursor: 'pointer', color: 'blue' }}
+                                >
                                     {expandedChallengeId === challenge.id ? challenge.description : `${challenge.description.substring(0, 50)}...`}
-                                    <Button onClick={() => handleShowMore(challenge.id)} sx={{ marginLeft: 1 }}>
-                                        {expandedChallengeId === challenge.id ? "Show Less" : "Show More"}
-                                    </Button>
-                                </>
-                            }                            sx={{
+                                </Typography>
+                            </>
+                            }                            
+                            sx={{
                                 color: challenge.status ? 'black' : 'gray', // צבע טקסט שונ                        
                                 overflow: "hidden",
                                 whiteSpace: "nowrap",
                                 textOverflow: "ellipsis",
-                                maxWidth: "300px", }}
+                                maxWidth: "400px", }}
                         />     <Typography
                         sx={{
                             marginLeft: 2,
@@ -69,7 +72,7 @@ const AllChallenges = () => {
                 
                         }}
                     >
-                        Start: {new Date(challenge.startDate).toLocaleDateString()} - End: {new Date(challenge.endDate).toLocaleDateString()}
+                        From: {new Date(challenge.startDate).toLocaleDateString()} - Till: {new Date(challenge.endDate).toLocaleDateString()}
                     </Typography>
                         <Button
                             variant="contained"
