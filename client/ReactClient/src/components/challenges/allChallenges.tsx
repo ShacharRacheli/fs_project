@@ -27,12 +27,11 @@ const AllChallenges = () => {
     console.log(challengesList);
 
     return (<>
-       <Typography variant="h4" sx={{  margin: '300px 0px 24px', // השתמש ברווחים
-  fontFamily: 'cursive', // השתמש במרכאות כפולות
+       <Typography variant="h4" sx={{  margin: '70px 0px 24px', 
+  fontFamily: 'cursive',  
   fontWeight: 450, 
   fontSize: '3rem', 
-  lineHeight: 1.167, // אין צורך במרכאות
-  letterSpacing: '0em', // השתמש במרכאות כפולות
+  lineHeight: 1.167,letterSpacing: '0em', 
   textAlign: 'center', }}>
             Challenges List
         </Typography>

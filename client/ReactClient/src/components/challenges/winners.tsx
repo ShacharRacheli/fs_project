@@ -23,7 +23,7 @@ const Winners=()=>{
     
 return(<>
 
-<Typography variant="h4" component="h2" align="center" gutterBottom>
+<Typography variant="h4" component="h2" align="center" gutterBottom sx={{  margin: '70px 0px 24px', fontFamily: 'cursive'}}>
                 Our Winners
             </Typography>
 
