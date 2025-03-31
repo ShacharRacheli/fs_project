@@ -100,6 +100,7 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
             '&:hover': {
               backgroundColor: 'rgb(210 118 214)',
             },
+            marginBottom: 1,
           }}
           disabled={!token} 
         >
@@ -142,7 +143,7 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
         </Typography>
       )}
       {imagePreview && (
-        <Card sx={{ maxWidth: 250, marginTop: 2 }}>
+        <Card sx={{ maxWidth: 110, marginTop: 2 ,maxHeight:110}}>
           <CardMedia component="img" height="140" image={imagePreview} alt="Preview" />
         </Card>
       )}
