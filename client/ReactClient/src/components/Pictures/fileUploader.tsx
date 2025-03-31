@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import { getUserIdByToken } from '../store/getFromToken';
-import { Box, Button, Card, CardMedia, Paper, Typography } from '@mui/material';
+import {  Button, Card, CardMedia, Paper, Typography } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
