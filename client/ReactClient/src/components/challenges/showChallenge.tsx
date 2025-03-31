@@ -13,40 +13,18 @@ import DownloadIcon from '@mui/icons-material/Download';
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const ShowChallenge = () => {
-  //   const dispatch = useDispatch();
-  //   const images = useSelector((state) => state.);
   const { id } = useParams();
-
-  // const [image, setImage] = useState(null);
-  // const [loading, setLoading] = useState(false);
-  // const [creation,setCreation]=useState()
-  // const [images, setImages] = useState<ImageType[]>([]);
-
   const dispatch = useDispatch<AppDispatch>();
   const ImagesOfChallenge = useSelector((state: RootState) => state.images.imagesByChallenge);
   const challenge = useSelector((state: RootState) => state.challenges.selectedChallenge);
   useEffect(() => {
-    //  const newImages= dispatch(getImageByChallengeId(Number(id)));
-    //  setImages(newImages!)
-    // console.log(images);
-    // const fetchImages = async () => {
-    //   console.log(images);
-    //   const result = await dispatch(getImageByChallengeId(Number(id))) 
-    //   console.log(result);  
-    //   if (getImageByChallengeId.fulfilled.match(result)) {
-    //     setImages(result.payload); // עדכון הסטייט עם התוצאה
-    //   console.log(result.payload);
-    //   }      
-    //   dispatch(getChallengeById(Number(id)));
-    // };
-    // fetchImages();
     dispatch(getChallengeById(Number(id)));
     dispatch(getImageByChallengeId(Number(id)))
   }, [id, dispatch])
   const handleDownload = async (fileName: string) => {
     try {
       const response = await axios.get(`${apiUrl}/api/Image/getImageUrl`, {
-        params: { fileName } // שם הקובץ שאת רוצה להוריד
+        params: { fileName } 
       });
       const downloadUrl = response.data.url;
 
@@ -56,23 +34,18 @@ const ShowChallenge = () => {
       }
 
       console.log("Download URL:", downloadUrl);
-
-      // בקשה לקבלת הקובץ בפורמט blob
       const fileResponse = await axios.get(downloadUrl, {
-        responseType: 'blob' // גורם להחזרת קובץ במקום להציג אותו
+        responseType: 'blob' 
       });
 
-      // יצירת כתובת URL לנתונים
       const blobUrl = URL.createObjectURL(fileResponse.data);
 
-      // יצירת קישור להורדה
       const link = document.createElement("a");
       link.href = blobUrl;
       link.setAttribute("download", fileName); // שם הקובץ שישמר
       document.body.appendChild(link);
       link.click();
 
-      // ניקוי הזיכרון
       document.body.removeChild(link);
       URL.revokeObjectURL(blobUrl);
     } catch (error) {
@@ -81,43 +54,6 @@ const ShowChallenge = () => {
   };
   return (
 
-    // <Box sx={{ padding: 4 }}>
-    // {challenge ? ( // Check if challenge is not null
-    //     <>
-    //         <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', marginBottom: 3 }}>
-    //             {challenge.title} 
-    //         </Typography>
-    //         <FileUploader idChallenge={Number(id)} />
-    //         <Grid container spacing={3}>
-    //             {ImagesOfChallenge.map((image) => (
-    //                 <Grid item xs={12} sm={6} md={4} key={image.id}>
-    //                     <Card sx={{ boxShadow: 3 }}>
-    //                             <ImageViewer fileName={image.fileName}/>
-    //                         <CardContent>
-    //                             <Typography variant="h6">תמונה #{image.id}</Typography>
-    //                             <Vote imageId={image.id} challengeId={image.challengeId} />
-    //                             <Typography variant="h6">count #{image.countVotes}</Typography>
-    //                             <Button
-    //                 variant="contained"
-    //                 color="primary"
-    //                 onClick={() => handleDownload(image.fileName)}
-    //                 fullWidth
-    //               >
-    //                 Download
-    //               </Button>
-
-    //                         </CardContent>
-    //                     </Card>
-    //                 </Grid>
-    //             ))}
-    //         </Grid>
-    //     </>
-    // ) : (
-    //     <Typography variant="h6" sx={{ textAlign: 'center' }}>
-    //       Loading challenge ... {/* Loading message when challenge is null */}
-    //     </Typography>
-    // )}
-    // </Box>
     <Box sx={{ padding: 4 }}>
       {challenge ? (
         <>
@@ -138,7 +74,7 @@ const ShowChallenge = () => {
           <Grid container spacing={3}>
             {ImagesOfChallenge.map((image) => (
               <Grid item xs={12} sm={6} md={4} key={image.id}>
-                <Paper sx={{ padding: 2, textAlign: "center" }}>
+                <Paper sx={{ padding: 2, textAlign: "center", transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)' } }}>
                   {/* <Grid item xs={12} sm={6} md={4} key={image.id}> */}
                   {/* <Card sx={{ boxShadow: 3, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)' } }}> */}
                   <ImageViewer fileName={image.fileName} />
@@ -180,6 +116,43 @@ const ShowChallenge = () => {
 export default ShowChallenge;
 
 
+    // <Box sx={{ padding: 4 }}>
+    // {challenge ? ( // Check if challenge is not null
+    //     <>
+    //         <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', marginBottom: 3 }}>
+    //             {challenge.title} 
+    //         </Typography>
+    //         <FileUploader idChallenge={Number(id)} />
+    //         <Grid container spacing={3}>
+    //             {ImagesOfChallenge.map((image) => (
+    //                 <Grid item xs={12} sm={6} md={4} key={image.id}>
+    //                     <Card sx={{ boxShadow: 3 }}>
+    //                             <ImageViewer fileName={image.fileName}/>
+    //                         <CardContent>
+    //                             <Typography variant="h6">תמונה #{image.id}</Typography>
+    //                             <Vote imageId={image.id} challengeId={image.challengeId} />
+    //                             <Typography variant="h6">count #{image.countVotes}</Typography>
+    //                             <Button
+    //                 variant="contained"
+    //                 color="primary"
+    //                 onClick={() => handleDownload(image.fileName)}
+    //                 fullWidth
+    //               >
+    //                 Download
+    //               </Button>
+
+    //                         </CardContent>
+    //                     </Card>
+    //                 </Grid>
+    //             ))}
+    //         </Grid>
+    //     </>
+    // ) : (
+    //     <Typography variant="h6" sx={{ textAlign: 'center' }}>
+    //       Loading challenge ... {/* Loading message when challenge is null */}
+    //     </Typography>
+    // )}
+    // </Box>
 
 //     <div style={{ padding: '20px' }}>
 //       <Typography variant="h4" gutterBottom>
