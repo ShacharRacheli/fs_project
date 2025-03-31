@@ -63,9 +63,7 @@ builder.Services.AddHostedService<ChallengeExpirationJob>();
 builder.Services.AddDbContext<DataContext>(options =>
 options.UseMySql(Environment.GetEnvironmentVariable("DATABASE_CONECTION"),
 new MySqlServerVersion(new Version(8, 0, 41))));
-Console.WriteLine("----------------------------");
-Console.WriteLine(Environment.GetEnvironmentVariable("DATABASE_CONECTION"));
-Console.WriteLine("----------------------------");
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddAuthentication(options =>

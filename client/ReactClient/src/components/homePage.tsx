@@ -48,6 +48,13 @@ const HomePage=()=>{
     // };
 return(<>
  <div >
+  <Typography sx={{ fontSize: '2.9rem',
+                fontWeight: 'bold',
+                color: 'purple',
+                textShadow: '0 0 5px purple, 0 0 10px #f798ff;',
+                animation: 'glow 1.5s infinite alternate',
+              
+                }}>Welcome to Pick A Pic!!</Typography>
  <Typography variant="body1" sx={{ fontSize: '1.4rem', mb: 3, color: '#333' }}>
             Every week, a new AI image challenge is presented.  
             <br />Registered users can share their AI-generated creations.  
@@ -55,7 +62,7 @@ return(<>
             <br />The winning image will be announced, and the winner will receive a special email notification!
           </Typography>
 
-          <Typography variant="body1" sx={{ fontSize: '1.6rem', fontWeight: 'bold', color: '#ffcc00' }}>
+          <Typography variant="body1" sx={{ fontSize: '1.6rem', fontWeight: 'bold', color: '#f798ff' }}>
             Rules to keep it going!  
           </Typography>
 

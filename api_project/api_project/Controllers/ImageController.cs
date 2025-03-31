@@ -114,38 +114,7 @@ namespace Comp.API.Controllers
             //Console.WriteLine(i.FileName + i.ChallengeId+"jkhg");
             return Ok(new {newImage=image});
         }
-        //=======================================
-        // POST api/<ImageController>
-        //[HttpPost]
-        //public async Task<ActionResult> Post([FromBody] ImageDto image)
-        //{
-        //    if (await _imageService.AddImageAsync(_mapper.Map<Image>(image))) 
-        //        return Ok(image);
-        //    return NotFound();
-        //}
-        //[HttpPost("upload")]
-        ////[Authorize]
-        //public async Task<IActionResult> UploadImage([FromForm] UploadImageDTO uploadDto)
-        //{
-        //    //var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // זיהוי המשתמש המחובר
-        //    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        //    if (string.IsNullOrEmpty(userIdClaim))
-        //    {
-        //        return Unauthorized("User is not authenticated.");
-        //    }
-
-        //    var userId = int.Parse(userIdClaim);
-        //    if (uploadDto.File == null || uploadDto.File.Length == 0)
-        //        return BadRequest("No file uploaded.");
-
-        //    using (var stream = uploadDto.File.OpenReadStream())
-        //    {
-        //        var fileName = $"{userId}_{uploadDto.ChallengeId}_{Path.GetFileName(uploadDto.File.FileName)}";
-        //        var image = await _imageService.UploadImageAsync(userId, uploadDto.ChallengeId, stream, fileName);
-        //        var imageDTO = _mapper.Map<ImageDto>(image);
-        //        return Ok(imageDTO);
-        //    }
-        //}
+        
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> DeleteImage(int id)
@@ -157,15 +126,7 @@ namespace Comp.API.Controllers
                 return Forbid(); //מחזיר 403 אם אין הרשאה
             return NoContent();
         }
-        //[HttpGet("download/{id}")]
-        //public async Task<IActionResult> DownloadImage(int id)
-        //{
-        //    var imageStream = await _imageService.DownloadImageAsync(id);
-        //    if (imageStream == null)
-        //        return NotFound();
-
-        //    return File(imageStream, "image/png"); // ניתן לשנות בהתאם לסוג התמונה
-        //}
+    
 
     }
 }

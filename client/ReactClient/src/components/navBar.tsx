@@ -225,7 +225,7 @@ const NavBar = (props: any) => {
     sessionStorage.removeItem('token');
     setIsLoggedIn(false);
     setToken(null);
-    navigate('/home');
+    navigate('/');
   };
   const handleLoginSuccess = (newToken: string) => {
     sessionStorage.setItem('token', newToken); // שמירת הטוקן ב-sessionStorage

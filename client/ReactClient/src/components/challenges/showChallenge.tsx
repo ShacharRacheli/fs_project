@@ -135,7 +135,7 @@ const ShowChallenge = () => {
                   <ImageViewer fileName={image.fileName} />
                   {/* <CardContent> */}
                   <Vote imageId={image.id} challengeId={image.challengeId} />
-                  <Typography variant="h6">count #{image.countVotes}</Typography>
+                  <Typography variant="h6">{image.countVotes}</Typography>
                   <IconButton
                     sx={{
                       backgroundColor: 'white',
