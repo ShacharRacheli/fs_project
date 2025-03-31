@@ -88,7 +88,7 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
 //display="flex" flexDirection="column" alignItems="flex-end"
   return (
     // <Box >
-          <Paper sx={{ position: 'absolute', top: 10, right: 0, padding: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+          <Paper sx={{ position: 'absolute', top: 100, right: 0, padding: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
       <label htmlFor="file-upload">
         <Button
           variant="contained"
