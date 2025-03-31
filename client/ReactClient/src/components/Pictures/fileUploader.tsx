@@ -143,7 +143,7 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
         </Typography>
       )}
       {imagePreview && (
-        <Card sx={{ maxWidth: 110, marginTop: 2 ,maxHeight:110}}>
+        <Card sx={{ maxWidth: 250, marginTop: 2 ,maxHeight:140}}>
           <CardMedia component="img" height="140" image={imagePreview} alt="Preview" />
         </Card>
       )}

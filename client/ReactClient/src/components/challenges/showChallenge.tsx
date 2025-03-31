@@ -122,7 +122,7 @@ const ShowChallenge = () => {
       {challenge ? (
         <>
           <Typography variant="h3" gutterBottom sx={{
-  margin: '70px 0px 24px', // השתמש ברווחים
+  margin: '70px 0px 110px', // השתמש ברווחים
   fontFamily: 'cursive', // השתמש במרכאות כפולות
   fontWeight: 450, 
   fontSize: '3rem', 
