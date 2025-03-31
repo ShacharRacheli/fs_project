@@ -264,8 +264,8 @@ const NavBar = (props: any) => {
     <>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar component="nav" sx={{ width: '100%', background: "rgb(0, 0, 0)", borderRadius: 2 }}>
-        <Toolbar>
+      <AppBar component="nav" sx={{ width: '100%', background: "rgb(0, 0, 0)", borderRadius: 2 ,margin:0}}>
+        <Toolbar sx={{ padding: 0 }}>
           <IconButton
             aria-label="open drawer"
             edge="start"

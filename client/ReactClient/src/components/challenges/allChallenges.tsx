@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../redux/store"
 import { useEffect, useState } from "react";
 import { getChallenges } from "../redux/challengeSlice";
-import { Box, Button, List, ListItem, ListItemText, Typography } from "@mui/material";
+import { Box, Button, List, ListItem, ListItemText, Typography , ListItemAvatar, Avatar} from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
 
 const AllChallenges = () => {
@@ -27,7 +27,13 @@ const AllChallenges = () => {
     console.log(challengesList);
 
     return (<>
-       <Typography variant="h4" sx={{ margin: 2 ,fontWeight:'bold'}}>
+       <Typography variant="h4" sx={{  margin: '300px 0px 24px', // השתמש ברווחים
+  fontFamily: 'cursive', // השתמש במרכאות כפולות
+  fontWeight: 450, 
+  fontSize: '3rem', 
+  lineHeight: 1.167, // אין צורך במרכאות
+  letterSpacing: '0em', // השתמש במרכאות כפולות
+  textAlign: 'center', }}>
             Challenges List
         </Typography>
         <List>
@@ -44,7 +50,9 @@ const AllChallenges = () => {
                             backgroundColor: 'white', // צבע רקע לבן
                             marginBottom: 2, // מרווח בין פריטים
                         }}
-                    >
+                    >    <ListItemAvatar>
+                    <Avatar src={'./icon.png'} alt={challenge.title} sx={{ width: 40, height: 40 }} /> {/* הוסף את התמונה כאן */}
+                </ListItemAvatar>
                         <ListItemText
                             primary={
                                 // challenge.title

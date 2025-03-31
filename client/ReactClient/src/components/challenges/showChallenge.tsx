@@ -121,7 +121,16 @@ const ShowChallenge = () => {
     <Box sx={{ padding: 4 }}>
       {challenge ? (
         <>
-          <Typography variant="h3" gutterBottom sx={{ textAlign: 'center', marginBottom: 3 }}>
+          <Typography variant="h3" gutterBottom sx={{
+  margin: '300px 0px 24px', // השתמש ברווחים
+  fontFamily: 'cursive', // השתמש במרכאות כפולות
+  fontWeight: 450, 
+  fontSize: '3rem', 
+  lineHeight: 1.167, // אין צורך במרכאות
+  letterSpacing: '0em', // השתמש במרכאות כפולות
+  textAlign: 'center', // השתמש במרכאות כפולות
+}}
+>
             {challenge.title}
           </Typography>
         {challenge.status?(<FileUploader idChallenge={Number(id)} />):<></>}

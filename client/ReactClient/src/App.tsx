@@ -3,6 +3,7 @@ import './App.css'
 import store from './components/redux/store'
 import { RouterProvider } from 'react-router'
 import { router } from './router'
+import Footer from './components/footer'
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
     <Provider store={store}>
     <RouterProvider router={router} />
     </Provider>
+    <Footer/>
     </>
   )
 }
