@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import { getUserIdByToken } from '../store/getFromToken';
-import { Box, Button, Card, CardMedia, Typography } from '@mui/material';
+import { Box, Button, Card, CardMedia, Paper, Typography } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
@@ -87,7 +87,8 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
   };
 //display="flex" flexDirection="column" alignItems="flex-end"
   return (
-    <Box >
+    // <Box >
+          <Paper sx={{ position: 'absolute', top: 10, right: 0, padding: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
       <label htmlFor="file-upload">
         <Button
           variant="contained"
@@ -145,7 +146,8 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
           <CardMedia component="img" height="140" image={imagePreview} alt="Preview" />
         </Card>
       )}
-    </Box>
+          </Paper>
+    // </Box>
   );
 };
 
