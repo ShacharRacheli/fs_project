@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getChallenges } from "../redux/challengeSlice";
 import { Box, Button, List, ListItem, ListItemText, Typography , ListItemAvatar, Avatar} from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
-import SendPrompt from "./sendPrompt";
+// import SendPrompt from "./sendPrompt";
 
 const AllChallenges = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -53,7 +53,7 @@ const AllChallenges = () => {
                         }}
                     >    <ListItemAvatar>
                     <Avatar src={'./icon.png'} alt={challenge.title} sx={{ width: 40, height: 40 }} /> {/* הוסף את התמונה כאן */}
-        <SendPrompt challengeTopic={challenge.title} challengeDescription={challenge.description} />
+        {/* <SendPrompt challengeTopic={challenge.title} challengeDescription={challenge.description} /> */}
                 </ListItemAvatar>
                         <ListItemText
                             primary={

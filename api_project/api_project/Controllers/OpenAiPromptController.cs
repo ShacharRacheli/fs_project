@@ -24,13 +24,64 @@ namespace Comp.API.Controllers
         //{
                private readonly HttpClient client = new HttpClient();
 
+        //[HttpPost]
+        //public async Task<IActionResult> Post([FromBody] ChallengePromptRequest gptRequest)
+        //{
+        //    try
+        //    {
+        //        //var content = $"האתגר בנושא: {gptRequest.Topic}\nתיאור האתגר: {gptRequest.Description}\nתן לי רעיונות מקוריים ומתאימים לפרומפטים לתמונה.";
+        //        var content = $"The challenge on the topic: {gptRequest.Topic}\nDescription of the challenge: {gptRequest.Description}\nGive me original and suitable ideas for prompts for an image.";
+
+        //        var prompt = new
+        //        {
+        //            model = "gpt-4o-mini",
+        //            messages = new[] {
+        //        new { role = "user", content = content }
+        //    }
+        //        };
+
+        //        var request = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions")
+        //        {
+        //            Content = JsonContent.Create(prompt)
+        //        };
+        //        request.Headers.Add("Authorization", $"Bearer {Environment.GetEnvironmentVariable("OPEN_AI_KEY")}");
+
+        //        var response = await client.SendAsync(request);
+        //        if (!response.IsSuccessStatusCode)
+        //        {
+        //            var responseContent = await response.Content.ReadAsStringAsync();
+        //            throw new Exception($"Error in-OpenAI. status: {response.StatusCode}. response: {responseContent}");
+        //        }
+
+        //        var responseJson = await response.Content.ReadAsStringAsync();
+        //        var jsonDoc = JsonDocument.Parse(responseJson);
+        //        var contentText = jsonDoc.RootElement
+        //            .GetProperty("choices")[0]
+        //            .GetProperty("message")
+        //            .GetProperty("content")
+        //            .GetString();
+
+        //        var suggestions = contentText
+        //            .Split('\n')
+        //            .Where(line => !string.IsNullOrWhiteSpace(line))
+        //            .Select(line => line.Trim().TrimStart('-', '*', '•').Trim())
+        //            .ToList();
+
+        //        return Ok(new { prompts = suggestions });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error: {ex.Message}");
+        //        //return StatusCode(500, "שגיאה כלשהי במהלך הפעולה.");
+        //        return StatusCode(500, "An error occurred during the operation.");
+        //    }
+        //}
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ChallengePromptRequest gptRequest)
         {
             try
             {
-                //var content = $"האתגר בנושא: {gptRequest.Topic}\nתיאור האתגר: {gptRequest.Description}\nתן לי רעיונות מקוריים ומתאימים לפרומפטים לתמונה.";
-                var content = $"The challenge on the topic: {gptRequest.Topic}\nDescription of the challenge: {gptRequest.Description}\nGive me original and suitable ideas for prompts for an image.";
+                var content = $"User question: {gptRequest.UserQuestion}\nGive me a suitable response.";
 
                 var prompt = new
                 {
@@ -50,7 +101,7 @@ namespace Comp.API.Controllers
                 if (!response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error in-OpenAI. status: {response.StatusCode}. response: {responseContent}");
+                    throw new Exception($"Error in OpenAI. status: {response.StatusCode}. response: {responseContent}");
                 }
 
                 var responseJson = await response.Content.ReadAsStringAsync();
@@ -61,73 +112,22 @@ namespace Comp.API.Controllers
                     .GetProperty("content")
                     .GetString();
 
-                var suggestions = contentText
-                    .Split('\n')
-                    .Where(line => !string.IsNullOrWhiteSpace(line))
-                    .Select(line => line.Trim().TrimStart('-', '*', '•').Trim())
-                    .ToList();
-
-                return Ok(new { prompts = suggestions });
+                return Ok(new { prompts = new List<string> { contentText } });
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
-                //return StatusCode(500, "שגיאה כלשהי במהלך הפעולה.");
                 return StatusCode(500, "An error occurred during the operation.");
             }
         }
 
-        //try
-        //{
-        //    var prompt = $"The challenge on the topic: {requestPrompt.Topic}\nDescription of the challenge: {requestPrompt.Description}\nGive me ideas for prompts for an image.";
-        //    var promptToRequest = new
-        //    {
-        //        model = "gpt-4o-mini",
-        //        messages = new[] {
-        //        new { role = "system", content = prompt},
-        //        //new { role = "user", content = gptRequest.Question }
-        //        }
-        //    };
-        //    var request = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions")
-        //    {
-        //        Content = JsonContent.Create(promptToRequest)
-        //    };
-        //    request.Headers.Add("Authorization", $"Bearer {Environment.GetEnvironmentVariable("OPEN_AI_KEY")}");
+       
 
-        //    // שליחת הבקשה ל-API
-        //    var response = await _httpClient.SendAsync(request);
-
-        //    if (!response.IsSuccessStatusCode)
-        //    {
-        //        var responseContent = await response.Content.ReadAsStringAsync();
-        //        throw new Exception($"לא הצלחנו לנתח את המידע. סטטוס: {response.StatusCode}. תשובה: {responseContent}");
-        //    }
-
-        //    var prompts = await response.Content.ReadAsStringAsync();
-        //    return Ok(new { prompts }); // החזרת התוכן כהצלחה
-        //}
-        //catch (HttpRequestException httpEx)
-        //{
-        //    Console.WriteLine($"שגיאה בחיבור ל-API: {httpEx.Message}");
-        //    return StatusCode(500, "בעיה בחיבור ל-API.");
-        //}
-        //catch (System.Text.Json.JsonException jsonEx)
-        //{
-        //    Console.WriteLine($"שגיאה בקריאת התשובה מ-API: {jsonEx.Message}");
-        //    return StatusCode(500, "שגיאה בקריאת התשובה מ-API.");
-        //}
-        //catch (Exception ex)
-        //{
-        //    Console.WriteLine($"שגיאה כללית: {ex.Message}");
-        //    return StatusCode(500, "שגיאה כלשהי במהלך הפעולה.");
-        //}
-        //var prompts = await _openAiService.GetPromptSuggestionsAsync(request.Topic, request.Description);
-        //return Ok(new { prompts });
-   
-}
+    }
     public class ChallengePromptRequest
     {
-        public string Topic { get; set; }
-        public string Description { get; set; }
+        //public string Topic { get; set; }
+        //public string Description { get; set; }
+        public string UserQuestion { get; set; }
     }
     }

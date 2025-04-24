@@ -10,6 +10,7 @@ import { getChallengeById } from '../redux/challengeSlice';
 import ImageViewer from '../Pictures/imageViewr';
 import axios from 'axios';
 import DownloadIcon from '@mui/icons-material/Download';
+import SendPrompt from './sendPrompt';
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const ShowChallenge = () => {
@@ -69,6 +70,8 @@ const ShowChallenge = () => {
 >
             {challenge.title}
           </Typography>
+        <SendPrompt/>
+
         {challenge.status?(<FileUploader idChallenge={Number(id)} />):<></>}
           {/* <FileUploader idChallenge={Number(id)} setImages={setImages}/> */}
           <Grid container spacing={3}>
