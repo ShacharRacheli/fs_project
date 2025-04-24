@@ -164,7 +164,7 @@ const [loading, setLoading] = useState(false);
 const handleOpen = async () => {
     setOpen(true);
     setChat([]); // Initialize chat
-    await sendMessage("system", `You are a creative assistant on the SIB website, where users create AI images based on challenges. Talk only about the website, challenges, inspiration, creativity, and ratings.`);
+    await sendMessage("system", `You are a creative assistant on the Pic a Pick website, where users create AI images based on challenges. Talk only about the website, challenges, inspiration, creativity, and ratings.`);
     await sendMessage("user", `The current challenge is: "${challengeTopic}". Challenge description: "${challengeDescription}". Give me prompt ideas.`);
 };
 
@@ -173,7 +173,7 @@ const sendMessage = async (role: string, content: string) => {
     if (role === "user" || role === "system") {
         setLoading(true);
         try {
-            const response = await axios.post(`${apiUrl}/api/PromptSuggestions`, {
+            const response = await axios.post(`${apiUrl}/api/OpenAiPrompt`, {
                 messages: [...chat, { role, content }]
             });
             const botReply = response.data.reply;
