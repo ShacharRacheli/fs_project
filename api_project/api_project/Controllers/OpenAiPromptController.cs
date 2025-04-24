@@ -16,7 +16,7 @@ namespace Comp.API.Controllers
             _openAiService = openAiService;
         }
 
-        [HttpPost]
+        [HttpPost("sendPrompt")]
         public async Task<IActionResult> GetSuggestions([FromBody] ChallengePromptRequest request)
         {
             var prompts = await _openAiService.GetPromptSuggestionsAsync(request.Topic, request.Description);
