@@ -29,7 +29,8 @@ namespace Comp.API.Controllers
         {
             try
             {
-                var content = $"האתגר בנושא: {gptRequest.Topic}\nתיאור האתגר: {gptRequest.Description}\nתן לי רעיונות מקוריים ומתאימים לפרומפטים לתמונה.";
+                //var content = $"האתגר בנושא: {gptRequest.Topic}\nתיאור האתגר: {gptRequest.Description}\nתן לי רעיונות מקוריים ומתאימים לפרומפטים לתמונה.";
+                var content = $"The challenge on the topic: {gptRequest.Topic}\nDescription of the challenge: {gptRequest.Description}\nGive me original and suitable ideas for prompts for an image.";
 
                 var prompt = new
                 {
@@ -49,7 +50,7 @@ namespace Comp.API.Controllers
                 if (!response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"שגיאה ב-OpenAI. סטטוס: {response.StatusCode}. תשובה: {responseContent}");
+                    throw new Exception($"Error in-OpenAI. status: {response.StatusCode}. response: {responseContent}");
                 }
 
                 var responseJson = await response.Content.ReadAsStringAsync();
@@ -70,8 +71,9 @@ namespace Comp.API.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"שגיאה: {ex.Message}");
-                return StatusCode(500, "שגיאה כלשהי במהלך הפעולה.");
+                Console.WriteLine($"Error: {ex.Message}");
+                //return StatusCode(500, "שגיאה כלשהי במהלך הפעולה.");
+                return StatusCode(500, "An error occurred during the operation.");
             }
         }
 

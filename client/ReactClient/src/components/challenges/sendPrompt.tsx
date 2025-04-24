@@ -104,7 +104,7 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
         backgroundColor: 'transparent',
         '&:hover': { backgroundColor: 'transparent', borderColor: 'black', color: 'pink' }
       }}>
-        צריך השראה?
+Need inspiration?
       </Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>
@@ -118,7 +118,9 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
           marginTop: 10,
           borderRadius: 2
         }}>
-          <Typography variant="h6" mb={2}>הצעות לפרומפטים לאתגר:</Typography>
+          <Typography variant="h6" mb={2}>
+          Suggestions for challenge prompts:
+            </Typography>
 
           {loading ? (
             <Box display="flex" justifyContent="center"><CircularProgress /></Box>
