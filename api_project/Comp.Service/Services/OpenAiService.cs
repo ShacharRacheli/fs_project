@@ -14,7 +14,7 @@ namespace Comp.Service.Services
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
 
-        public OpenAiService(IConfiguration configuration)
+        public OpenAiService()
         {
             _httpClient = new HttpClient();
             _apiKey = Environment.GetEnvironmentVariable("OPEN_AI_KEY");
