@@ -1,4 +1,5 @@
-﻿using Comp.Service.Services;
+﻿using Comp.Core.IServices;
+using Comp.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,9 +10,9 @@ namespace Comp.API.Controllers
     [ApiController]
     public class OpenAiPromptController : ControllerBase
     {
-        private readonly OpenAiService _openAiService;
+        private readonly IOpenAiService _openAiService;
 
-        public OpenAiPromptController(OpenAiService openAiService)
+        public OpenAiPromptController(IOpenAiService openAiService)
         {
             _openAiService = openAiService;
         }
