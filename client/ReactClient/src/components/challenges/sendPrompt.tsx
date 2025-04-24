@@ -12,7 +12,7 @@ export default function SendPrompt({ challengeTopic ,challengeDescription}: { ch
     setLoading(true)
 
     try {
-      const response = await fetch(`${apiUrl}/api/PromptSuggestions`, {
+      const response = await fetch(`${apiUrl}/api/OpenAiPrompt/sendPrompt`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic: challengeTopic , description: challengeDescription})
