@@ -70,7 +70,7 @@ const ShowChallenge = () => {
 >
             {challenge.title}
           </Typography>
-        <SendPrompt/>
+        <SendPrompt challengeTopic={challenge.title} challengeDescription={challenge.description} />
 
         {challenge.status?(<FileUploader idChallenge={Number(id)} />):<></>}
           {/* <FileUploader idChallenge={Number(id)} setImages={setImages}/> */}
