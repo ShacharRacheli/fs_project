@@ -192,122 +192,286 @@ mat-expansion-panel {
   padding: 8px 24px 24px !important;
   font-size: 16px !important;
 }
-
-/* ===== CHALLENGE FORM SECTION ===== */
 .challenge-form {
   flex: 1;
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  overflow: hidden;
+  max-width: 480px;
   position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  margin: 50px auto;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 10, 60, 0.1), 0 8px 24px rgba(0, 10, 60, 0.06);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(235, 238, 245, 0.8);
 }
 
+/* כותרת עם רקע מיוחד */
+.form-header {
+  background: linear-gradient(135deg, #3f51b5, #5c6bc0);
+  padding: 32px 24px;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-header p {
+  margin: 8px 0 0;
+  opacity: 0.9;
+  font-size: 16px;
+  font-weight: 400;
+  position: relative;
+  z-index: 2;
+}
+
+/* אפקט גרפי בכותרת */
+.form-header::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: rgba(255, 255, 255, 0.1);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.form-header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: -40px;
+  background: rgba(255, 255, 255, 0.08);
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* תוכן הטופס */
+.form-content {
+  padding: 36px 32px;
+}
+
+/* עיצוב שדות הטופס */
 ::ng-deep .mat-card {
-  padding: 32px !important;
-  border-radius: 0 !important;
+  padding: 0 !important;
   box-shadow: none !important;
   background-color: transparent !important;
 }
 
-/* Form Header */
 ::ng-deep .mat-card-title {
-  color: #1a237e !important;
-  font-size: 24px !important;
-  margin-bottom: 28px !important;
-  text-align: center;
-  font-weight: 600 !important;
-  letter-spacing: -0.5px !important;
-  position: relative;
-  padding-bottom: 16px;
-}
-
-::ng-deep .mat-card-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background-color: #3f51b5;
-  border-radius: 3px;
+  display: none;
 }
 
 ::ng-deep .mat-card-content {
-  padding: 8px 4px;
+  padding: 0 !important;
 }
 
-/* Form Fields */
+/* שדות קלט משופרים */
 ::ng-deep .mat-form-field {
   width: 100% !important;
   margin-bottom: 24px !important;
 }
 
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
-  background-color: #f8fafd !important;
-  border-radius: 8px 8px 0 0 !important;
-  padding: 12px 16px 4px !important;
+  background-color: #f5f7fa !important;
+  border-radius: 12px !important;
+  padding: 14px 20px 8px !important;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+::ng-deep .mat-form-field-appearance-fill.mat-focused .mat-form-field-flex {
+  background-color: #f0f4ff !important;
+  border: 2px solid #3f51b5 !important;
+  box-shadow: 0 6px 12px rgba(63, 81, 181, 0.08) !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 6px 0 12px 0 !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-label {
+  top: 12px !important;
+  margin-top: 4px !important;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none !important;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  display: none !important;
 }
 
 ::ng-deep .mat-form-field-label {
-  color: #475569 !important;
+  color: #64748b !important;
   font-weight: 500 !important;
+  font-size: 15px !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  color: #3f51b5 !important;
+}
+
+::ng-deep .mat-form-field-required-marker {
+  color: #e53935 !important;
 }
 
 ::ng-deep .mat-input-element {
   color: #1e293b !important;
   font-size: 16px !important;
+  caret-color: #3f51b5 !important;
+}
+
+::ng-deep .mat-input-element::placeholder {
+  color: #a0aec0 !important;
+  font-weight: 400 !important;
 }
 
 ::ng-deep textarea.mat-input-element {
-  resize: vertical;
-  min-height: 80px !important;
+  min-height: 120px !important;
+  line-height: 1.6 !important;
 }
 
+/* הודעות שגיאה משופרות */
 ::ng-deep .mat-error {
-  color: #d32f2f !important;
-  font-size: 12px !important;
+  color: #e53935 !important;
+  font-size: 13px !important;
   font-weight: 500 !important;
   letter-spacing: 0.2px !important;
-}
-
-/* Professional Submit Button */
-::ng-deep .mat-card-actions {
-  padding: 24px 0 8px !important;
+  margin-top: 6px !important;
   display: flex !important;
-  justify-content: center !important;
+  align-items: center !important;
 }
 
-::ng-deep .mat-raised-button.mat-primary {
-  background: linear-gradient(135deg, #3949ab 0%, #303f9f 100%) !important;
-  padding: 8px 36px !important;
-  border-radius: 50px !important;
-  text-transform: uppercase !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.8px !important;
-  font-size: 14px !important;
+::ng-deep .mat-error::before {
+  content: '⚠️';
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+/* כפתור שליחה מרשים */
+::ng-deep .mat-card-actions {
+  padding: 8px 0 16px !important;
+  margin: 0 !important;
+}
+
+.submit-button-container {
+  text-align: center;
+  position: relative;
+  margin-top: 8px;
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #3949ab, #303f9f) !important;
   color: white !important;
+  border: none !important;
+  border-radius: 50px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 12px 36px !important;
+  cursor: pointer !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 10px 20px rgba(63, 81, 181, 0.25) !important;
   transition: all 0.3s ease !important;
-  box-shadow: 0 4px 12px rgba(63, 81, 181, 0.4) !important;
-  height: 44px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  min-width: 180px !important;
+  height: 52px !important;
 }
 
-::ng-deep .mat-raised-button.mat-primary:hover:not([disabled]) {
-  background: linear-gradient(135deg, #3f51b5 0%, #3949ab 100%) !important;
-  box-shadow: 0 6px 16px rgba(63, 81, 181, 0.6) !important;
+.submit-button:hover:not([disabled]) {
+  background: linear-gradient(135deg, #3f51b5, #3949ab) !important;
+  box-shadow: 0 14px 24px rgba(63, 81, 181, 0.35) !important;
   transform: translateY(-2px) !important;
 }
 
-::ng-deep .mat-raised-button.mat-primary:active:not([disabled]) {
+.submit-button:active:not([disabled]) {
   transform: translateY(1px) !important;
-  box-shadow: 0 2px 8px rgba(63, 81, 181, 0.4) !important;
+  box-shadow: 0 6px 16px rgba(63, 81, 181, 0.2) !important;
 }
 
-::ng-deep .mat-raised-button.mat-primary[disabled] {
-  background: linear-gradient(135deg, #9fa8da 0%, #7986cb 100%) !important;
-  opacity: 0.7;
+.submit-button:disabled {
+  background: linear-gradient(135deg, #9fa8da, #7986cb) !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
+
+/* אנימציית גל בכפתור */
+.submit-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.submit-button:hover:not([disabled])::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* עיצוב תוספות */
+.form-footer {
+  text-align: center;
+  padding: 0 0 24px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.form-footer a {
+  color: #3f51b5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+/* התאמה למסכים קטנים */
+@media (max-width: 600px) {
+  .challenge-form {
+    margin: 30px 16px;
+    border-radius: 12px;
+  }
+  
+  .form-header {
+    padding: 24px 16px;
+  }
+  
+  .form-content {
+    padding: 24px 20px;
+  }
+  
+  .form-header h2 {
+    font-size: 24px;
+  }
 }
 
 /* Responsive Adjustments */
