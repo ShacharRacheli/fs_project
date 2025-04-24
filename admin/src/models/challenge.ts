@@ -8,3 +8,9 @@ export class Challenge{
         public id?:number,
     ){}
 }
+export class ChallengesVotes{
+    constructor(
+        public title:string,
+        public votes:number
+    ){}
+}

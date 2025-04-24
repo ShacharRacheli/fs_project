@@ -17,6 +17,7 @@ namespace Comp.API.Controllers
         private readonly IChallengeService _challengeService;
         private readonly IMapper _mapper;
 
+
         public ChallengeController(IChallengeService challengeService, IMapper mapper)
         {
             _challengeService = challengeService;
@@ -30,7 +31,12 @@ namespace Comp.API.Controllers
             return Ok(challengesList);
         }
 
-
+        [HttpGet("getChallengeVotes")]
+        public async Task<ActionResult<IEnumerable<ChallengeVotesDTO>>> GetChallengeVotes()
+        {
+            var challengesVoteList = await _challengeService.GetChallengeVotesAsync();
+            return Ok(challengesVoteList);
+        }
         //// POST api/<ChallengeController>
 
         //[HttpPost]

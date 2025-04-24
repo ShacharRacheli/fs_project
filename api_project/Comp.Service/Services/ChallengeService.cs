@@ -91,6 +91,10 @@ namespace Comp.Service.Services
                 await _challengeRepository.UpdateAsync(challenge);
             }
         }
+        public async Task<IEnumerable<ChallengeVotesDTO>> GetChallengeVotesAsync()
+        {
+            return await _challengeRepository.GetChallengeVotesAsync();
+        }
 
     }
 }

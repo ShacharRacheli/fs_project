@@ -5,6 +5,7 @@ import { authGuard } from '../guards/auth.guard';
 import { ChallengesComponent } from '../components/challenges/challenges.component';
 import { AuthComponent } from '../components/auth/auth.component';
 import { UsersComponent } from '../components/users/users.component';
+import { ChartComponent } from '../components/chart/chart.component';
 
 export const routes: Routes = [
    { path: '', redirectTo: 'homePage', pathMatch: 'full' },
@@ -14,6 +15,7 @@ export const routes: Routes = [
    {path:'challenges',component:ChallengesComponent},
    {path:'auth',component:AuthComponent},
    {path:'users',component:UsersComponent},
+   {path:'graph',component:ChartComponent},
 
 
 ];

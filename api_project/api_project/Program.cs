@@ -58,6 +58,7 @@ builder.Services.AddScoped<IChallengeService, ChallengeService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IS3Service, S3Service>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IOpenAiService, OpenAiService>();
 //builder.Services.AddDbContext<DataContext>();
 builder.Services.AddHostedService<ChallengeExpirationJob>();
 builder.Services.AddDbContext<DataContext>(options =>

@@ -28,6 +28,7 @@ namespace Comp.Core.IServices
         Task<Challenge> GetChallengeByIdAsync(int id);
         Task<Challenge> UpdateChallengeStatusAsync(int id, EStatus status);
         Task ProcessExpiredChallengesAsync();
+        Task<IEnumerable<ChallengeVotesDTO>> GetChallengeVotesAsync();
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using Comp.Core.DTOs;
 using Comp.Core.IRepositories;
 using Comp.Core.Models;
 using Microsoft.EntityFrameworkCore;
@@ -65,6 +66,19 @@ namespace Comp.Data.Reposirories
 
             return topImage?.UserId; // מחזיר את המשתמש שהעלה את התמונה
         }
-    
+        public async Task<IEnumerable<ChallengeVotesDTO>> GetChallengeVotesAsync()
+        {
+            return await _dataContext.Challenges
+          .Select(c => new ChallengeVotesDTO
+          {
+              //Id = c.Id,
+              Title = c.Title,
+              Votes = _dataContext.Images
+                  .Where(i => i.ChallengeId == c.Id)
+                  .Sum(i => i.CountVotes) // Assuming CountVotes holds the number of votes for each image
+          })
+          .ToListAsync();
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Comp.Core.Models;
+﻿using Comp.Core.DTOs;
+using Comp.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Comp.Core.IRepositories
         Task UpdateAsync(Challenge challenge);
         Task<List<Challenge>> GetExpiredChallengesAsync();
         Task<int?> GetWinnerByTopImageAsync(int challengeId);
+        Task<IEnumerable<ChallengeVotesDTO>> GetChallengeVotesAsync();
 
 
     }
