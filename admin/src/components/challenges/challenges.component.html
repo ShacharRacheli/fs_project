@@ -94,7 +94,7 @@
             }
         </mat-accordion>
     </div>
-<!-- 
+
     <div class="challenge-form">
         <form [formGroup]="challengeForm" (ngSubmit)="onSubmitAddChallenge()">
             <mat-card>
@@ -135,63 +135,7 @@
                 </mat-card-actions>
             </mat-card>
         </form>
-    </div> -->
-    <div class="challenge-form">
-        <!-- כותרת הטופס עם רקע מיוחד -->
-        <div class="form-header">
-            <h2>צור אתגר חדש</h2>
-            <p>הוסף את האתגר הבא שלך לרשימת האתגרים</p>
-        </div>
-        
-        <div class="form-content">
-            <form [formGroup]="challengeForm" (ngSubmit)="onSubmitAddChallenge()">
-                <mat-card>
-                    <mat-card-content>
-                        <!-- שדה כותרת האתגר -->
-                        <mat-form-field appearance="fill">
-                            <mat-label for="title">כותרת האתגר</mat-label>
-                            <input matInput id="title" formControlName="title" placeholder="הזן כותרת קצרה ומעניינת" required>
-                            @if (challenge['title']&&challenge['title'].errors &&challenge['title'].touched) {
-                                @if(challenge['title'].errors['required']) {
-                                    <mat-error>נדרש להזין כותרת</mat-error>
-                                }
-                                @if(challenge["title"].errors["minlength"]) {
-                                    <mat-error>כותרת חייבת להכיל לפחות 4 תווים</mat-error>
-                                }
-                                @if(challenge["title"].errors["maxlength"]) {
-                                    <mat-error>כותרת יכולה להכיל לכל היותר 8 תווים</mat-error>
-                                }
-                            }
-                        </mat-form-field>
-                        
-                        <!-- שדה תיאור האתגר -->
-                        <mat-form-field appearance="fill">
-                            <mat-label for="description">תיאור האתגר</mat-label>
-                            <textarea matInput id="description" formControlName="description" 
-                                    placeholder="תאר את האתגר בפירוט, כולל מטרות ויעדים..." rows="5" required></textarea>
-                            @if (challenge['description']&&challenge['description'].errors &&challenge['description'].touched) {
-                                @if(challenge['description'].errors["required"]) {
-                                    <mat-error>נדרש להזין תיאור</mat-error>
-                                }
-                                @if(challenge["description"].errors["minlength"]) {
-                                    <mat-error>תיאור חייב להכיל לפחות 15 תווים</mat-error>
-                                }
-                            }
-                        </mat-form-field>
-                    </mat-card-content>
-                    
-                    <mat-card-actions>
-                        <div class="submit-button-container">
-                            <button mat-raised-button class="submit-button" type="submit"
-                                    [disabled]="challengeForm.invalid">פרסם אתגר</button>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </form>
-            
-            <div class="form-footer">
-                <p>על ידי יצירת אתגר חדש, אתה מסכים <a href="#">לתנאי השירות</a> שלנו</p>
-            </div>
-        </div>
     </div>
+ 
+    
 </div>

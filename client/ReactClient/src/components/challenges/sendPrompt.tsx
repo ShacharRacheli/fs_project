@@ -173,10 +173,14 @@ const sendMessage = async (role: string, content: string) => {
     if (role === "user" || role === "system") {
         setLoading(true);
         try {
-            const response = await axios.post(`${apiUrl}/api/OpenAiPrompt`, {
-                messages: [...chat, { role, content }]
-            });
-            const botReply = response.data.reply;
+            const requestPayload = {
+                Topic: challengeTopic,
+                Description: challengeDescription,
+                UserQuestion: content // Use the content of the user message
+            };
+            const response = await axios.post(`${apiUrl}/api/OpenAiPrompt`, requestPayload
+            );
+            const botReply = response.data.prompts[0];
             setChat((prev) => [...prev, { role: "assistant", content: botReply }]);
         } catch (err) {
             console.error("Error during chat:", err);
