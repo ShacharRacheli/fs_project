@@ -192,309 +192,329 @@ mat-expansion-panel {
   padding: 8px 24px 24px !important;
   font-size: 16px !important;
 }
+/* Keep all your existing CSS for the list and container, but replace the form section with this */
+
+/* ===== NEW CHALLENGE FORM STYLING ===== */
 .challenge-form {
   flex: 1;
   max-width: 480px;
   position: relative;
   margin: 50px auto;
-  background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 10, 60, 0.1), 0 8px 24px rgba(0, 10, 60, 0.06);
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 15px 50px rgba(255, 105, 180, 0.2);
   overflow: hidden;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(235, 238, 245, 0.8);
+  border: 2px solid #ff99cc;
 }
 
-/* כותרת עם רקע מיוחד */
-.form-header {
-  background: linear-gradient(135deg, #3f51b5, #5c6bc0);
-  padding: 32px 24px;
-  text-align: center;
-  color: white;
+/* Glass-like card effect */
+::ng-deep .mat-card {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 30px !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+/* Pink ribbon header */
+.form-ribbon {
   position: relative;
-  overflow: hidden;
+  background-color: #ff69b4;
+  height: 12px;
+  width: 100%;
 }
 
-.form-header h2 {
+.form-ribbon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-image: linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%, transparent);
+  background-size: 15px 15px;
+  animation: ribbon-animation 30s linear infinite;
+}
+
+@keyframes ribbon-animation {
+  0% { background-position: 0 0; }
+  100% { background-position: 1000px 0; }
+}
+
+/* Title styling */
+.form-title-container {
+  padding: 30px 30px 10px;
+  text-align: center;
+}
+
+.form-title {
+  color: #ff69b4;
   font-size: 28px;
   font-weight: 700;
   margin: 0;
   position: relative;
-  z-index: 2;
-  letter-spacing: -0.5px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: inline-block;
 }
 
-.form-header p {
-  margin: 8px 0 0;
-  opacity: 0.9;
-  font-size: 16px;
-  font-weight: 400;
-  position: relative;
-  z-index: 2;
-}
-
-/* אפקט גרפי בכותרת */
-.form-header::before {
+.form-title::after {
   content: '';
   position: absolute;
-  top: -10px;
-  right: -10px;
-  background: rgba(255, 255, 255, 0.1);
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  z-index: 1;
+  left: 25%;
+  bottom: -10px;
+  width: 50%;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(255,105,180,0), #ff69b4, rgba(255,105,180,0));
 }
 
-.form-header::after {
-  content: '';
-  position: absolute;
-  bottom: -40px;
-  left: -40px;
-  background: rgba(255, 255, 255, 0.08);
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  z-index: 1;
+.form-subtitle {
+  color: #666;
+  margin-top: 20px;
+  font-size: 15px;
 }
 
-/* תוכן הטופס */
+/* Form content area */
 .form-content {
-  padding: 36px 32px;
+  padding: 20px 30px 30px;
 }
 
-/* עיצוב שדות הטופס */
-::ng-deep .mat-card {
-  padding: 0 !important;
-  box-shadow: none !important;
-  background-color: transparent !important;
-}
+/* Enhanced full-width form fields with interesting styling */
 
-::ng-deep .mat-card-title {
-  display: none;
-}
-
-::ng-deep .mat-card-content {
-  padding: 0 !important;
-}
-
-/* שדות קלט משופרים */
+/* Make fields full width with improved visual interest */
 ::ng-deep .mat-form-field {
   width: 100% !important;
-  margin-bottom: 24px !important;
+  margin-bottom: 25px !important;
 }
 
-::ng-deep .mat-form-field-wrapper {
-  padding-bottom: 0 !important;
-}
-
+/* Larger, more dramatic floating style inputs */
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
-  background-color: #f5f7fa !important;
-  border-radius: 12px !important;
-  padding: 14px 20px 8px !important;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border: 2px solid #ffcce6 !important;
+  border-radius: 25px !important;
+  padding: 16px 24px 8px !important;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 5px 15px rgba(255, 105, 180, 0.15);
 }
 
+/* Enhanced focus state with animation */
 ::ng-deep .mat-form-field-appearance-fill.mat-focused .mat-form-field-flex {
-  background-color: #f0f4ff !important;
-  border: 2px solid #3f51b5 !important;
-  box-shadow: 0 6px 12px rgba(63, 81, 181, 0.08) !important;
+  border-color: #ff69b4 !important;
+  border-width: 3px !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 8px 20px rgba(255, 105, 180, 0.25) !important;
+  transform: translateY(-5px);
 }
 
-::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
-  padding: 6px 0 12px 0 !important;
-}
-
-::ng-deep .mat-form-field-appearance-fill .mat-form-field-label {
-  top: 12px !important;
-  margin-top: 4px !important;
-}
-
-::ng-deep .mat-form-field-underline {
-  display: none !important;
-}
-
-::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
-  display: none !important;
-}
-
+/* Improved label styling */
 ::ng-deep .mat-form-field-label {
-  color: #64748b !important;
-  font-weight: 500 !important;
-  font-size: 15px !important;
+  color: #ff85c2 !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  letter-spacing: 0.5px !important;
 }
 
 ::ng-deep .mat-focused .mat-form-field-label {
-  color: #3f51b5 !important;
+  color: #ff69b4 !important;
+  font-size: 17px !important;
+  transform: translateY(-5px);
 }
 
-::ng-deep .mat-form-field-required-marker {
-  color: #e53935 !important;
-}
-
+/* Input text styling with better readability */
 ::ng-deep .mat-input-element {
-  color: #1e293b !important;
-  font-size: 16px !important;
-  caret-color: #3f51b5 !important;
+  color: #444 !important;
+  font-size: 17px !important;
+  caret-color: #ff69b4 !important;
+  padding: 5px 0 !important;
+  letter-spacing: 0.3px !important;
 }
 
-::ng-deep .mat-input-element::placeholder {
-  color: #a0aec0 !important;
-  font-weight: 400 !important;
-}
-
+/* Make textarea taller for better UX */
 ::ng-deep textarea.mat-input-element {
-  min-height: 120px !important;
-  line-height: 1.6 !important;
+  min-height: 140px !important;
+  line-height: 1.7 !important;
 }
 
-/* הודעות שגיאה משופרות */
+/* Improved placeholder style */
+::ng-deep .mat-input-element::placeholder {
+  color: #cccccc !important;
+  font-style: italic;
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+/* Add subtle hover effect */
+::ng-deep .mat-form-field:hover .mat-form-field-flex:not(.mat-focused) {
+  border-color: #ff99cc !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 6px 18px rgba(255, 105, 180, 0.2) !important;
+  transform: translateY(-2px);
+}
+
+/* Add interesting field backgrounds with subtle patterns or gradients */
+::ng-deep .mat-form-field:nth-child(1) .mat-form-field-flex {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 240, 245, 0.9)) !important;
+}
+
+::ng-deep .mat-form-field:nth-child(2) .mat-form-field-flex {
+  background-image: linear-gradient(to right, rgba(255, 240, 245, 0.9), rgba(255, 255, 255, 0.9)) !important;
+}
+
+/* Improved error message styling */
 ::ng-deep .mat-error {
-  color: #e53935 !important;
-  font-size: 13px !important;
+  color: #ff3366 !important;
   font-weight: 500 !important;
-  letter-spacing: 0.2px !important;
-  margin-top: 6px !important;
-  display: flex !important;
-  align-items: center !important;
+  font-size: 13px !important;
+  margin-top: 7px !important;
+  border-radius: 15px;
+  padding: 6px 12px;
+  background-color: rgba(255, 51, 102, 0.1);
+  display: inline-block !important;
+  box-shadow: 0 3px 10px rgba(255, 51, 102, 0.1);
+  border-left: 3px solid #ff3366;
 }
 
-::ng-deep .mat-error::before {
-  content: '⚠️';
-  margin-right: 6px;
-  font-size: 14px;
-}
-
-/* כפתור שליחה מרשים */
-::ng-deep .mat-card-actions {
-  padding: 8px 0 16px !important;
-  margin: 0 !important;
-}
-
-.submit-button-container {
-  text-align: center;
-  position: relative;
-  margin-top: 8px;
-}
-
-.submit-button {
-  background: linear-gradient(135deg, #3949ab, #303f9f) !important;
-  color: white !important;
-  border: none !important;
-  border-radius: 50px !important;
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  padding: 12px 36px !important;
-  cursor: pointer !important;
-  letter-spacing: 0.5px !important;
-  text-transform: uppercase !important;
-  box-shadow: 0 10px 20px rgba(63, 81, 181, 0.25) !important;
-  transition: all 0.3s ease !important;
-  position: relative !important;
-  overflow: hidden !important;
-  min-width: 180px !important;
-  height: 52px !important;
-}
-
-.submit-button:hover:not([disabled]) {
-  background: linear-gradient(135deg, #3f51b5, #3949ab) !important;
-  box-shadow: 0 14px 24px rgba(63, 81, 181, 0.35) !important;
-  transform: translateY(-2px) !important;
-}
-
-.submit-button:active:not([disabled]) {
-  transform: translateY(1px) !important;
-  box-shadow: 0 6px 16px rgba(63, 81, 181, 0.2) !important;
-}
-
-.submit-button:disabled {
-  background: linear-gradient(135deg, #9fa8da, #7986cb) !important;
-  box-shadow: none !important;
-  cursor: not-allowed !important;
-  opacity: 0.7 !important;
-}
-
-/* אנימציית גל בכפתור */
-.submit-button::after {
+/* Add interesting focus/active indicator instead of underline */
+::ng-deep .mat-form-field-appearance-fill.mat-focused::after {
   content: '';
   position: absolute;
-  top: 50%;
+  bottom: 15px;
   left: 50%;
-  width: 150%;
-  height: 200%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(255,105,180,0), #ff69b4, rgba(255,105,180,0));
+  border-radius: 2px;
+}
+
+/* Form content area - make it more spacious */
+.form-content {
+  padding: 25px 35px 35px;
+}
+
+/* Improved container to make form feel more premium */
+.challenge-form {
+  max-width: 500px;
+  margin: 50px auto;
+  border-radius: 35px;
+  box-shadow: 0 20px 60px rgba(255, 105, 180, 0.25);
+  border: 3px solid #ff99cc;
+}
+
+/* Button styling */
+.button-container {
+  margin-top: 15px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+/* Pink gradient button with shadow */
+.pink-button {
+  position: relative;
+  background: linear-gradient(45deg, #ff69b4, #ff99cc) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  letter-spacing: 1px !important;
+  padding: 12px 36px !important;
+  border: none !important;
+  border-radius: 30px !important;
+  box-shadow: 0 7px 20px rgba(255, 105, 180, 0.4) !important;
+  transition: all 0.3s !important;
+  min-width: 200px !important;
+  text-transform: uppercase !important;
+  overflow: hidden !important;
+}
+
+.pink-button:hover:not([disabled]) {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 25px rgba(255, 105, 180, 0.5) !important;
+}
+
+.pink-button:active:not([disabled]) {
+  transform: translateY(1px) !important;
+}
+
+.pink-button:disabled {
+  background: linear-gradient(45deg, #ffcce6, #ffd9ec) !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+}
+
+/* Button shine effect */
+.pink-button::before {
+  content: '';
+  position: absolute;
+  top: -180%;
+  left: -50%;
+  width: 200%;
+  height: 500%;
   background: rgba(255, 255, 255, 0.2);
+  transform: rotate(45deg);
+  transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.pink-button:hover::before {
+  left: 100%;
+}
+
+/* Decorative elements */
+.form-decoration {
+  position: absolute;
+  z-index: 0;
+}
+
+.decoration-circle-1 {
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(255,105,180,0.1) 0%, rgba(255,153,204,0) 70%);
   border-radius: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  top: -60px;
+  right: -60px;
 }
 
-.submit-button:hover:not([disabled])::after {
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
+.decoration-circle-2 {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255,153,204,0.1) 0%, rgba(255,105,180,0) 70%);
+  border-radius: 50%;
+  bottom: -30px;
+  left: -30px;
 }
 
-/* עיצוב תוספות */
+/* Form footer */
 .form-footer {
   text-align: center;
-  padding: 0 0 24px;
-  color: #64748b;
-  font-size: 14px;
+  padding: 5px 0 25px;
+  color: #888;
+  font-size: 13px;
+  font-style: italic;
 }
 
-.form-footer a {
-  color: #3f51b5;
-  text-decoration: none;
-  font-weight: 500;
+/* Card actions area */
+::ng-deep .mat-card-actions {
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  justify-content: center;
 }
 
-.form-footer a:hover {
-  text-decoration: underline;
+/* Make the form title visible */
+::ng-deep .mat-card-title {
+  display: none !important;
 }
 
-/* התאמה למסכים קטנים */
+/* Responsive adjustments */
 @media (max-width: 600px) {
   .challenge-form {
     margin: 30px 16px;
-    border-radius: 12px;
-  }
-  
-  .form-header {
-    padding: 24px 16px;
+    max-width: 100%;
   }
   
   .form-content {
-    padding: 24px 20px;
+    padding: 15px 20px 25px;
   }
   
-  .form-header h2 {
+  .form-title {
     font-size: 24px;
-  }
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .container {
-    padding: 20px;
-  }
-  
-  ::ng-deep .mat-expansion-panel-header {
-    padding: 16px !important;
-  }
-  
-  ::ng-deep .mat-card {
-    padding: 24px 16px !important;
-  }
-  
-  ::ng-deep .mat-expansion-panel-header-title {
-    font-size: 16px !important;
-  }
-  
-  .panel-subtitle {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
   }
 }

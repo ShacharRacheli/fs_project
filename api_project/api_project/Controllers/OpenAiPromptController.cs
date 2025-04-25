@@ -22,7 +22,7 @@ namespace Comp.API.Controllers
         //[HttpPost]
         //public async Task<IActionResult> GetSuggestions([FromBody] ChallengePromptRequest requestPrompt)
         //{
-               private readonly HttpClient client = new HttpClient();
+        private readonly HttpClient client = new HttpClient();
 
         //[HttpPost]
         //public async Task<IActionResult> Post([FromBody] ChallengePromptRequest gptRequest)
@@ -76,58 +76,117 @@ namespace Comp.API.Controllers
         //        return StatusCode(500, "An error occurred during the operation.");
         //    }
         //}
+        //[HttpPost]
+        //public async Task<IActionResult> Post([FromBody] ChallengePromptRequest gptRequest)
+        //{
+
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ChallengePromptRequest gptRequest)
+        public async Task<IActionResult> Post([FromBody] ChallengePromptRequest request)
         {
             try
             {
-                var content = $"User question: {gptRequest.UserQuestion}\nGive me a suitable response.";
-
-                var prompt = new
+                var content = $"Title: {request.Topic}\nDescription: {request.Description}\nUser question: {request.UserQuestion}\nPlease provide a suitable response.";
+                var payload = new
                 {
                     model = "gpt-4o-mini",
-                    messages = new[] {
-                new { role = "user", content = content }
-            }
+                    messages = new[]
+                    {
+                    new { role = "user", content }
+                }
                 };
 
-                var request = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions")
+                var httpRequest = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions")
                 {
-                    Content = JsonContent.Create(prompt)
+                    Content = JsonContent.Create(payload)
                 };
-                request.Headers.Add("Authorization", $"Bearer {Environment.GetEnvironmentVariable("OPEN_AI_KEY")}");
 
-                var response = await client.SendAsync(request);
+                // Add authorization header
+                httpRequest.Headers.Add("Authorization", $"Bearer {Environment.GetEnvironmentVariable("OPENAI_API_KEY")}");
+
+                // Send the request to OpenAI API
+                var response = await client.SendAsync(httpRequest);
                 if (!response.IsSuccessStatusCode)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error in OpenAI. status: {response.StatusCode}. response: {responseContent}");
+                    var error = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"OpenAI Error: {response.StatusCode} - {error}");
                 }
 
-                var responseJson = await response.Content.ReadAsStringAsync();
-                var jsonDoc = JsonDocument.Parse(responseJson);
-                var contentText = jsonDoc.RootElement
+                // Parse the response from OpenAI
+                var json = await response.Content.ReadAsStringAsync();
+                var doc = JsonDocument.Parse(json);
+                var replyContent = doc.RootElement
                     .GetProperty("choices")[0]
                     .GetProperty("message")
                     .GetProperty("content")
                     .GetString();
 
-                return Ok(new { prompts = new List<string> { contentText } });
+                return Ok(new { prompts = new List<string> { replyContent } });
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
-                return StatusCode(500, "An error occurred during the operation.");
+                return StatusCode(500, "אירעה שגיאה בעיבוד הבקשה.");
             }
         }
-
-       
-
     }
+
+    // Define the ChallengePromptRequest class
     public class ChallengePromptRequest
     {
-        //public string Topic { get; set; }
-        //public string Description { get; set; }
+        public string Topic { get; set; }
+        public string Description { get; set; }
         public string UserQuestion { get; set; }
     }
-    }
+
+
+    //try
+    //{
+    //    // הוסף את הכותרת והתיאור לשאלה
+    //    var content = $"Title:{gptRequest.Topic}\nDescription:{gptRequest.Description}\nUser question: {gptRequest.UserQuestion}\nPlease provide a suitable response.";
+
+    //    var prompt = new
+    //    {
+    //        model = "gpt-4o-mini",
+    //        messages = new[] {
+    //    new { role = "user", content = content }
+    //}
+    //    };
+
+    //    var request = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions")
+    //    {
+    //        Content = JsonContent.Create(prompt)
+    //    };
+    //    request.Headers.Add("Authorization", $"Bearer {Environment.GetEnvironmentVariable("OPEN_AI_KEY")}");
+
+    //    var response = await client.SendAsync(request);
+    //    if (!response.IsSuccessStatusCode)
+    //    {
+    //        var responseContent = await response.Content.ReadAsStringAsync();
+    //        throw new Exception($"Error in OpenAI. status: {response.StatusCode}. response: {responseContent}");
+    //    }
+
+    //    var responseJson = await response.Content.ReadAsStringAsync();
+    //    var jsonDoc = JsonDocument.Parse(responseJson);
+    //    var contentText = jsonDoc.RootElement
+    //        .GetProperty("choices")[0]
+    //        .GetProperty("message")
+    //        .GetProperty("content")
+    //        .GetString();
+
+    //    return Ok(new { prompts = new List<string> { contentText } });
+    //}
+    //catch (Exception ex)
+    //{
+    //    Console.WriteLine($"Error: {ex.Message}");
+    //    return StatusCode(500, "An error occurred during the operation.");
+    //}
+}
+
+public class ChallengePromptRequest
+{
+    public string Topic { get; set; }
+    public string Description { get; set; }
+    public string UserQuestion { get; set; }
+}
+
+

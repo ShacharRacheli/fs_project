@@ -66,6 +66,108 @@
 <!-- </div>
 </div> -->
 
+
+
+
+<div class="container">
+    <!-- Keep your existing challenge list code -->
+    <div class="challenge-list">
+        <h2>Challenge Board</h2>
+        <mat-accordion>
+            @for(currentChallenge of (allChallenges$|async);track $index){
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{currentChallenge.title}} 
+                        </mat-panel-title>
+                        <div class="panel-subtitle">
+                            @if(currentChallenge.startDate && currentChallenge.endDate){
+                                <span class="status-badge" [ngClass]="isChallengeActive(currentChallenge.startDate, currentChallenge.endDate) ? 'active' : 'inactive'">
+                                    {{isChallengeActive(currentChallenge.startDate, currentChallenge.endDate) ? 'Active' : 'Not Active'}}
+                                </span>
+                            }
+                            <span class="date-range">
+                                From: {{currentChallenge.startDate| date:'MMMM d, y'}} - Till: {{currentChallenge.endDate| date:'MMMM d, y'}}
+                            </span>
+                        </div>
+                    </mat-expansion-panel-header>
+                    <div class="challenge-description">
+                        {{currentChallenge.description}} 
+                    </div>
+                </mat-expansion-panel>
+            }
+        </mat-accordion>
+    </div>
+
+    <!-- New completely redesigned challenge form -->
+    <div class="challenge-form">
+        <!-- Decorative elements -->
+        <div class="form-decoration decoration-circle-1"></div>
+        <div class="form-decoration decoration-circle-2"></div>
+        
+        <form [formGroup]="challengeForm" (ngSubmit)="onSubmitAddChallenge()">
+            <mat-card>
+                <!-- Pink animated ribbon -->
+                <div class="form-ribbon"></div>
+                
+                <!-- Form title section -->
+                <div class="form-title-container">
+                    <h2 class="form-title">Create New Challenge</h2>
+                    <p class="form-subtitle">Share your exciting challenge with the community</p>
+                </div>
+                
+                <!-- Form fields -->
+                <div class="form-content">
+                    <mat-card-content>
+                        <mat-form-field appearance="fill">
+                            <mat-label for="title">Challenge Title</mat-label>
+                            <input matInput id="title" formControlName="title" placeholder="Enter an engaging title" required>
+                            @if (challenge['title']&&challenge['title'].errors &&challenge['title'].touched) {
+                                @if(challenge['title'].errors['required']) {
+                                    <mat-error>Title is required</mat-error>
+                                }
+                                @if(challenge["title"].errors["minlength"]) {
+                                    <mat-error>Title must be at least 4 characters</mat-error>
+                                }
+                                @if(challenge["title"].errors["maxlength"]) {
+                                    <mat-error>Title must be at most 8 characters</mat-error>
+                                }
+                            }
+                        </mat-form-field>
+                        
+                        <mat-form-field appearance="fill">
+                            <mat-label for="description">Challenge Description</mat-label>
+                            <textarea matInput id="description" formControlName="description" 
+                                      placeholder="Describe what this challenge is about" rows="4" required></textarea>
+                            @if (challenge['description']&&challenge['description'].errors &&challenge['description'].touched) {
+                                @if(challenge['description'].errors["required"]) {
+                                    <mat-error>Description is required</mat-error>
+                                }
+                                @if(challenge["description"].errors["minlength"]) {
+                                    <mat-error>Description must be at least 15 characters</mat-error>
+                                }
+                            }
+                        </mat-form-field>
+                    </mat-card-content>
+                    
+                    <!-- Redesigned button area -->
+                    <mat-card-actions>
+                        <div class="button-container">
+                            <button mat-raised-button type="submit" class="pink-button"
+                                    [disabled]="challengeForm.invalid">Create Challenge</button>
+                        </div>
+                    </mat-card-actions>
+                    
+                    <!-- Form footer -->
+                    <div class="form-footer">
+                        <p>Your challenge will appear on the board after review</p>
+                    </div>
+                </div>
+            </mat-card>
+        </form>
+    </div>
+</div>
+<!-- 
 <div class="container">
     <div class="challenge-list">
         <h2>Challenge Board</h2>
@@ -138,4 +240,4 @@
     </div>
  
     
-</div>
+</div> -->
