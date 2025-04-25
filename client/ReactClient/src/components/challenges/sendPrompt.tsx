@@ -167,7 +167,7 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
         //   UserQuestion: content // Use the content of the user message
         };
         const response = await axios.post(`${apiUrl}/api/OpenAiPrompt`, 
-            requestPayload);
+            {requestPayload});
         const botReply = response.data.prompts;
         setChat((prev) => [...prev, { 
           role: "assistant", 
