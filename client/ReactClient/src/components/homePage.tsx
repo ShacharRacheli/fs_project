@@ -83,13 +83,13 @@ const HomePage = () => {
               >
                 Explore Challenges
               </Button>
-              <Button 
+              {/* <Button 
                 variant="outlined" 
                 className="secondary-cta"
                 size="large"
               >
                 Join Now
-              </Button>
+              </Button> */}
             </Box>
           </Box>
         </div>
@@ -188,12 +188,12 @@ const HomePage = () => {
                   You can't vote twice for the same image or vote for your own submission.
                 </Typography>
               </Box>
-              
+{/*               
               <Box mt={4}>
                 <Button variant="contained" className="secondary-button">
                   View Full Guidelines
                 </Button>
-              </Box>
+              </Box> */}
             </Grid>
             
             <Grid item xs={12} md={6}>
@@ -217,15 +217,7 @@ const HomePage = () => {
           <Typography variant="h6" className="cta-subtitle">
             Join our community of AI artists and participate in exciting weekly challenges!
           </Typography>
-          <Box mt={4} display="flex" justifyContent="center" gap={2}>
-            <Button 
-              variant="contained" 
-              size="large" 
-              className="cta-button"
-            >
-              Get Started Now
-            </Button>
-          </Box>
+          
         </Container>
       </Box>
     </>
