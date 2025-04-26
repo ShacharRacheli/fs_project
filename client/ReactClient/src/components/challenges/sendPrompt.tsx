@@ -116,14 +116,18 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import {
     Box, Button, Modal, Typography, TextField,
-    List, IconButton, Avatar, Paper, Divider, Fade
+    List, IconButton, Avatar, Paper, Divider, Fade,
+    Fab,
+    Tooltip,
+    Zoom
 } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
-import BoltIcon from '@mui/icons-material/Bolt';
+// import BoltIcon from '@mui/icons-material/Bolt';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import PersonIcon from '@mui/icons-material/Person';
-
+import ChatIcon from '@mui/icons-material/Chat';
+// import BoltIcon from '@mui/icons-material/Bolt';
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 export default function SendPrompt({ challengeTopic, challengeDescription }: { challengeTopic: string; challengeDescription: string; }) {
@@ -206,7 +210,35 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
 
     return (
         <>
-            <Button
+        <Tooltip 
+        title="Get Creative Ideas" 
+        placement="left"
+        TransitionComponent={Zoom}
+        arrow
+      >
+        <Fab
+          onClick={handleOpen}
+          aria-label="chat"
+          sx={{
+            position: 'fixed',
+            right: 30,
+            bottom: 30,
+            zIndex: 1000,
+            background: 'linear-gradient(90deg, #9c27b0 0%, #7b1fa2 100%)',
+            boxShadow: '0 4px 15px rgba(156, 39, 176, 0.4)',
+            color: 'white',
+            '&:hover': {
+              background: 'linear-gradient(90deg, #8e24aa 0%, #6a1b9a 100%)',
+              boxShadow: '0 6px 20px rgba(156, 39, 176, 0.6)',
+              transform: 'scale(1.05)',
+              transition: 'all 0.3s ease'
+            }
+          }}
+        >
+          <ChatIcon />
+        </Fab>
+      </Tooltip>
+            {/* <Button
                 onClick={handleOpen}
                 variant="contained"
                 startIcon={<BoltIcon />}
@@ -227,7 +259,7 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                 }}
             >
                 Get Creative Ideas
-            </Button>
+            </Button> */}
 
             <Modal
                 open={open}
