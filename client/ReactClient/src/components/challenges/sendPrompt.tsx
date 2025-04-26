@@ -177,14 +177,12 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                 setChat((prev) => [...prev, {
                     role: "assistant",
                     content: botReply,
-                    //   timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
                 }]);
             } catch (err) {
                 console.error("Error during chat:", err);
                 setChat((prev) => [...prev, {
                     role: "assistant",
                     content: "Sorry, I encountered an error. Please try again.",
-                    //   timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
                 }]);
             } finally {
                 setLoading(false);
@@ -289,7 +287,7 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                             alignItems="center"
                             sx={{
                                 p: 2,
-                                background: 'linear-gradient(90deg, #ff6ac1 0%, #ff8dc7 100%)',
+                                background: 'linear-gradient(90deg,rgb(247, 72, 221) 0%,rgb(243, 105, 250) 100%)',
                                 color: 'white',
                                 borderBottom: '1px solid rgba(0,0,0,0.1)'
                             }}
@@ -483,10 +481,10 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                                     width: 40,
                                     height: 40,
                                     p: 0,
-                                    background: input.trim() ? 'linear-gradient(90deg, #ff6ac1 0%, #ff8dc7 100%)' : '#e9ecef',
+                                    background: input.trim() ? 'linear-gradient(90deg,rgb(225, 52, 205) 0%,rgb(250, 84, 247) 100%)' : '#e9ecef',
                                     color: input.trim() ? 'white' : '#adb5bd',
                                     '&:hover': {
-                                        background: 'linear-gradient(90deg, #ff5ab8 0%, #ff7dbd 100%)',
+                                        background: 'linear-gradient(90deg,rgb(234, 79, 226) 0%,rgb(235, 22, 210) 100%)',
                                     }
                                 }}
                             >

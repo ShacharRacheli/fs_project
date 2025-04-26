@@ -116,7 +116,7 @@ const Winners = () => {
               >
                 <Box sx={{ position: "relative" }}>
                   {/* Trophy badge for top positions */}
-                  {index < 3 && (
+                  {/* {index < 3 && ( this is only if i have less than 3 winners but i have more  */}
                     <Box sx={{ 
                       position: "absolute", 
                       top: 10, 
@@ -135,7 +135,7 @@ const Winners = () => {
                         color: index === 0 ? "#FFD700" : index === 1 ? "#C0C0C0" : "#CD7F32" 
                       }} />
                     </Box>
-                  )}
+                   {/* )} */}
                   
                   <CardMedia
                     component={ImageViewer}
