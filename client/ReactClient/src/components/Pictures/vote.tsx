@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 import axios from "axios";
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }) => {
     const userId = getUserIdByToken();
