@@ -21,13 +21,6 @@ namespace Comp.API.Controllers
             _voteService = voteService;
             _mapper = mapper;
         }
-        //// GET: api/<VoteController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
         //// GET api/<VoteController>/5
         [Authorize]
         [HttpGet("HasVoted")]

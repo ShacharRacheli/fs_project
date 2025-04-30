@@ -16,36 +16,37 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
     // const vote=
     useSelector((state: RootState) => state.images.imagesByChallenge);
     const challenge = useSelector((state: RootState) => state.challenges.selectedChallenge);
-    const [isVote, setIsVote] = useState<boolean>();
+    const [hasVoted, setHasVoted] = useState<boolean>();
     const [token, _] = useState<string | null>(sessionStorage.getItem('token'))
     //   const isTokenPresent = !!token;
     useEffect(() => {
         const checkUserVote = async () => {
             try {
                 const response = await axios.get(`${apiUrl}/api/Vote/HasVoted`, {
-                    params: { ImageId: imageId, UserId: userId },
+                    params: { imageId: imageId, userId: userId },
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     }
                 })
-                setIsVote(response.data);
+                setHasVoted(response.data);
             } catch (e) {
                 console.error("there was an error");
             }
         }
         checkUserVote();
-    }, [token])
-    const clickAddVote = () => {
+    }, [token,userId,imageId])
+    const handleAddVote = () => {
+
         dispatch(addVote({ userId, imageId, challengeId }))
-        setIsVote(false)
-        console.log(isVote+"kkkkkkkkkkkk");
+        setHasVoted(true)
+        console.log(hasVoted+"kkkkkkkkkkkk");
         
     }
-    const clickDeleteVote = () => {
+    const handleRemoveVote = () => {
         dispatch(deleteVote({ userId, imageId, challengeId }))
-        setIsVote(true)
-        console.log(isVote+"kkkkkkkkkkkk");
+        setHasVoted(false)
+        console.log(hasVoted+"kkkkkkkkkkkk");
     }
     const isChallengeActive = challenge?.status ? true : false;
     console.log(isChallengeActive);
@@ -54,18 +55,18 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
 
     return (<>
         <IconButton
-            onClick={clickAddVote}
-            sx={{ color: "purple", opacity: isVote ? 1 : 0.5 }}
+            onClick={handleAddVote}
+            sx={{ color: "purple", opacity: hasVoted ? 1 : 0.5 }}
             // disabled={!isVote}
-            disabled={!isVote || !isChallengeActive || !token}
+            disabled={!hasVoted || !isChallengeActive || !token}
         >
             <AddIcon />
         </IconButton>
         <IconButton
-            onClick={clickDeleteVote}
-            sx={{ color: "purple", opacity: isVote ? 0.5 : 1 }}
+            onClick={handleRemoveVote}
+            sx={{ color: "purple", opacity: hasVoted ? 0.5 : 1 }}
             // disabled={isVote}
-            disabled={isVote || !isChallengeActive || !token}
+            disabled={hasVoted || !isChallengeActive || !token}
         >
             <HorizontalRuleIcon />
         </IconButton>
