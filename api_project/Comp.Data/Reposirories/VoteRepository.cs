@@ -67,6 +67,10 @@ namespace Comp.Data.Reposirories
             return await _dataContext.Images
                 .AnyAsync(i => i.Id == imageId && i.UserId == userId);
         }
-      
+        public async Task<bool> HasVotedAsync(int imageId, int userId)
+        {
+            return await _dataContext.Votes
+                .AnyAsync(i => i.Id == imageId && i.UserId == userId);
+        }
     }
 }

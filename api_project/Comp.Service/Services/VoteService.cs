@@ -28,6 +28,10 @@ namespace Comp.Service.Services
         {
             return await _voteRepository.IsSelfVotingAsync(imageId, userId);
         }
+        public async Task<bool> HasVotedAsync(int imageId, int userId)
+        {
+            return await _voteRepository.HasVotedAsync(imageId, userId);
+        }
 
     }
 }

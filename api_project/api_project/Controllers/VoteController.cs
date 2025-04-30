@@ -33,8 +33,7 @@ namespace Comp.API.Controllers
         [HttpGet("HasVoted")]
         public async Task<IActionResult> HasVoted([FromBody] VoteDto voteRequest)
         {
-
-            var res= await _voteService.IsSelfVotingAsync(voteRequest.ImageId,voteRequest.UserId);
+            bool res= await _voteService.HasVotedAsync(voteRequest.ImageId,voteRequest.UserId);
             return Ok(res);
         }
         [HttpPost]
