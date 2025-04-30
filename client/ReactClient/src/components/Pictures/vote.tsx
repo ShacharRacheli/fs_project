@@ -32,7 +32,7 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
                     }
                 });
                 setHasVoted(response.data);
-                console.log("Vote status:", response.data);
+                console.log("Vote status:", response.data,"userid",userId,"imageid",imageId);
             } catch (e) {
                 console.error("there was an error");
             }
