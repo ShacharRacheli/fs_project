@@ -29,11 +29,14 @@ namespace Comp.API.Controllers
         //}
 
         //// GET api/<VoteController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        [Authorize]
+        [HttpGet("HasVoted")]
+        public async Task<IActionResult> HasVoted([FromBody] VoteDto voteRequest)
+        {
+
+            var res= await _voteService.IsSelfVotingAsync(voteRequest.ImageId,voteRequest.UserId);
+            return Ok(res);
+        }
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> VoteImage([FromBody] VoteDto voteRequest)
