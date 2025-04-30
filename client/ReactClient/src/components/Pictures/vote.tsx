@@ -22,14 +22,17 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
     useEffect(() => {
         const checkUserVote = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/api/Vote/HasVoted`, {
+                console.log(imageId+"dsss"+userId);            
+                const response = await axios.get(`${apiUrl}/api/Vote/HasVoted`, 
+                    {
                     params: { imageId: imageId, userId: userId },
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     }
-                })
+                });
                 setHasVoted(response.data);
+                console.log("Vote status:", response.data);
             } catch (e) {
                 console.error("there was an error");
             }
@@ -58,7 +61,7 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
             onClick={handleAddVote}
             sx={{ color: "purple", opacity: hasVoted ? 1 : 0.5 }}
             // disabled={!isVote}
-            disabled={!hasVoted || !isChallengeActive || !token}
+            disabled={hasVoted || !isChallengeActive || !token}
         >
             <AddIcon />
         </IconButton>
@@ -66,7 +69,7 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
             onClick={handleRemoveVote}
             sx={{ color: "purple", opacity: hasVoted ? 0.5 : 1 }}
             // disabled={isVote}
-            disabled={hasVoted || !isChallengeActive || !token}
+            disabled={!hasVoted || !isChallengeActive || !token}
         >
             <HorizontalRuleIcon />
         </IconButton>

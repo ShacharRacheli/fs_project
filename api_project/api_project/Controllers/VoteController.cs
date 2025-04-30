@@ -24,9 +24,9 @@ namespace Comp.API.Controllers
         //// GET api/<VoteController>/5
         [Authorize]
         [HttpGet("HasVoted")]
-        public async Task<IActionResult> HasVoted([FromBody] VoteDto voteRequest)
+        public async Task<IActionResult> HasVoted([FromQuery]int imageId,[FromQuery]int userId)
         {
-            bool res= await _voteService.HasVotedAsync(voteRequest.ImageId,voteRequest.UserId);
+            bool res= await _voteService.HasVotedAsync(imageId,userId);
             return Ok(res);
         }
         [HttpPost]
