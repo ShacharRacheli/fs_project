@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Challenge, ChallengesVotes } from '../models/challenge';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChallengeService {
+   apiUrl=environment.apiUrl;
   private challengesSubject: BehaviorSubject<Challenge[]> = new BehaviorSubject<Challenge[]>([])
   challenges$: Observable<Challenge[]>;
 
@@ -14,7 +16,7 @@ export class ChallengeService {
     this.challenges$ = this.challengesSubject.asObservable();
   }
   getAllChallenges() {
-    this.http.get<Challenge[]>(`http://localhost:5070/api/Challenge/getAllChallenges`).subscribe({
+    this.http.get<Challenge[]>(`${this.apiUrl}/api/Challenge/getAllChallenges`).subscribe({
       next: (data) => {
         this.challengesSubject.next(data);
       }, error: (e) => {
@@ -23,7 +25,7 @@ export class ChallengeService {
     })
   }
   getActiveChallenges() {
-    this.http.get<Challenge[]>(`http://localhost:5070/api/Challenge/activeChallenges`).subscribe({
+    this.http.get<Challenge[]>(`${this.apiUrl}/api/Challenge/activeChallenges`).subscribe({
       next: (data) => {
         this.challengesSubject.next(data);
       }, error: (e) => {
@@ -32,7 +34,7 @@ export class ChallengeService {
     })
   }
   getChallengeById(challengeId: number) {
-    this.http.get<Challenge>(`http://localhost:5070/api/Challenge/${challengeId}`).subscribe({
+    this.http.get<Challenge>(`${this.apiUrl}/api/Challenge/${challengeId}`).subscribe({
       next: (response) => {
         return response;
       }, error: (e) => {
@@ -41,7 +43,7 @@ export class ChallengeService {
     })
   }
   getNotActiveChallenge() {
-    this.http.get<Challenge[]>(`http://localhost:5070/api/Challenge/notActiveChallenges`).subscribe({
+    this.http.get<Challenge[]>(`${this.apiUrl}/api/Challenge/notActiveChallenges`).subscribe({
       next: (data) => {
         this.challengesSubject.next(data);
       }, error: (e) => {
@@ -51,7 +53,7 @@ export class ChallengeService {
   }
   addChallenge(challenge: Challenge) {
     console.log("in add service1");
-    this.http.post(`http://localhost:5070/api/Challenge/createChallenge`, challenge).subscribe({
+    this.http.post(`${this.apiUrl}/api/Challenge/createChallenge`, challenge).subscribe({
       next: (response) => {
         this.getAllChallenges();
         console.log("in add service2");
@@ -61,7 +63,7 @@ export class ChallengeService {
     })
   }
   updateChallenge(challengeId: number, status: string) {
-    this.http.put(`http://localhost:5070/api/Challenge/update-status/${challengeId}`, status).subscribe({
+    this.http.put(`${this.apiUrl}/api/Challenge/update-status/${challengeId}`, status).subscribe({
       next: (response) => {
         this.getAllChallenges();
       }, error: (e) => {
@@ -71,7 +73,7 @@ export class ChallengeService {
   }
 
   getChallengeVotes():Observable<ChallengesVotes[]>{
-   return this.http.get<ChallengesVotes[]>(`http://localhost:5070/api/Challenge/getChallengeVotes`)
+   return this.http.get<ChallengesVotes[]>(`${this.apiUrl}/api/Challenge/getChallengeVotes`)
   }
 }
 

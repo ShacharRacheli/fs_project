@@ -1,15 +1,66 @@
-<div class="auth-container">
+<!-- <div class="auth-container">
     <mat-card>
       <mat-card-header>
         <mat-card-title> Welcome!</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Please Login or SignUp</p>
+        <p>Please Login</p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" routerLink="/login">Login</button>
-        <!-- <button mat-raised-button color="accent" routerLink="/register">Sign-Up</button> -->
       </mat-card-actions>
     </mat-card>
   </div>
+   -->
+  <!-- Auth Component HTML -->
+<div class="auth-container">
+  <div class="auth-background">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
   
+  <div class="auth-content">
+    <div class="auth-card">
+      <div class="logo-container">
+        <div class="app-logo">
+          <mat-icon>photo_camera</mat-icon>
+        </div>
+        <h1 class="app-name">Pick a Pic</h1>
+        <p class="app-tagline">Manage your photo challenges</p>
+      </div>
+      
+      <div class="welcome-section">
+        <h2 class="welcome-title">Welcome Back!</h2>
+        <p class="welcome-message">Sign in to continue to your dashboard</p>
+      </div>
+      
+      <div class="auth-actions">
+        <button mat-flat-button class="login-button" routerLink="/login">
+          <span class="btn-text">Sign In</span>
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+        
+        <!-- <div class="alt-options">
+          <span>New user?</span>
+          <a routerLink="/register" class="register-link">Create account</a>
+        </div> -->
+      </div>
+      
+      <div class="auth-features">
+        <div class="feature-item">
+          <mat-icon>collections</mat-icon>
+          <span>Organize challenges</span>
+        </div>
+        <div class="feature-item">
+          <mat-icon>group</mat-icon>
+          <span>Manage participants</span>
+        </div>
+        <div class="feature-item">
+          <mat-icon>equalizer</mat-icon>
+          <span>Track progress</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

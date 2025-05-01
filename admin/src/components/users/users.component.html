@@ -1,4 +1,4 @@
-<mat-accordion>
+<!-- <mat-accordion>
     @for(currentUser of (allUsers$|async);track $index){
     <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -15,4 +15,37 @@
         JoiningDate: {{currentUser.joiningDate}}
     </mat-expansion-panel>
     }
-</mat-accordion>
+</mat-accordion> -->
+<!-- HTML Template -->
+<div class="users-container">
+    <h2 class="section-title">Users List</h2>
+    <mat-accordion class="users-accordion">
+      @for(currentUser of (allUsers$|async);track $index){
+      <mat-expansion-panel class="user-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="user-panel-title">
+            <div class="user-info">
+              <span class="user-avatar">{{currentUser.fullName.charAt(0)}}</span>
+              <span class="user-name">{{currentUser.fullName}}</span>
+            </div>
+            <div class="action-button">
+              @if(!currentUser.isDeleted){
+              <button mat-raised-button color="warn" class="delete-btn" (click)="deleteUser(currentUser.id)">
+                <mat-icon>delete</mat-icon> Delete
+              </button>
+              }@else {
+              <button mat-raised-button color="accent" class="add-btn" (click)="addUser(currentUser.id)">
+                <mat-icon>person_add</mat-icon> Add
+              </button>
+              }
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="user-details">
+          <p><strong>Email:</strong> <span class="user-email">{{currentUser.email}}</span></p>
+          <p><strong>Joined:</strong> <span class="user-date">{{currentUser.joiningDate | date:'medium'}}</span></p>
+        </div>
+      </mat-expansion-panel>
+      }
+    </mat-accordion>
+  </div>

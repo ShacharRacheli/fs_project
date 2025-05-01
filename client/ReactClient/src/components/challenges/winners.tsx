@@ -89,6 +89,7 @@ const Winners = () => {
               backgroundClip: "text",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
+              fontFamily:"cursive",
               mb: 2,
               mt: 8
             }}
