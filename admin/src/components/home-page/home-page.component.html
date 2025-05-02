@@ -1,0 +1,79 @@
+<!-- manager-home.component.html -->
+<div class="manager-dashboard">
+    <header class="dashboard-header">
+      <div class="app-logo">
+        <h1>{{ appName }}</h1>
+        <p class="tagline">Manager Dashboard</p>
+      </div>
+    </header>
+  
+    <main class="dashboard-content">
+      <section class="welcome-section">
+        <h2>Welcome to your AI Image Competition Dashboard</h2>
+        <p class="welcome-message">
+          Manage challenges, review submissions, and engage with your creative community.
+        </p>
+      </section>
+  
+      <div class="dashboard-cards">
+        <div class="dashboard-card">
+          <div class="card-icon">
+            <i class="challenge-icon"></i>
+          </div>
+          <div class="card-content">
+            <h3>Active Challenges</h3>
+            <div class="status-badge">3 Running</div>
+            <p>Monitor ongoing competitions and review their performance.</p>
+          </div>
+        </div>
+  
+        <div class="dashboard-card">
+          <div class="card-icon">
+            <i class="submissions-icon"></i>
+          </div>
+          <div class="card-content">
+            <h3>Pending Reviews</h3>
+            <div class="status-badge highlight">24 New</div>
+            <p>Review and approve new AI-generated image submissions.</p>
+          </div>
+        </div>
+  
+        <div class="dashboard-card">
+          <div class="card-icon">
+            <i class="community-icon"></i>
+          </div>
+          <div class="card-content">
+            <h3>Community Metrics</h3>
+            <div class="status-badge">Growing</div>
+            <p>Track user engagement and competition participation.</p>
+          </div>
+        </div>
+      </div>
+  
+      <section class="quick-stats">
+        <h2>Platform Overview</h2>
+        <div class="stats-container">
+          <div class="stat-item">
+            <span class="stat-value">1,254</span>
+            <span class="stat-label">Total Users</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">47</span>
+            <span class="stat-label">Challenges Created</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">8,976</span>
+            <span class="stat-label">Images Generated</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">92%</span>
+            <span class="stat-label">Positive Feedback</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  
+    <footer class="dashboard-footer">
+      <p>{{ appName }} Manager Dashboard • {{ currentDate | date:'yyyy' }}</p>
+    </footer>
+  </div>

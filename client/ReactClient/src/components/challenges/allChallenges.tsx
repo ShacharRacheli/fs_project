@@ -119,7 +119,7 @@ const AllChallenges = () => {
                     </ListItem>
                 ))
             ) : (
-                <Typography sx={{ padding: 2 }}>No challenges available.</Typography>
+                <Typography sx={{ padding: 2 }}>Loading challenges.</Typography>
             )}
         </List>
         <Box>

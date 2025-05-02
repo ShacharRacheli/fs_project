@@ -59,7 +59,7 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
     return (<>
         <IconButton
             onClick={handleAddVote}
-            sx={{ color: "purple", opacity: hasVoted ? 1 : 0.5 }}
+            sx={{ color: "purple", opacity: hasVoted ? 0.5 : 1 }}
             // disabled={!isVote}
             disabled={hasVoted || !isChallengeActive || !token}
         >
@@ -67,7 +67,7 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
         </IconButton>
         <IconButton
             onClick={handleRemoveVote}
-            sx={{ color: "purple", opacity: hasVoted ? 0.5 : 1 }}
+            sx={{ color: "purple", opacity: hasVoted ? 1 : 0.5 }}
             // disabled={isVote}
             disabled={!hasVoted || !isChallengeActive || !token}
         >

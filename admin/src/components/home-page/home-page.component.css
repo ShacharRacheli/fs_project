@@ -1,0 +1,239 @@
+/* manager-home.component.css */
+
+/* Color variables */
+:root {
+    --primary-purple: #7B1FA2;
+    --light-purple: #E1BEE7;
+    --dark-purple: #4A148C;
+    --white: #FFFFFF;
+    --light-gray: #F5F5F5;
+    --medium-gray: #E0E0E0;
+    --text-dark: #212121;
+    --text-medium: #757575;
+  }
+  
+  /* Base styles */
+  .manager-dashboard {
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    color: var(--text-dark);
+    background-color: var(--light-gray);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Header styles */
+  .dashboard-header {
+    background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+    color: var(--white);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .app-logo h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+  
+  .app-logo .tagline {
+    font-size: 1.1rem;
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+  }
+  
+  /* Main content styles */
+  .dashboard-content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .welcome-section {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .welcome-section h2 {
+    font-size: 1.75rem;
+    margin: 0 0 1rem;
+    color: var(--primary-purple);
+  }
+  
+  .welcome-section .welcome-message {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    margin: 0;
+    line-height: 1.5;
+  }
+  
+  /* Dashboard cards */
+  .dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .dashboard-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-card .card-icon {
+    flex: 0 0 60px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: var(--light-purple);
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .dashboard-card .card-icon i {
+    font-size: 24px;
+    color: var(--primary-purple);
+  }
+  
+  .dashboard-card .card-content {
+    flex: 1;
+  }
+  
+  .dashboard-card .card-content h3 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+    color: var(--primary-purple);
+  }
+  
+  .dashboard-card .card-content p {
+    color: var(--text-medium);
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  .dashboard-card .card-content .status-badge {
+    display: inline-block;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    background-color: var(--medium-gray);
+    color: var(--text-medium);
+    font-weight: 500;
+  }
+  
+  .dashboard-card .card-content .status-badge.highlight {
+    background-color: var(--primary-purple);
+    color: var(--white);
+  }
+  
+  /* Challenge icon placeholder */
+  .challenge-icon::before {
+    content: "🏆";
+  }
+  
+  /* Submissions icon placeholder */
+  .submissions-icon::before {
+    content: "🖼️";
+  }
+  
+  /* Community icon placeholder */
+  .community-icon::before {
+    content: "👥";
+  }
+  
+  /* Quick stats section */
+  .quick-stats {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .quick-stats h2 {
+    font-size: 1.5rem;
+    margin: 0 0 1.5rem;
+    color: var(--primary-purple);
+  }
+  
+  .stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .stat-item .stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-purple);
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-item .stat-label {
+    font-size: 0.95rem;
+    color: var(--text-medium);
+  }
+  
+  /* Footer styles */
+  .dashboard-footer {
+    background-color: var(--white);
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--text-medium);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--medium-gray);
+    margin-top: 2rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .dashboard-content {
+      padding: 1rem;
+    }
+    
+    .dashboard-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    .stats-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .stats-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .app-logo h1 {
+      font-size: 2rem;
+    }
+    
+    .welcome-section h2 {
+      font-size: 1.5rem;
+    }
+  }
+  
