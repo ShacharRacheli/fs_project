@@ -123,11 +123,9 @@ import {
 } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
-// import BoltIcon from '@mui/icons-material/Bolt';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import PersonIcon from '@mui/icons-material/Person';
 import ChatIcon from '@mui/icons-material/Chat';
-// import BoltIcon from '@mui/icons-material/Bolt';
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 export default function SendPrompt({ challengeTopic, challengeDescription }: { challengeTopic: string; challengeDescription: string; }) {
@@ -152,7 +150,7 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
     const handleOpen = async () => {
         setOpen(true);
         setChat([]); // Initialize chat
-        await sendMessage("system", `You are a creative assistant on the Pic a Pick website, where users create AI images based on challenges. Talk only about the website, challenges, inspiration, creativity, and ratings.`);
+        await sendMessage("system", `You are a creative assistant on the Pic a Pick website, where users create AI images based on challenges and competing between themselves. Talk only about the website, challenges, inspiration, creativity, and ratings.`);
         await sendMessage("user", `The current challenge is: "${challengeTopic}". Challenge description: "${challengeDescription}". Give me prompt ideas.`);
     };
 
@@ -258,8 +256,242 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
             >
                 Get Creative Ideas
             </Button> */}
+<Modal
+                open={open}
+                onClose={() => setOpen(false)}
+                closeAfterTransition
+            >
+                <Fade in={open}>
+                    <Paper
+                        elevation={24}
+                        sx={{
+                            width: { xs: '90%', sm: 550 },
+                            maxHeight: '80vh',
+                            margin: 'auto',
+                            mt: { xs: 5, sm: 10 },
+                            borderRadius: 4,
+                            overflow: 'hidden',
+                            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
+                            border: '1px solid rgba(128, 90, 213, 0.2)',
+                            display: 'flex',
+                            flexDirection: 'column'
+                        }}
+                    >
+                        {/* Chat Header */}
+                        <Box
+                            display="flex"
+                            justifyContent="space-between"
+                            alignItems="center"
+                            sx={{
+                                p: 2,
+                                background: 'linear-gradient(90deg, rgb(103, 58, 183) 0%, rgb(149, 117, 205) 100%)',
+                                color: 'white',
+                                borderBottom: '1px solid rgba(0,0,0,0.1)'
+                            }}
+                        >
+                            <Box display="flex" alignItems="center" gap={1}>
+                                <SmartToyIcon />
+                                <Box>
+                                    <Typography variant="subtitle1" fontWeight={600}>Inspiration Assistant</Typography>
+                                    <Typography variant="caption" sx={{ opacity: 0.8 }}>
+                                        Challenge: {challengeTopic}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                            <IconButton onClick={() => setOpen(false)} sx={{ color: 'white' }}>
+                                <CloseIcon />
+                            </IconButton>
+                        </Box>
 
-            <Modal
+                        {/* Chat Messages */}
+                        <List
+                            sx={{
+                                flexGrow: 1,
+                                overflowY: 'auto',
+                                p: 2,
+                                background: '#f8f9fa',
+                                display: 'flex',
+                                flexDirection: 'column'
+                            }}
+                        >
+                            {chat.filter(m => m.role !== 'system').map((message, i) => (
+                                <Box
+                                    key={i}
+                                    sx={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: message.role === "user" ? "flex-end" : "flex-start",
+                                        mb: 2,
+                                        maxWidth: '100%'
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'flex-start',
+                                            flexDirection: message.role === "user" ? 'row-reverse' : 'row',
+                                            gap: 1,
+                                            maxWidth: '85%'
+                                        }}
+                                    >
+                                        <Avatar
+                                            sx={{
+                                                bgcolor: message.role === "user" ? '#7B1FA2' : '#9575CD',
+                                                width: 32,
+                                                height: 32
+                                            }}
+                                        >
+                                            {message.role === "user" ? <PersonIcon fontSize="small" /> : <SmartToyIcon fontSize="small" />}
+                                        </Avatar>
+
+                                        <Box>
+                                            <Paper
+                                                elevation={1}
+                                                sx={{
+                                                    p: 2,
+                                                    backgroundColor: message.role === "user" ? '#7B1FA2' : 'white',
+                                                    color: message.role === "user" ? 'white' : '#212529',
+                                                    borderRadius: message.role === "user"
+                                                        ? '20px 20px 4px 20px'
+                                                        : '20px 20px 20px 4px',
+                                                    wordBreak: 'break-word'
+                                                }}
+                                            >
+                                                {formatMessageContent(message.content)}
+                                            </Paper>
+
+                                            <Typography
+                                                variant="caption"
+                                                sx={{
+                                                    opacity: 0.7,
+                                                    mt: 0.5,
+                                                    display: 'block',
+                                                    textAlign: message.role === "user" ? 'right' : 'left'
+                                                }}
+                                            >
+                                                {/* {message.timestamp} */}
+                                                {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            </Typography>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                            ))}
+
+                            {loading && (
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 2,
+                                        alignSelf: 'flex-start',
+                                        ml: 6,
+                                        mt: 1
+                                    }}
+                                >
+                                    <Box sx={{
+                                        display: 'flex',
+                                        gap: 0.5,
+                                        p: 1,
+                                        borderRadius: 2,
+                                        backgroundColor: 'white'
+                                    }}>
+                                        <Box sx={{
+                                            width: 6,
+                                            height: 6,
+                                            borderRadius: '50%',
+                                            backgroundColor: '#9C27B0',
+                                            animation: 'pulse 1s infinite ease-in-out',
+                                            animationDelay: '0s',
+                                            '@keyframes pulse': {
+                                                '0%, 100%': { opacity: 0.5, transform: 'scale(0.8)' },
+                                                '50%': { opacity: 1, transform: 'scale(1.2)' }
+                                            }
+                                        }} />
+                                        <Box sx={{
+                                            width: 6,
+                                            height: 6,
+                                            borderRadius: '50%',
+                                            backgroundColor: '#9C27B0',
+                                            animation: 'pulse 1s infinite ease-in-out',
+                                            animationDelay: '0.3s'
+                                        }} />
+                                        <Box sx={{
+                                            width: 6,
+                                            height: 6,
+                                            borderRadius: '50%',
+                                            backgroundColor: '#9C27B0',
+                                            animation: 'pulse 1s infinite ease-in-out',
+                                            animationDelay: '0.6s'
+                                        }} />
+                                    </Box>
+                                </Box>
+                            )}
+                            <div ref={messagesEndRef} />
+                        </List>
+
+                        <Divider />
+
+                        {/* Chat Input */}
+                        <Box
+                            display="flex"
+                            gap={1}
+                            p={2}
+                            sx={{
+                                backgroundColor: 'white',
+                                borderTop: '1px solid rgba(0,0,0,0.08)'
+                            }}
+                        >
+                            <TextField
+                                fullWidth
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+                                placeholder="Type your message..."
+                                size="small"
+                                inputRef={inputRef}
+                                multiline
+                                maxRows={3}
+                                sx={{
+                                    '& .MuiOutlinedInput-root': {
+                                        borderRadius: 3,
+                                        backgroundColor: '#f8f9fa',
+                                        '& fieldset': {
+                                            borderColor: 'rgba(0,0,0,0.1)',
+                                        },
+                                        '&:hover fieldset': {
+                                            borderColor: '#9C27B0',
+                                        },
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: '#9C27B0',
+                                            borderWidth: 2
+                                        },
+                                    }
+                                }}
+                            />
+                            <Button
+                                variant="contained"
+                                onClick={handleSend}
+                                disabled={loading || !input.trim()}
+                                sx={{
+                                    minWidth: 'unset',
+                                    borderRadius: '50%',
+                                    width: 40,
+                                    height: 40,
+                                    p: 0,
+                                    background: input.trim() ? 'linear-gradient(90deg, rgb(103, 58, 183) 0%, rgb(123, 31, 162) 100%)' : '#e9ecef',
+                                    color: input.trim() ? 'white' : '#adb5bd',
+                                    '&:hover': {
+                                        background: 'linear-gradient(90deg, rgb(123, 31, 162) 0%, rgb(74, 20, 140) 100%)',
+                                    }
+                                }}
+                            >
+                                <SendIcon fontSize="small" />
+                            </Button>
+                        </Box>
+                    </Paper>
+                </Fade>
+            </Modal>
+            {/* <Modal
                 open={open}
                 onClose={() => setOpen(false)}
                 closeAfterTransition
@@ -280,7 +512,6 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                             flexDirection: 'column'
                         }}
                     >
-                        {/* Chat Header */}
                         <Box
                             display="flex"
                             justifyContent="space-between"
@@ -305,8 +536,6 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                                 <CloseIcon />
                             </IconButton>
                         </Box>
-
-                        {/* Chat Messages */}
                         <List
                             sx={{
                                 flexGrow: 1,
@@ -372,7 +601,6 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                                                     textAlign: message.role === "user" ? 'right' : 'left'
                                                 }}
                                             >
-                                                {/* {message.timestamp} */}
                                                 {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                             </Typography>
                                         </Box>
@@ -434,7 +662,6 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
 
                         <Divider />
 
-                        {/* Chat Input */}
                         <Box
                             display="flex"
                             gap={1}
@@ -493,7 +720,7 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                         </Box>
                     </Paper>
                 </Fade>
-            </Modal>
+            </Modal> */}
         </>
     );
 }

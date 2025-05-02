@@ -63,7 +63,6 @@ const AllChallenges = () => {
                             </Typography>                    
                             }
                             secondary={
-                                // challenge.description
                                 <>
                                 <Typography 
                                     onClick={() => toggleDescription(challenge.id)} 
@@ -75,7 +74,7 @@ const AllChallenges = () => {
                                     sx={{
                                         display: expandedChallengeId === challenge.id ? 'block' : 'none',
                                         marginTop: 1,
-                                        whiteSpace: 'pre-wrap', // מאפשר טקסט מרובה שורות
+                                        whiteSpace: 'pre-wrap', 
                                     }}
                                 >
                                     {challenge.description}
@@ -83,16 +82,14 @@ const AllChallenges = () => {
                             </>
                             }                            
                             sx={{
-                                color: challenge.status ? 'black' : 'gray', // צבע טקסט שונ                        
-                                overflow: "hidden",
-                                // whiteSpace: "nowrap",
-                                // textOverflow: "ellipsis",
+                                color: challenge.status ? 'black' : 'gray',                        
+                                overflow: "hidden",                       
                                 maxWidth: "350px", }}
                         />     <Typography
                         sx={{
                             marginLeft: 2,
-                            color: 'purple', // Date text color purple
-                            fontStyle: 'italic', // Italic style for dates
+                            color: 'purple', 
+                            fontStyle: 'italic', 
                             opacity: challenge.status ? 1 : 0.5, // Only apply opacity to date//////================
                 
                         }}
@@ -104,13 +101,13 @@ const AllChallenges = () => {
                             onClick={() => handleNavigate(challenge.id)}
                             sx={{
                                 marginLeft: 2,
-                                backgroundColor: 'white', // צבע רקע לבן
-                                color: 'purple', // צבע טקסט סגול
+                                backgroundColor: 'white',  
+                                color: 'purple', 
                                 borderRadius: '20px',
                                 padding: '10px 20px',
-                                border: '1px solid purple', // גבול סגול
+                                border: '1px solid purple', 
                                 '&:hover': {
-                                    backgroundColor: 'lightgray' // צבע כפתור בהעברה
+                                    backgroundColor: 'lightgray' 
                                 }
                             }}
                         >
@@ -119,7 +116,7 @@ const AllChallenges = () => {
                     </ListItem>
                 ))
             ) : (
-                <Typography sx={{ padding: 2 }}>Loading challenges.</Typography>
+                <Typography sx={{ padding: 2 }}>Loading challenges...</Typography>
             )}
         </List>
         <Box>
