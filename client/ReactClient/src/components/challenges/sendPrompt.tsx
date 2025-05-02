@@ -277,7 +277,6 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                             flexDirection: 'column'
                         }}
                     >
-                        {/* Chat Header */}
                         <Box
                             display="flex"
                             justifyContent="space-between"
@@ -302,8 +301,6 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                                 <CloseIcon />
                             </IconButton>
                         </Box>
-
-                        {/* Chat Messages */}
                         <List
                             sx={{
                                 flexGrow: 1,
@@ -369,7 +366,6 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                                                     textAlign: message.role === "user" ? 'right' : 'left'
                                                 }}
                                             >
-                                                {/* {message.timestamp} */}
                                                 {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                             </Typography>
                                         </Box>
@@ -431,7 +427,6 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
 
                         <Divider />
 
-                        {/* Chat Input */}
                         <Box
                             display="flex"
                             gap={1}
@@ -478,10 +473,10 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                                     width: 40,
                                     height: 40,
                                     p: 0,
-                                    background: input.trim() ? 'linear-gradient(90deg, rgb(103, 58, 183) 0%, rgb(123, 31, 162) 100%)' : '#e9ecef',
+                                    background: input.trim() ? 'linear-gradient(90deg, rgb(156, 39, 176) 0%, rgb(186, 104, 200) 100%)' : '#e9ecef',
                                     color: input.trim() ? 'white' : '#adb5bd',
                                     '&:hover': {
-                                        background: 'linear-gradient(90deg, rgb(123, 31, 162) 0%, rgb(74, 20, 140) 100%)',
+                                        background: 'linear-gradient(90deg, rgb(171, 71, 188) 0%, rgb(142, 36, 170) 100%)',
                                     }
                                 }}
                             >
