@@ -21,35 +21,37 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
     //   const isTokenPresent = !!token;
     useEffect(() => {
         const checkUserVote = async () => {
-            try {
-                console.log(imageId+"dsss"+userId);            
-                const response = await axios.get(`${apiUrl}/api/Vote/HasVoted`, 
-                    {
-                    params: { imageId: imageId, userId: userId },
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    }
-                });
-                setHasVoted(response.data);
-                console.log("Vote status:", response.data,"userid",userId,"imageid",imageId);
-            } catch (e) {
-                console.error("there was an error");
+            if (token) {
+                try {
+                    console.log(imageId + "dsss" + userId);
+                    const response = await axios.get(`${apiUrl}/api/Vote/HasVoted`,
+                        {
+                            params: { imageId: imageId, userId: userId },
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                                "Content-Type": "application/json",
+                            }
+                        });
+                    setHasVoted(response.data);
+                    console.log("Vote status:", response.data, "userid", userId, "imageid", imageId);
+                } catch (e) {
+                    console.error("there was an error");
+                }
             }
         }
         checkUserVote();
-    }, [token,userId,imageId])
+    }, [token, userId, imageId])
     const handleAddVote = () => {
 
         dispatch(addVote({ userId, imageId, challengeId }))
         setHasVoted(true)
-        console.log(hasVoted+"kkkkkkkkkkkk");
-        
+        console.log(hasVoted + "kkkkkkkkkkkk");
+
     }
     const handleRemoveVote = () => {
         dispatch(deleteVote({ userId, imageId, challengeId }))
         setHasVoted(false)
-        console.log(hasVoted+"kkkkkkkkkkkk");
+        console.log(hasVoted + "kkkkkkkkkkkk");
     }
     const isChallengeActive = challenge?.status ? true : false;
     console.log(isChallengeActive);
