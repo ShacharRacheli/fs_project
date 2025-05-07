@@ -17,7 +17,7 @@
     }
 </mat-accordion> -->
 <!-- HTML Template -->
-<div class="users-container">
+<!-- <div class="users-container">
     <h2 class="section-title">Users List</h2>
     <mat-accordion class="users-accordion">
       @for(currentUser of (allUsers$|async);track $index){
@@ -48,4 +48,69 @@
       </mat-expansion-panel>
       }
     </mat-accordion>
+  </div> -->
+  <div class="users-container">
+    <h2 class="users-title">Users List</h2>
+    <div class="users-grid">
+      @for(currentUser of (allUsers$|async);track $index){
+      <div class="user-card" [class.deleted-user]="currentUser.isDeleted">
+        <div class="user-card-content">
+          <div class="user-header">
+            <div class="user-info">
+              <span class="user-avatar">{{currentUser.fullName.charAt(0)}}</span>
+              <span class="user-name">{{currentUser.fullName}}</span>
+            </div>
+            <div class="user-actions">
+              @if(!currentUser.isDeleted){
+              <button class="action-button delete-button" (click)="deleteUser(currentUser.id)">
+                <mat-icon>delete</mat-icon> Delete
+              </button>
+              }@else {
+              <button class="action-button add-button" (click)="addUser(currentUser.id)">
+                <mat-icon>person_add</mat-icon> Add
+              </button>
+              }
+            </div>
+          </div>
+        </div>
+        <div class="user-details">
+          <p class="detail-item"><strong>Email:</strong> <span class="detail-value">{{currentUser.email}}</span></p>
+          <p class="detail-item"><strong>Joined:</strong> <span class="detail-value">{{currentUser.joiningDate | date:'medium'}}</span></p>
+        </div>
+      </div>
+      }
+    </div>
   </div>
+  <!-- ====================================================
+  <div >
+    <h2 >Users List</h2>
+    <div >
+      @for(currentUser of (allUsers$|async);track $index){
+      <div >
+        <div>
+          <div >
+            <div >
+              <span >{{currentUser.fullName.charAt(0)}}</span>
+              <span>{{currentUser.fullName}}</span>
+            </div>
+            <div >
+              @if(!currentUser.isDeleted){
+              <button color="warn"  (click)="deleteUser(currentUser.id)">
+                <mat-icon>delete</mat-icon> Delete
+              </button>
+              }@else {
+              <button color="accent" (click)="addUser(currentUser.id)">
+                <mat-icon>person_add</mat-icon> Add
+              </button>
+              }
+            </div>
+          </div>
+        </div>
+        <div>
+          <p><strong>Email:</strong> <span >{{currentUser.email}}</span></p>
+          <p><strong>Joined:</strong> <span >{{currentUser.joiningDate | date:'medium'}}</span></p>
+        </div>
+      </div>
+      }
+    </div>
+  </div> -->
