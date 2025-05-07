@@ -69,7 +69,7 @@
 
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, IconButton, Modal, TextField } from "@mui/material";
+import {  Button, Fade, IconButton, InputAdornment, Modal, Paper, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import {  object, string } from "yup";
@@ -128,7 +128,149 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
   
 
     return (
-<Modal open={open} onClose={handleClose}>
+        <Modal 
+      open={open} 
+      onClose={handleClose}
+      closeAfterTransition
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Fade in={open}>
+        <Paper 
+          elevation={10}
+          sx={{
+            width: '100%',
+            maxWidth: 400,
+            borderRadius: 2,
+            p: 4,
+            outline: 'none',
+            background: 'linear-gradient(145deg, #ffffff 0%, #f9f4ff 100%)',
+            boxShadow: '0 8px 32px rgba(100, 50, 200, 0.15)',
+            border: '1px solid rgba(153, 102, 255, 0.1)',
+          }}
+        >
+          <Typography 
+            variant="h5" 
+            component="h2" 
+            align="center" 
+            sx={{ 
+              mb: 3, 
+              fontWeight: 700, 
+              color: '#5e35b1',
+              textShadow: '0px 1px 2px rgba(0,0,0,0.05)'
+            }}
+          >
+            Welcome Back
+          </Typography>
+          
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <TextField 
+              {...register('email')}
+              type='email' 
+              fullWidth 
+              label="Email" 
+              variant="outlined" 
+              error={!!errors.email}
+              helperText={errors.email?.message}
+              sx={{ 
+                mb: 3,
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(153, 102, 255, 0.3)',
+                    borderRadius: 1.5,
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#7c4dff',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#6200ea',
+                  },
+                },
+                '& .MuiInputLabel-root': {
+                  color: '#7e57c2',
+                },
+                '& .MuiInputLabel-root.Mui-focused': {
+                  color: '#6200ea',
+                }
+              }} 
+            />
+            
+            <TextField 
+              type={showPassword ? 'text' : 'password'}
+              fullWidth 
+              {...register('password')}
+              label='Password' 
+              variant="outlined" 
+              error={!!errors.password}
+              helperText={errors.password?.message}           
+              sx={{ 
+                mb: 4,
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(153, 102, 255, 0.3)',
+                    borderRadius: 1.5,
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#7c4dff',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#6200ea',
+                  },
+                },
+                '& .MuiInputLabel-root': {
+                  color: '#7e57c2',
+                },
+                '& .MuiInputLabel-root.Mui-focused': {
+                  color: '#6200ea',
+                }
+              }}
+              slotProps={{
+                input:{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton 
+                      onClick={togglePasswordVisibility}
+                      edge="end"
+                      sx={{ color: '#7e57c2' }}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),}
+              }}
+            />
+            
+            <Button 
+              fullWidth 
+              type='submit'
+              variant="contained"
+              disableElevation 
+              sx={{ 
+                py: 1.5,
+                borderRadius: 2,
+                textTransform: 'none',
+                fontWeight: 600,
+                fontSize: '1rem',
+                backgroundColor: 'purple', 
+                color: 'white', 
+                '&:hover': { 
+                  backgroundColor: '#ba01cf',
+                  boxShadow: '0 4px 12pxrgb(163, 3, 181)',
+                  transform: 'translateY(-1px)'
+                },
+                transition: 'all 0.2s ease-in-out'
+              }} 
+            >
+              Sign In
+            </Button>
+          </form>
+        </Paper>
+      </Fade>
+    </Modal>
+/* <Modal open={open} onClose={handleClose}>
 <Box sx={style}>
     <form onSubmit={handleSubmit(onSubmit)}>
         <TextField 
@@ -137,11 +279,9 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
             fullWidth 
             label="Email" 
             variant="outlined" 
-            // required
-            // inputRef={emailRef} 
             error={!!errors.email}
             helperText={errors.email?.message}
-            sx={{ marginBottom: 2 }} // Space between inputs
+            sx={{ marginBottom: 2 }} 
         />
         <TextField 
             type={showPassword ? 'text' : 'password'}
@@ -149,8 +289,6 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
             {...register('password')}
             label='Password' 
             variant="outlined" 
-            // required
-            // inputRef={passwordRef} 
             error={!!errors.password}
             helperText={errors.password?.message}           
             sx={{ marginBottom: 2 }} 
@@ -173,22 +311,22 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
         </Button>
     </form>
 </Box>
-</Modal>
+</Modal> */
 );
 }
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid purple', // Changed border color to purple
-    borderRadius: '8px', // Added border radius
-    boxShadow: 24,
-    p: 4,
-};
+// const style = {
+//     position: 'absolute',
+//     top: '50%',
+//     left: '50%',
+//     transform: 'translate(-50%, -50%)',
+//     width: 400,
+//     bgcolor: 'background.paper',
+//     border: '2px solid purple', // Changed border color to purple
+//     borderRadius: '8px', // Added border radius
+//     boxShadow: 24,
+//     p: 4,
+// };
 export default Login;
 
 
