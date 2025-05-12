@@ -8,14 +8,13 @@ const ImageViewer = ({ fileName }:{fileName:string}) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // שלב 1: שלח בקשה ל-API לקבלת ה-Presigned URL
     const fetchImageUrl = async () => {
       try {
         const response = await axios.get(`${apiUrl}/api/Image/getImageUrl`, {
           params: { fileName } // שם הקובץ שאת רוצה להוריד
 
         });
-        setImageUrl(response.data.url); // הגדרת ה-URL לקבלת התמונה
+        setImageUrl(response.data.url); 
             setLoading(false); // סמן שהטעינה הסתיימה
   } catch (error) {
         console.error('שגיאה בהבאת ה-URL:', error);
