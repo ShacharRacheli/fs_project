@@ -23,8 +23,6 @@ const ImageViewer = ({ fileName }:{fileName:string}) => {
 
     fetchImageUrl();
   }, [fileName]); // מבצע את הקריאה כל פעם ששם הקובץ משתנה
-// console.log(imageUrl);
-
   return (
   //   <Box sx={{ position: 'relative', width: '100%', height: '200px' }}>
   //   {loading ? (
