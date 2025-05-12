@@ -11,14 +11,13 @@ const ImageViewer = ({ fileName }:{fileName:string}) => {
     const fetchImageUrl = async () => {
       try {
         const response = await axios.get(`${apiUrl}/api/Image/getImageUrl`, {
-          params: { fileName } // שם הקובץ שאת רוצה להוריד
-
+          params: { fileName } 
         });
         setImageUrl(response.data.url); 
-            setLoading(false); // סמן שהטעינה הסתיימה
+            setLoading(false); 
   } catch (error) {
         console.error('שגיאה בהבאת ה-URL:', error);
-        setLoading(false); // סמן שהטעינה הסתיימה
+        setLoading(false); 
       }
     };
 
