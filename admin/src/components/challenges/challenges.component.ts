@@ -47,7 +47,6 @@ this.challengeForm=this.fb.group({
   onSubmitAddChallenge() {
 this.challengeService.addChallenge(this.challengeForm.value)
 this.challengeForm.reset(); 
-// console.log("in add  ch");
   }
   isChallengeActive(startDate: Date, endDate: Date): boolean {
     const currentDate = new Date();
