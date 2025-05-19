@@ -133,26 +133,37 @@ import {
   Box, 
   Button, 
   Typography,
-  Card,
-  CardContent,
-  CardActions,
-  Chip,
+  Divider,
   Container,
+  Paper,
   Grid,
   Collapse,
   Avatar,
-  IconButton,
-  Skeleton
+  Skeleton,
+  Badge,
+  Chip,
+  LinearProgress
 } from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import ArtTrackIcon from '@mui/icons-material/ArtTrack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ImageIcon from '@mui/icons-material/Image';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+
+// Define the Challenge interface to match your Redux store
+interface Challenge {
+  id: number;
+  title: string;
+  description: string;
+  startDate: Date | string;
+  endDate: Date | string;
+  status?: boolean;
+}
 
 const AllChallenges = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const challengesList = useSelector((state: RootState) => state.challenges.list);
+  const challengesList = useSelector((state: RootState) => state.challenges.list) as Challenge[];
   const loading = useSelector((state: RootState) => state.challenges.loading);
   const navigate = useNavigate();
   const [expandedChallengeId, setExpandedChallengeId] = useState<number | null>(null);
@@ -169,19 +180,59 @@ const AllChallenges = () => {
     setExpandedChallengeId(expandedChallengeId === challengeId ? null : challengeId);
   };
 
-const isActiveChallenge = (startDate: Date | string, endDate: Date | string) => {
-  const now = new Date();
-  const start = startDate instanceof Date ? startDate : new Date(startDate);
-  const end = endDate instanceof Date ? endDate : new Date(endDate);
-  return now >= start && now <= end;
-};
+  // Function to format dates safely
+  const formatDate = (date: Date | string) => {
+    try {
+      return date instanceof Date 
+        ? date.toLocaleDateString() 
+        : new Date(date).toLocaleDateString();
+    } catch (e) {
+      return "Invalid date";
+    }
+  };
+
+  // Function to determine if a challenge is active based on dates
+  const isActiveChallenge = (startDate: Date | string, endDate: Date | string) => {
+    try {
+      const now = new Date();
+      const start = startDate instanceof Date ? startDate : new Date(startDate);
+      const end = endDate instanceof Date ? endDate : new Date(endDate);
+      return now >= start && now <= end;
+    } catch (e) {
+      return false;
+    }
+  };
+
   // Function to calculate days remaining
-  const getDaysRemaining = (endDate: Date |  string) => {
-    const end = new Date(endDate);
-    const now = new Date();
-    const diffTime = end.getTime() - now.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays > 0 ? diffDays : 0;
+  const getDaysRemaining = (endDate: Date | string) => {
+    try {
+      const end = endDate instanceof Date ? endDate : new Date(endDate);
+      const now = new Date();
+      const diffTime = end.getTime() - now.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays > 0 ? diffDays : 0;
+    } catch (e) {
+      return 0;
+    }
+  };
+  
+  // Function to calculate percentage of time elapsed
+  const getTimeProgress = (startDate: Date | string, endDate: Date | string) => {
+    try {
+      const start = startDate instanceof Date ? startDate : new Date(startDate);
+      const end = endDate instanceof Date ? endDate : new Date(endDate);
+      const now = new Date();
+      
+      const totalDuration = end.getTime() - start.getTime();
+      const elapsedDuration = now.getTime() - start.getTime();
+      
+      if (now < start) return 0;
+      if (now > end) return 100;
+      
+      return Math.min(100, Math.round((elapsedDuration / totalDuration) * 100));
+    } catch (e) {
+      return 0;
+    }
   };
 
   return (
@@ -190,24 +241,10 @@ const isActiveChallenge = (startDate: Date | string, endDate: Date | string) => 
         variant="h2" 
         component="h1" 
         sx={{ 
-          mb: 4, 
+          mb: 1, 
           fontWeight: 700, 
           textAlign: 'center',
-          background: 'linear-gradient(90deg, #6e48aa 0%, #9d50bb 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          position: 'relative',
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            bottom: -10,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '100px',
-            height: '4px',
-            background: 'linear-gradient(90deg, #6e48aa 0%, #9d50bb 100%)',
-            borderRadius: '2px'
-          }
+          color: '#6e48aa'
         }}
       >
         AI Image Challenges
@@ -227,183 +264,217 @@ const isActiveChallenge = (startDate: Date | string, endDate: Date | string) => 
       </Typography>
 
       {loading ? (
-        <Grid container spacing={4}>
-          {[1, 2, 3, 4].map((item) => (
-            <Grid item xs={12} md={6} key={item}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: '0 8px 20px rgba(0,0,0,0.1)' }}>
-                <Skeleton variant="rectangular" height={140} animation="wave" />
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Skeleton variant="text" height={32} width="80%" animation="wave" />
-                  <Skeleton variant="text" height={20} animation="wave" />
-                  <Skeleton variant="text" height={20} animation="wave" />
-                </CardContent>
-                <CardActions>
-                  <Skeleton variant="rectangular" height={36} width={120} animation="wave" />
-                </CardActions>
-              </Card>
-            </Grid>
+        <Box sx={{ mb: 4 }}>
+          {[1, 2, 3].map((item) => (
+            <Paper key={item} sx={{ mb: 3, overflow: 'hidden' }}>
+              <Box sx={{ p: 3 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={2}>
+                    <Skeleton variant="circular" width={80} height={80} />
+                  </Grid>
+                  <Grid item xs={12} sm={10}>
+                    <Skeleton variant="text" height={40} width="60%" />
+                    <Skeleton variant="text" height={20} width="40%" />
+                    <Skeleton variant="text" height={20} width="80%" sx={{ mt: 1 }} />
+                  </Grid>
+                </Grid>
+              </Box>
+              <Skeleton variant="rectangular" height={60} />
+            </Paper>
           ))}
-        </Grid>
+        </Box>
       ) : (
-        <Grid container spacing={4}>
-          {Array.isArray(challengesList) && challengesList.map((challenge) => {
+        <Box>
+          {Array.isArray(challengesList) && challengesList.map((challenge, index) => {
             const isActive = isActiveChallenge(challenge.startDate, challenge.endDate);
             const daysRemaining = getDaysRemaining(challenge.endDate);
+            const timeProgress = getTimeProgress(challenge.startDate, challenge.endDate);
+            const isExpandable = challenge.description && challenge.description.length > 0;
             
             return (
-              <Grid item xs={12} md={6} key={challenge.id}>
-                <Card 
-                  sx={{ 
-                    height: '100%', 
-                    display: 'flex', 
-                    flexDirection: 'column',
-                    boxShadow: '0 8px 20px rgba(0,0,0,0.1)',
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                    borderRadius: 2,
-                    border: isActive ? '1px solid rgba(157, 80, 187, 0.3)' : 'none',
-                    '&:hover': {
-                      transform: 'translateY(-5px)',
-                      boxShadow: '0 12px 28px rgba(0,0,0,0.15)'
-                    },
-                    opacity: isActive ? 1 : 0.8,
-                  }}
-                >
-                  <Box
-                    sx={{
-                      height: 180,
-                      backgroundColor: 'rgba(110, 72, 170, 0.05)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      p: 2,
-                      position: 'relative',
-                      overflow: 'hidden',
-                      borderBottom: '1px solid rgba(0,0,0,0.05)'
-                    }}
-                  >
-                    <Avatar 
-                      sx={{ 
-                        width: 80, 
-                        height: 80, 
-                        backgroundColor: 'white',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                      }}
-                    >
-                      <ImageIcon sx={{ fontSize: 40, color: '#9d50bb' }} />
-                    </Avatar>
+              <Paper 
+                key={challenge.id}
+                elevation={1}
+                sx={{ 
+                  mb: 4, 
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  borderLeft: isActive ? '4px solid #6e48aa' : '4px solid transparent',
+                  transition: 'transform 0.2s ease-in-out',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 6px 16px rgba(0,0,0,0.1)'
+                  }
+                }}
+              >
+                <Box sx={{ p: { xs: 2, md: 3 } }}>
+                  <Grid container spacing={3} alignItems="center">
+                    {/* Icon/Avatar Column */}
+                    <Grid item xs={12} sm={2} md={1.5} sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <Badge
+                        overlap="circular"
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                        badgeContent={
+                          isActive ? 
+                            <Box
+                              sx={{
+                                width: 16,
+                                height: 16,
+                                borderRadius: '50%',
+                                bgcolor: 'success.main',
+                                border: '2px solid white'
+                              }}
+                            /> : undefined
+                        }
+                      >
+                        <Avatar
+                          sx={{ 
+                            width: 70, 
+                            height: 70, 
+                            bgcolor: 'rgba(110, 72, 170, 0.1)',
+                            border: '2px solid rgba(110, 72, 170, 0.2)'
+                          }}
+                        >
+                          <ImageIcon sx={{ fontSize: 36, color: '#6e48aa' }} />
+                        </Avatar>
+                      </Badge>
+                    </Grid>
                     
-                    <Box sx={{ position: 'absolute', top: 16, right: 16, display: 'flex', gap: 1 }}>
-                      <Chip 
-                        label={isActive ? "Active" : "Inactive"} 
-                        size="small"
-                        color={isActive ? "success" : "default"}
-                        sx={{ fontWeight: 500 }}
-                      />
-                      {isActive && (
-                        <Chip 
-                          icon={<AccessTimeIcon sx={{ fontSize: '16px !important' }} />}
-                          label={`${daysRemaining} days left`} 
-                          size="small"
-                          color="primary"
-                          sx={{ fontWeight: 500 }}
-                        />
-                      )}
-                    </Box>
-                  </Box>
-                  
-                  <CardContent sx={{ flexGrow: 1, pt: 3 }}>
-                    <Typography 
-                      variant="h5" 
-                      component="h2" 
-                      gutterBottom
-                      sx={{ 
-                        fontWeight: 600,
-                        color: isActive ? '#333' : 'text.secondary',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 1
-                      }}
-                    >
-                      <ArtTrackIcon sx={{ color: '#9d50bb' }} />
-                      {challenge.title}
-                    </Typography>
-                    
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <AccessTimeIcon sx={{ fontSize: 16, color: 'text.secondary', mr: 1 }} />
-                      <Typography variant="body2" color="text.secondary">
-                        {new Date(challenge.startDate).toLocaleDateString()} - {new Date(challenge.endDate).toLocaleDateString()}
+                    {/* Content Column */}
+                    <Grid item xs={12} sm={10} md={8}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 1, mb: 1 }}>
+                        <Typography variant="h5" component="h2" sx={{ fontWeight: 600, color: isActive ? '#333' : '#888' }}>
+                          {challenge.title}
+                        </Typography>
+                        
+                        <Box sx={{ display: 'flex', gap: 1, ml: { xs: 0, sm: 2 } }}>
+                          <Chip 
+                            size="small" 
+                            label={isActive ? "Active" : "Inactive"} 
+                            color={isActive ? "success" : "default"}
+                            sx={{ height: 24 }}
+                          />
+                          {isActive && daysRemaining > 0 && (
+                            <Chip 
+                              size="small" 
+                              icon={<AccessTimeIcon sx={{ fontSize: '14px !important' }} />} 
+                              label={`${daysRemaining} days left`} 
+                              color="primary"
+                              sx={{ height: 24 }}
+                            />
+                          )}
+                        </Box>
+                      </Box>
+                      
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+                        <AccessTimeIcon sx={{ fontSize: 16, verticalAlign: 'text-bottom', mr: 0.5 }} />
+                        {formatDate(challenge.startDate)} - {formatDate(challenge.endDate)}
                       </Typography>
-                    </Box>
+                      
+                      {isActive && (
+                        <Box sx={{ mt: 2, mb: 2, width: '100%' }}>
+                          <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
+                            <Typography variant="caption" color="text.secondary">Progress</Typography>
+                            <Typography variant="caption" color="text.secondary">{timeProgress}%</Typography>
+                          </Box>
+                          <LinearProgress 
+                            variant="determinate" 
+                            value={timeProgress} 
+                            sx={{ 
+                              height: 6, 
+                              borderRadius: 1,
+                              backgroundColor: 'rgba(110, 72, 170, 0.1)',
+                              '& .MuiLinearProgress-bar': {
+                                backgroundColor: '#6e48aa'
+                              }
+                            }} 
+                          />
+                        </Box>
+                      )}
+                      
+                      {isExpandable && (
+                        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+                          <Button
+                            onClick={() => toggleDescription(challenge.id)}
+                            size="small"
+                            endIcon={
+                              <ExpandMoreIcon 
+                                sx={{ 
+                                  transform: expandedChallengeId === challenge.id ? 'rotate(180deg)' : 'rotate(0deg)',
+                                  transition: 'transform 0.3s' 
+                                }} 
+                              />
+                            }
+                            sx={{ 
+                              color: '#6e48aa', 
+                              textTransform: 'none', 
+                              pl: 0,
+                              '&:hover': { backgroundColor: 'transparent', textDecoration: 'underline' }
+                            }}
+                          >
+                            {expandedChallengeId === challenge.id ? "Show Less" : "Show Description"}
+                          </Button>
+                        </Box>
+                      )}
+                      
+                      <Collapse in={expandedChallengeId === challenge.id} timeout="auto" unmountOnExit>
+                        <Box 
+                          sx={{ 
+                            mt: 2, 
+                            p: 2, 
+                            borderRadius: 1, 
+                            backgroundColor: 'rgba(0,0,0,0.02)',
+                            border: '1px solid rgba(0,0,0,0.05)'
+                          }}
+                        >
+                          <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap' }}>
+                            {challenge.description}
+                          </Typography>
+                        </Box>
+                      </Collapse>
+                    </Grid>
                     
-                    <IconButton
-                      onClick={() => toggleDescription(challenge.id)}
-                      aria-expanded={expandedChallengeId === challenge.id}
-                      aria-label="show more"
-                      sx={{
-                        transform: expandedChallengeId === challenge.id ? 'rotate(180deg)' : 'rotate(0deg)',
-                        transition: 'transform 0.3s',
-                        color: '#9d50bb',
-                        p: 0,
-                        mb: 1
-                      }}
-                    >
-                      <ExpandMoreIcon />
-                    </IconButton>
-                    
-                    <Collapse in={expandedChallengeId === challenge.id} timeout="auto" unmountOnExit>
-                      <Typography 
-                        variant="body2" 
-                        color="text.secondary"
-                        paragraph
-                        sx={{ 
-                          mb: 2,
-                          whiteSpace: 'pre-wrap',
-                          p: 2,
-                          backgroundColor: 'rgba(0,0,0,0.02)',
-                          borderRadius: 1,
-                          border: '1px solid rgba(0,0,0,0.05)'
+                    {/* Action Column */}
+                    <Grid item xs={12} sm={12} md={2.5} sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleNavigate(challenge.id)}
+                        endIcon={<ArrowForwardIcon />}
+                        sx={{
+                          borderColor: '#6e48aa',
+                          color: '#6e48aa',
+                          borderRadius: 2,
+                          width: { xs: '100%', md: 'auto' },
+                          '&:hover': {
+                            backgroundColor: 'rgba(110, 72, 170, 0.04)',
+                            borderColor: '#6e48aa'
+                          }
                         }}
                       >
-                        {challenge.description}
-                      </Typography>
-                    </Collapse>
-                  </CardContent>
-                  
-                  <CardActions sx={{ p: 2, pt: 0, justifyContent: 'flex-end' }}>
-                    <Button
-                      variant="contained"
-                      onClick={() => handleNavigate(challenge.id)}
-                      sx={{
-                        background: 'linear-gradient(90deg, #6e48aa 0%, #9d50bb 100%)',
-                        color: 'white',
-                        borderRadius: '24px',
-                        px: 3,
-                        py: 1,
-                        fontWeight: 500,
-                        textTransform: 'none',
-                        '&:hover': {
-                          boxShadow: '0 4px 12px rgba(157, 80, 187, 0.3)'
-                        }
-                      }}
-                    >
-                      View Challenge
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
+                        View Challenge
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Box>
+                
+                {index < challengesList.length - 1 && (
+                  <Divider sx={{ borderColor: 'rgba(0,0,0,0.08)' }} />
+                )}
+              </Paper>
             );
           })}
-        </Grid>
-      )}
-
-      {Array.isArray(challengesList) && challengesList.length === 0 && !loading && (
-        <Box sx={{ textAlign: 'center', mt: 8, mb: 8 }}>
-          <Typography variant="h5" color="text.secondary" gutterBottom>
-            No challenges available at the moment
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Check back soon for new AI image generation challenges!
-          </Typography>
+          
+          {Array.isArray(challengesList) && challengesList.length === 0 && !loading && (
+            <Box sx={{ textAlign: 'center', mt: 8, mb: 8, p: 6, bgcolor: 'rgba(0,0,0,0.02)', borderRadius: 2 }}>
+              <EmojiEventsIcon sx={{ fontSize: 60, color: 'text.disabled', mb: 2 }} />
+              <Typography variant="h5" color="text.secondary" gutterBottom>
+                No challenges available at the moment
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                Check back soon for new AI image generation challenges!
+              </Typography>
+            </Box>
+          )}
         </Box>
       )}
 
