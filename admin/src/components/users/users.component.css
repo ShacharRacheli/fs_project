@@ -45,14 +45,12 @@
   border-bottom: 2px solid var(--primary-light);
 }
 
-/* Grid layout for responsive design */
 .users-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
 }
 
-/* Card styling */
 .user-card {
   background-color: var(--background-light);
   border-radius: var(--border-radius);
