@@ -19,7 +19,6 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit{
 
-  // user !:UserLogin
   userLoginForm!:FormGroup;
   private router =inject(Router);
 
