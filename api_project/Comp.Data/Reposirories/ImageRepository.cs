@@ -32,7 +32,7 @@ namespace Comp.Data.Reposirories
         public async Task<int> GetVoteCountByImageIdAsync(int imageId)
         {
             var image = await _dataContext.Images.FindAsync(imageId);
-            return image?.CountVotes ?? 0; // Return 0 if image is not found
+            return image?.CountVotes ?? 0; 
         }
         public async Task<Image> AddImageAsync(Image image)
         {
@@ -51,7 +51,6 @@ namespace Comp.Data.Reposirories
         //}
         public async Task<TopImageDTO> GetTopImageByChallengeAsync(int challengeId)
         {
-            // שליפת כל התמונות לאתגר הנתון
             var topImage = await _dataContext.Images
             .Where(img => img.ChallengeId == challengeId)
             .OrderByDescending(img => img.CountVotes)
@@ -59,7 +58,6 @@ namespace Comp.Data.Reposirories
             var user = await _dataContext.Users
         .FirstOrDefaultAsync(u => u.Id == topImage.UserId);
 
-            // מיפוי ל-TopImageDTO
             var topImageDTO = new TopImageDTO
             {
                 Id = topImage.Id,
@@ -67,7 +65,7 @@ namespace Comp.Data.Reposirories
                 ImageUrl = topImage.ImageUrl,
                 CountVotes = topImage.CountVotes,
                 FileName = topImage.FileName,
-                UserName = user?.FullName, // אם המשתמש לא נמצא, UserName יהיה null
+                UserName = user?.FullName,
             };
             return topImageDTO;
         }
@@ -84,7 +82,7 @@ namespace Comp.Data.Reposirories
         {         
                 var exists = await _dataContext.Images
                     .AnyAsync(i => i.UserId == userId && i.ChallengeId == challengeId);
-                return !exists; // אם כבר יש תמונה, נחזיר false      
+                return !exists;    
         }
      
 

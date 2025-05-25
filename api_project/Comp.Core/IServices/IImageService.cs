@@ -22,7 +22,7 @@ namespace Comp.Core.IServices
         Task<Stream> DownloadImageAsync(int id);
         Task ListBucketsAsync();
         Task<Image> AddImageAsync(Image image);
-        Task<bool> DeleteImageAsync(int id, int userId, bool isAdmin); // עדכון מחיקה עם בקרת גישה
+        Task<bool> DeleteImageAsync(int id, int userId, bool isAdmin);
       Task<bool> UserUploadedAlready(int userId, int challengeId);
 
     }

@@ -48,11 +48,9 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
-builder.Services.AddScoped<IWinnerRepository, WinnerRepository>();
 builder.Services.AddScoped<IChallengeRepository, ChallengeRepository>();
 builder.Services.AddScoped<IVoteRepository, VoteRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IWinnerService, WinnerService>();
 builder.Services.AddScoped<IVoteService, VoteService>();
 builder.Services.AddScoped<IChallengeService, ChallengeService>();
 builder.Services.AddScoped<IImageService, ImageService>();

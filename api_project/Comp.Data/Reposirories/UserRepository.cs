@@ -83,7 +83,6 @@ namespace Comp.Data.Reposirories
         {
             User user =await _dataContext.Users.FirstOrDefaultAsync(u=>u.Id == id);
             if (user != null) { 
-            //_dataContext.UsersList.Remove(user);
             user.IsDeleted= !user.IsDeleted;
             }
             return await _dataContext.SaveChangesAsync()>0;

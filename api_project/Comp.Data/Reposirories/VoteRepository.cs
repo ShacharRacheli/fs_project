@@ -18,13 +18,11 @@ namespace Comp.Data.Reposirories
         }
         public async Task<Vote> VoteImageAsync(int userId, int imageId)
         {
-            // בדיקה אם המשתמש כבר הצביע לתמונה הזאת
             var existingVote = await _dataContext.Votes
                 .FirstOrDefaultAsync(v => v.UserId == userId && v.ImageId == imageId);
 
             if (existingVote != null)
             {
-                // אם כבר יש הצבעה, מחזירים error
                 return null;
             }
 

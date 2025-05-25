@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-challenges',
-  imports: [AsyncPipe, ReactiveFormsModule, MatButtonModule, NgTemplateOutlet, MatButtonModule,
+  imports: [AsyncPipe, ReactiveFormsModule, MatButtonModule,  MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
     MatCardModule, MatExpansionModule,CommonModule],

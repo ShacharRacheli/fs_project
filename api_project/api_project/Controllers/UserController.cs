@@ -23,7 +23,7 @@ namespace Comp.API.Controllers
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
-        //private readonly Share _share;
+
         public UserController(IUserService userService, IMapper mapper, IConfiguration configuration)
         {
             _userService = userService;
@@ -31,7 +31,6 @@ namespace Comp.API.Controllers
             _configuration = configuration;
         }
 
-        // GET: api/<UserController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
@@ -44,20 +43,25 @@ namespace Comp.API.Controllers
             return Ok(userList);
         }
 
-        // GET api/<UserController>/5
-        //[HttpGet("login")]
-        //public async Task<ActionResult<User>> Get([FromQuery] string password, [FromQuery] string email)
-        //{
-        //    var user = await _userService.GetUserByEmailPasswordAsync(password, email);
-        //    if (user != null)
-        //        return Ok(user);
-        //    return NotFound();
-        //}
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] UserLoginDto userLogin)
         {
             User user = await _userService.GetUserByEmailPasswordAsync(userLogin);
             if (user != null&&!user.IsDeleted)
+            {
+                if (VPassword.VerifyPassword(userLogin.Password, user.Password)) 
+                {
+                    var token = Jwt.GenerateJwtToken(user);
+                    return Ok(new { Token = token });
+                }
+            }
+            return Unauthorized();
+        }
+        [HttpPost("loginManager")]
+        public async Task<ActionResult> LoginManager([FromBody] UserLoginDto userLogin)
+        {
+            User user = await _userService.GetUserByEmailPasswordAsync(userLogin);
+            if (user != null && !user.IsDeleted&&user.Role.Equals("admin"))
             {
                 if (VPassword.VerifyPassword(userLogin.Password, user.Password))  // תוודא שהסיסמה נכונה
                 {
@@ -138,7 +142,6 @@ namespace Comp.API.Controllers
             //return NotFound();
         }
 
-        // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {

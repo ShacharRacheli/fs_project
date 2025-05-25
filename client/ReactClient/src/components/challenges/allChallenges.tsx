@@ -44,12 +44,11 @@ const AllChallenges = () => {
                         key={challenge.id}
                         sx={{
                             padding: 2,
-                            borderBottom: '1px solid purple', // גבול תחתון סגול
+                            borderBottom: '1px solid purple', 
                             display: 'flex',
                             alignItems: 'center',
-                            // opacity: challenge.status ? 1 : 0.5,
-                            backgroundColor: 'white', // צבע רקע לבן
-                            marginBottom: 2, // מרווח בין פריטים
+                            backgroundColor: 'white',
+                            marginBottom: 2,
                         }}
                     >    <ListItemAvatar>
                     <Avatar src={'./icon.png'} alt={challenge.title} sx={{ width: 40, height: 40 }} /> {/* הוסף את התמונה כאן */}

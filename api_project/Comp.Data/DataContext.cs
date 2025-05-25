@@ -13,7 +13,6 @@ namespace Comp.Data
         public DbSet<Vote> Votes { get; set; }
         public DbSet<Challenge> Challenges { get; set; }
         public DbSet<Image> Images{ get; set; }
-        public DbSet<Winners> Winners { get; set; }
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

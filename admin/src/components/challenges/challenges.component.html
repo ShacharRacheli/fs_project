@@ -70,7 +70,6 @@
 
 
 <div class="container">
-    <!-- Keep your existing challenge list code -->
     <div class="challenge-list">
         <h2>Challenge Board</h2>
         <mat-accordion>
@@ -99,24 +98,19 @@
         </mat-accordion>
     </div>
 
-    <!-- New completely redesigned challenge form -->
     <div class="challenge-form">
-        <!-- Decorative elements -->
         <div class="form-decoration decoration-circle-1"></div>
         <div class="form-decoration decoration-circle-2"></div>
         
         <form [formGroup]="challengeForm" (ngSubmit)="onSubmitAddChallenge()">
             <mat-card>
-                <!-- Pink animated ribbon -->
                 <div class="form-ribbon"></div>
                 
-                <!-- Form title section -->
                 <div class="form-title-container">
                     <h2 class="form-title">Create New Challenge</h2>
                     <p class="form-subtitle">Share your exciting challenge with the community</p>
                 </div>
                 
-                <!-- Form fields -->
                 <div class="form-content">
                     <mat-card-content>
                         <mat-form-field appearance="fill">
