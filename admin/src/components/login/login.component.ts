@@ -39,6 +39,7 @@ password:['',[Validators.required,Validators.minLength(5)]]
     this.router.navigate(['/homePage']);
    }
     ,error:(e)=>{
+      alert(`Only managers are allowed!!`)
 console.error(e.error.message)
    }})  
 }
