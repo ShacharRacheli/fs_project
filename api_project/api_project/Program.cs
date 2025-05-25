@@ -13,9 +13,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-//Env.Load();
-//DotNetEnv.Env.Load();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -57,7 +54,6 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IS3Service, S3Service>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IOpenAiService, OpenAiService>();
-//builder.Services.AddDbContext<DataContext>();
 builder.Services.AddHostedService<ChallengeExpirationJob>();
 builder.Services.AddDbContext<DataContext>(options =>
 options.UseMySql(Environment.GetEnvironmentVariable("DATABASE_CONECTION"),

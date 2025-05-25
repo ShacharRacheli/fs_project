@@ -25,7 +25,6 @@ namespace Comp.Data.Reposirories
         public async Task<bool> AddNewChallengeAsync(Challenge challenge)
         {
             Console.WriteLine("in add chalerepositoryyyyyyyceeeee++++++==");
-
             await _dataContext.Challenges.AddAsync(challenge);
             return await _dataContext.SaveChangesAsync() > 0;
         }

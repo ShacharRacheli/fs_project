@@ -61,7 +61,7 @@ namespace Comp.API.Controllers
         public async Task<ActionResult> LoginManager([FromBody] UserLoginDto userLogin)
         {
             User user = await _userService.GetUserByEmailPasswordAsync(userLogin);
-            if (user != null && !user.IsDeleted&&user.Role.Equals("admin"))
+            if (user != null && !user.IsDeleted&&user.Role==ERole.admin)
             {
                 if (VPassword.VerifyPassword(userLogin.Password, user.Password))  // תוודא שהסיסמה נכונה
                 {
