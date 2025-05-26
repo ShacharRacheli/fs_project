@@ -19,7 +19,5 @@ namespace Comp.Core.IRepositories
         Task<List<Challenge>> GetExpiredChallengesAsync();
         Task<int?> GetWinnerByTopImageAsync(int challengeId);
         Task<IEnumerable<ChallengeVotesDTO>> GetChallengeVotesAsync();
-
-
     }
 }

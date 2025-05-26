@@ -17,8 +17,6 @@ namespace Comp.Core.Models
         public string Email { get; set; }
         public ERole Role { get; set; }
         public DateTime JoiningDate { get; set; }
-        //public List<Challenge> challenges { get; set; }
-        //public List<Image> ImagesList { get; set; }
         public bool IsDeleted { get; set; }
 
     }

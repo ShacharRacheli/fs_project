@@ -57,10 +57,10 @@ namespace Comp.Data.Reposirories
                 tempUser.Email = user.Email;
 
                 // עדכון סיסמה רק אם היא שונתה
-                if (!string.IsNullOrEmpty(user.Password))
-                {
-                    tempUser.Password = VPassword.HashPassword(user.Password);
-                }
+                //if (!string.IsNullOrEmpty(user.Password))
+                //{
+                //    tempUser.Password = VPassword.HashPassword(user.Password);
+                //}
 
                 // עדכון תפקיד אם הוא שונה
                 //if (tempUser.Role != user.Role)

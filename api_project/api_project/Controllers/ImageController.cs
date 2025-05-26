@@ -115,17 +115,17 @@ namespace Comp.API.Controllers
             return Ok(new {newImage=image});
         }
         
-        [HttpDelete("{id}")]
-        [Authorize]
-        public async Task<IActionResult> DeleteImage(int id)
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // קבלת ה-ID של המשתמש המחובר
-            var isAdmin = User.IsInRole("admin"); // בדיקה אם המשתמש הוא ADMIN
-            var result = await _imageService.DeleteImageAsync(id, userId, isAdmin);
-            if (!result)
-                return Forbid(); //מחזיר 403 אם אין הרשאה
-            return NoContent();
-        }
+        //[HttpDelete("{id}")]
+        //[Authorize]
+        //public async Task<IActionResult> DeleteImage(int id)
+        //{
+        //    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // קבלת ה-ID של המשתמש המחובר
+        //    var isAdmin = User.IsInRole("admin"); // בדיקה אם המשתמש הוא ADMIN
+        //    var result = await _imageService.DeleteImageAsync(id, userId, isAdmin);
+        //    if (!result)
+        //        return Forbid(); //מחזיר 403 אם אין הרשאה
+        //    return NoContent();
+        //}
     
 
     }

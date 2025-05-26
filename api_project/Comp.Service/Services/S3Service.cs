@@ -33,7 +33,7 @@ namespace Comp.Service.Services
 
             _s3Client = new AmazonS3Client(accessKey, secretKey, Amazon.RegionEndpoint.GetBySystemName(region));
         }
-        ///==================================
+        ///=========================
         public async Task<string> GetPresignedUrlAsync(string fileName, string contentType)
         {
 
@@ -55,7 +55,7 @@ namespace Comp.Service.Services
                 BucketName = _bucketName,
                 Key = fileName,
                 Verb = HttpVerb.GET,
-                Expires = DateTime.UtcNow.AddMinutes(30) // תוקף של 30 דקות
+                Expires = DateTime.UtcNow.AddMinutes(30) 
             };
 
             return _s3Client.GetPreSignedURL(request);
@@ -71,7 +71,7 @@ namespace Comp.Service.Services
                 BucketName = _bucketName,
                 Key = fileName,
                 InputStream = fileStream,
-                ContentType = "image/jpeg" // או ContentType אחר בהתאם
+                ContentType = "image/jpeg" 
             };
             var response = await _s3Client.PutObjectAsync(request);
             return $"https://{_bucketName}.s3.{_s3Client.Config.RegionEndpoint.SystemName}.amazonaws.com/{fileName}";

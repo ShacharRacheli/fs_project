@@ -13,6 +13,5 @@ namespace Comp.Core.IRepositories
         Task<bool> DeleteVoteAsync(int userId, int imageId);
         Task<bool> IsSelfVotingAsync(int imageId, int userId);
         Task<bool> HasVotedAsync(int imageId, int userId);
-
     }
 }

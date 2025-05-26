@@ -63,11 +63,9 @@ namespace Comp.API.Controllers
             User user = await _userService.GetUserByEmailPasswordAsync(userLogin);
             if (user != null && !user.IsDeleted&&user.Role==ERole.admin)
             {
-                if (VPassword.VerifyPassword(userLogin.Password, user.Password))  // תוודא שהסיסמה נכונה
+                if (VPassword.VerifyPassword(userLogin.Password, user.Password))  
                 {
-                    // הפונקציה מייצרת את ה-JWT עם מזהה המשתמש, שם המשתמש, כתובת האימייל והתפקיד
                     var token = Jwt.GenerateJwtToken(user);
-                    // מחזירים את ה-JWT ללקוח
                     return Ok(new { Token = token });
                 }
             }

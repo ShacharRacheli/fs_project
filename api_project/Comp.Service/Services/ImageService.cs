@@ -52,24 +52,24 @@ namespace Comp.Service.Services
         {
             return await _imageRepository.AddImageAsync(image);
         }
-        public async Task<Image> UploadImageAsync(int userId, int challengeId, Stream fileStream, string fileName)
-        {
-            await ListBucketsAsync();
-            // העלאת התמונה ל-S3
-            var imageUrl = await _s3Service.UploadFileAsync(fileStream, fileName);
+        //public async Task<Image> UploadImageAsync(int userId, int challengeId, Stream fileStream, string fileName)
+        //{
+        //    await ListBucketsAsync();
+        //    // העלאת התמונה ל-S3
+        //    var imageUrl = await _s3Service.UploadFileAsync(fileStream, fileName);
 
-            // יצירת אובייקט Image
-            var image = new Image
-            {
-                UserId = userId,
-                ChallengeId = challengeId,
-                ImageUrl = imageUrl,
-                UploadedAt = DateTime.Now
-            };
+        //    // יצירת אובייקט Image
+        //    var image = new Image
+        //    {
+        //        UserId = userId,
+        //        ChallengeId = challengeId,
+        //        ImageUrl = imageUrl,
+        //        UploadedAt = DateTime.Now
+        //    };
 
-            // שמירת התמונה בבסיס הנתונים
-            return await _imageRepository.AddImageAsync(image);
-        }
+        //    // שמירת התמונה בבסיס הנתונים
+        //    return await _imageRepository.AddImageAsync(image);
+        //}
 
         public async Task ListBucketsAsync()
         {
@@ -104,6 +104,7 @@ namespace Comp.Service.Services
             }
             return false;
         }
+
         public async Task<List<Image>> GetImagesByChallengeAsync(int challengeId)
         {
             return await _imageRepository.GetImagesByChallengeAsync(challengeId);
