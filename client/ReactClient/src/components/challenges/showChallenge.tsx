@@ -55,17 +55,18 @@ const ShowChallenge = () => {
   };
   return (
 
-    <Box sx={{ padding: 4,margin:"40px" }}>
+    <Box sx={{ padding: 4}}>
       {challenge ? (
         <>
           <Typography variant="h3" gutterBottom sx={{
-  margin: '0px 0px 110px', // השתמש ברווחים
-  fontFamily: 'cursive', // השתמש במרכאות כפולות
+  margin: '70px 0px 110px', 
+  fontFamily: 'cursive', 
   fontWeight: 450, 
   fontSize: '3rem', 
-  lineHeight: 1.167, // אין צורך במרכאות
-  letterSpacing: '0em', // השתמש במרכאות כפולות
-  textAlign: 'center', // השתמש במרכאות כפולות
+  lineHeight: 1.167, 
+  letterSpacing: '0em',
+  textAlign: 'center', 
+ background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
 }}
 >
             {challenge.title}

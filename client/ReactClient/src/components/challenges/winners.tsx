@@ -50,6 +50,7 @@
 // export default Winners
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useEffect } from "react";
 import { 
   CardMedia, 
@@ -59,7 +60,8 @@ import {
   Box, 
   Container,
 //   useTheme,
-  Divider
+  Divider,
+  Chip
 } from "@mui/material";
 import ImageViewer from "../Pictures/imageViewr";
 import { getTopImagesByChallenge } from "../redux/topImagesSlice";
@@ -116,8 +118,6 @@ const Winners = () => {
                 }}
               >
                 <Box sx={{ position: "relative" }}>
-                  {/* Trophy badge for top positions */}
-                  {/* {index < 3 && ( this is only if i have less than 3 winners but i have more  */}
                     <Box sx={{ 
                       position: "absolute", 
                       top: 10, 
@@ -136,7 +136,6 @@ const Winners = () => {
                         color: index === 0 ? "#FFD700" : index === 1 ? "#C0C0C0" : "#CD7F32" 
                       }} />
                     </Box>
-                   {/* )} */}
                   
                   <CardMedia
                     component={ImageViewer}
@@ -184,6 +183,25 @@ const Winners = () => {
                     </Box>
                     {winner.userName}
                   </Typography>
+                  {/* <Typography> Votes:
+                    {winner.countVotes}
+                  </Typography> */}
+                   <Chip
+                      icon={<ThumbUpIcon sx={{ fontSize: 18 }} />}
+                      label={`${winner.countVotes.toLocaleString()} votes`}
+                      sx={{
+                        background: "linear-gradient(135deg,rgb(253, 84, 233) 0%,rgb(207, 0, 225) 100%",
+                        color: 'white',
+                        fontWeight: 700,
+                        fontSize: '0.875rem',
+                        height: 36,
+                        borderRadius: 3,
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                        '& .MuiChip-icon': {
+                          color: 'white'
+                        }
+                      }}
+                    />
                 </Box>
               </Paper>
             </Grid>
