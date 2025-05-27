@@ -10,7 +10,6 @@ import { usersChallengesGuard } from '../guards/users-challenges.guard';
 
 export const routes: Routes = [
    { path: '', redirectTo: 'homePage', pathMatch: 'full' },
-//    {path:'homePage',component:HomePageComponent},
    {path:'homePage',component:HomePageComponent,canActivate:[authGuard]},
    {path:'login',component:LoginComponent},
    {path:'challenges',component:ChallengesComponent,canActivate:[usersChallengesGuard]},

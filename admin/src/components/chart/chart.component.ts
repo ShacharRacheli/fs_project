@@ -22,11 +22,8 @@ constructor(private challengeService: ChallengeService){
 
   fetchChallenges() {
     this.challengeService.getChallengeVotes().subscribe(data => {
-      console.log("=============");  
-      console.log(data);
-      console.log("=============");     
-      this.chartCategories = data.map(challenge => challenge.title); // Assuming 'title' is the property for challenge name
-      this.chartData = data.map(challenge => challenge.votes); // Assuming 'votes' is the property for vote count
+      this.chartCategories = data.map(challenge => challenge.title);
+      this.chartData = data.map(challenge => challenge.votes);
       this.updateChart();
     });
   }

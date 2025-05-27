@@ -1,74 +1,3 @@
-<!-- <div class="container">
-    <div class="challenge-list">
-        <mat-accordion>
-            @for(currentChallenge of (allChallenges$|async);track $index){
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            {{currentChallenge.title}} 
-                        </mat-panel-title>
-                        @if(currentChallenge.startDate && currentChallenge.endDate){
-                            <span>
-                                {{isChallengeActive(currentChallenge.startDate, currentChallenge.endDate) ? 'Active ' : 'Not Active ' }}
-                            </span>
-                        }
-                   From: {{currentChallenge.startDate| date:'MMMM d, y'}} - Till: {{currentChallenge.endDate| date:'MMMM d, y'}}
-                    </mat-expansion-panel-header>
-                    {{currentChallenge.description}} 
-                </mat-expansion-panel>
-            }
-            </mat-accordion>
-            </div>
-
- <div class="challenge-form"> -->
-<!-- <button mat-raised-button color="primary" (click)="setIsAddChallenge()">Add Challenge</button>
-@if(isAddChallenge){ -->
-    <!-- <form [formGroup]="challengeForm" (ngSubmit)="onSubmitAddChallenge()">
-        <mat-card>
-            <mat-card-title class="center-title">Add a new challenge</mat-card-title>
-            <mat-card-content>
-                <mat-form-field appearance="fill">
-                    <mat-label for="title">Title</mat-label>
-                    <input matInput id="title" formControlName="title" required>
-                    @if (challenge['title']&&challenge['title'].errors &&challenge['title'].touched) {
-                    @if(challenge['title'].errors['required']) {
-                    <mat-error>Title is required</mat-error>
-                    }
-                    @if(challenge["title"].errors["minlength"]) {
-                    <mat-error>Title must be at least 4 characters</mat-error>
-                    }
-                    @if(challenge["title"].errors["maxlength"]) {
-                    <mat-error>Title must be at most 8 characters</mat-error>
-                    }
-                    }
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label for="description">Description:</mat-label>
-                    <input matInput id="description" formControlName="description" required>
-                    @if (challenge['description']&&challenge['description'].errors &&challenge['description'].touched) {
-                    @if(challenge['description'].errors["required"]) {
-                    <mat-error>Description is required</mat-error>
-                    }
-                    @if(challenge["description"].errors["minlength"]) {
-                    <mat-error>Description must be at least 15 characters</mat-error>
-                    }
-                    }
-                </mat-form-field>
-            </mat-card-content>
-            <mat-card-actions class="center-actions">
-                <button mat-raised-button color="primary" type="submit"
-                    [disabled]="challengeForm.invalid">Submit</button>
-            </mat-card-actions>
-        </mat-card>
-    </form> -->
-<!-- } -->
-
-<!-- </div>
-</div> -->
-
-
-
-
 <div class="container">
     <div class="challenge-list">
         <h2>Challenge Board</h2>
@@ -144,7 +73,6 @@
                         </mat-form-field>
                     </mat-card-content>
                     
-                    <!-- Redesigned button area -->
                     <mat-card-actions>
                         <div class="button-container">
                             <button mat-raised-button type="submit" class="pink-button"
@@ -152,7 +80,6 @@
                         </div>
                     </mat-card-actions>
                     
-                    <!-- Form footer -->
                     <div class="form-footer">
                         <p>Your challenge will appear on the board after review</p>
                     </div>

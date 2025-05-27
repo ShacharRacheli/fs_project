@@ -1,60 +1,3 @@
-/* mat-list-item {
-    margin-bottom: 16px;
-    padding: 16px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-  }
-  
-  mat-form-field {
-    display: block;
-    margin-bottom: 16px;
-  }
-  mat-card {
-    width: 300px; 
-    text-align: center; 
-  } 
-  mat-expansion-panel {
-    margin-bottom: 15px;
-  } */
-  /* .container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.challenge-list {
-    flex: 2; 
-    padding: 16px;
-    margin-top: 50px;
-}
-
-.challenge-form {
-    flex: 1;
-    padding: 16px;
-    margin-top: 50px;
-    border-left: 1px solid #e0e0e0; }
-
-mat-list-item {
-    margin-bottom: 16px;
-    padding: 16px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-}
-
-mat-form-field {
-    display: block;
-    margin-bottom: 16px;
-}
-
-mat-card {
-    width: 100%; 
-    text-align: center;
-}
-
-mat-expansion-panel {
-    margin-bottom: 15px;
-} */
-/* Overall Layout and Container */
-/* Main Container */
 .container {
   display: flex;
   flex-direction: column;
@@ -73,8 +16,6 @@ mat-expansion-panel {
     gap: 40px;
   }
 }
-
-/* ===== CHALLENGE LIST SECTION ===== */
 .challenge-list {
   flex: 2;
   margin-bottom: 30px;
@@ -88,7 +29,6 @@ mat-expansion-panel {
   letter-spacing: -0.5px;
 }
 
-/* Expansion Panel Improvements */
 ::ng-deep .mat-expansion-panel {
   margin-bottom: 20px !important;
   border-radius: 12px !important;
@@ -117,7 +57,6 @@ mat-expansion-panel {
   letter-spacing: -0.3px !important;
 }
 
-/* Status Indicator - Much Improved */
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -161,7 +100,6 @@ mat-expansion-panel {
   box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.2);
 }
 
-/* Date Range Style */
 .date-range {
   font-size: 14px;
   color: #64748b;
@@ -179,7 +117,6 @@ mat-expansion-panel {
   gap: 8px;
 }
 
-/* Challenge Description */
 .challenge-description {
   font-size: 16px;
   line-height: 1.7;
@@ -193,7 +130,6 @@ mat-expansion-panel {
   font-size: 16px !important;
 }
 
-/* ===== NEW CHALLENGE FORM STYLING - PURPLE THEME ===== */
 .challenge-form {
   flex: 1;
   max-width: 480px;
@@ -206,7 +142,6 @@ mat-expansion-panel {
   border: 2px solid #9c27b0;
 }
 
-/* Glass-like card effect */
 ::ng-deep .mat-card {
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px);
@@ -329,7 +264,6 @@ mat-expansion-panel {
   background-color: rgba(255, 255, 255, 0.95) !important;
 }
 
-/* Clean, solid background for form fields */
 ::ng-deep .mat-form-field .mat-form-field-flex {
   background-color: #ffffff !important;
 }

@@ -11,6 +11,5 @@ export class Users{
         public joiningDate: Date,
         public id: number,
         public isDeleted?: boolean,
-        // public password: string,
     ) { }
 }
