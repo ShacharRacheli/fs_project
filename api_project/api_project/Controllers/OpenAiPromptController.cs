@@ -19,15 +19,10 @@ namespace Comp.API.Controllers
         {
             try
             {
-                //var content = $"Title: {request.Topic}\nDescription: {request.Description}\nUser question: {request.UserQuestion}\nPlease provide a suitable response.";
                 var payload = new
                 {
                     model = "gpt-4o-mini",
                     messages=request.Messages
-                    //    messages = new[]
-                    //    {
-                    //    new { role = "user", content }
-                    //}
                 };
 
                 var httpRequest = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions")
@@ -35,10 +30,8 @@ namespace Comp.API.Controllers
                     Content = JsonContent.Create(payload)
                 };
 
-                // Add authorization header
                 httpRequest.Headers.Add("Authorization", $"Bearer {Environment.GetEnvironmentVariable("OPEN_AI_KEY")}");
 
-                // Send the request to OpenAI API
                 var response = await client.SendAsync(httpRequest);
                 if (!response.IsSuccessStatusCode)
                 {
@@ -46,7 +39,6 @@ namespace Comp.API.Controllers
                     throw new Exception($"OpenAI Error: {response.StatusCode} - {error}");
                 }
 
-                // Parse the response from OpenAI
                 var json = await response.Content.ReadAsStringAsync();
                 var doc = JsonDocument.Parse(json);
                 var replyContent = doc.RootElement
@@ -55,7 +47,6 @@ namespace Comp.API.Controllers
                     .GetProperty("content")
                     .GetString();
 
-                //return Ok(new { prompts = new List<string> { replyContent } });
                 return Ok(new { reply = replyContent });
             }
             catch (Exception ex)

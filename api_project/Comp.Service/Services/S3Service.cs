@@ -17,23 +17,13 @@ namespace Comp.Service.Services
 
         public S3Service(IConfiguration configuration)
         {
-            //var awsOptions = configuration.GetSection("AWS");
             var accessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY");
-            //var accessKey = awsOptions["AccessKey"];
             var secretKey = Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY");
-            //var secretKey = awsOptions["SecretKey"];
             var region = Environment.GetEnvironmentVariable("AWS_REGION");
-            //var region = awsOptions["Region"];
             _bucketName = Environment.GetEnvironmentVariable("AWS_S3_BUCKET");
-            //_bucketName = awsOptions["BucketName"];
-            //_bucketName = "racheli-project";
-            //Console.WriteLine($"AWS_ACCESS_KEY: {Environment.GetEnvironmentVariable("AWS_ACCESS_KEY")}");
-            //Console.WriteLine($"AWS_SECRET_KEY: {Environment.GetEnvironmentVariable("AWS_SECRET_KEY")}");
-            //Console.WriteLine($"AWS_REGION: {Environment.GetEnvironmentVariable("AWS_REGION")}");
-
             _s3Client = new AmazonS3Client(accessKey, secretKey, Amazon.RegionEndpoint.GetBySystemName(region));
         }
-        ///=========================
+
         public async Task<string> GetPresignedUrlAsync(string fileName, string contentType)
         {
 
@@ -60,23 +50,6 @@ namespace Comp.Service.Services
 
             return _s3Client.GetPreSignedURL(request);
         }
-        ///=========================
-
-
-
-        public async Task<string> UploadFileAsync(Stream fileStream, string fileName)
-        {
-            var request = new PutObjectRequest
-            {
-                BucketName = _bucketName,
-                Key = fileName,
-                InputStream = fileStream,
-                ContentType = "image/jpeg" 
-            };
-            var response = await _s3Client.PutObjectAsync(request);
-            return $"https://{_bucketName}.s3.{_s3Client.Config.RegionEndpoint.SystemName}.amazonaws.com/{fileName}";
-        }
-
 
         public async Task<Stream> DownloadFileAsync(string fileName)
         {
@@ -91,7 +64,6 @@ namespace Comp.Service.Services
         }
         public async Task DeleteFileAsync(string fileUrl)
         {
-            // מחלץ את שם הקובץ מתוך ה-URL
             var fileName = fileUrl.Split('/').Last();
 
             var request = new DeleteObjectRequest

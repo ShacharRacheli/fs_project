@@ -16,9 +16,6 @@ namespace Comp.Core.IServices
         Task<TopImageDTO> GetTopImageByChallengeAsync(int challengeId);
         //Task<Image> GetTopImageByChallengeAsync(int challengeId);
         //Task<bool> AddImageAsync(Image image);
-        //Task UploadImageAsync(int userId, int challengeId, Stream stream, string fileName);
-        //Task<Image> UploadImageAsync(int userId, int challengeId, Stream fileStream, string fileName);
-        //Task<Image> UploadImageAsync(int userId, int challengeId, Stream fileStream, string fileName);
         Task<Stream> DownloadImageAsync(int id);
         Task ListBucketsAsync();
         Task<Image> AddImageAsync(Image image);

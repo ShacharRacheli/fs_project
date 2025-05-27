@@ -20,7 +20,6 @@ namespace Comp.API.Controllers
     {
         private readonly IImageService _imageService;
         private readonly IMapper _mapper;
-        //private readonly IAmazonS3 _s3Client;
         private readonly IS3Service _s3Service;
 
         public ImageController(IImageService imageService, IMapper mapper,IS3Service s3Service)
@@ -29,7 +28,6 @@ namespace Comp.API.Controllers
             _mapper = mapper;
             _s3Service = s3Service;
         }
-        // GET: api/<ImageController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Image>>> Get()
         {
@@ -44,22 +42,7 @@ namespace Comp.API.Controllers
             return Ok(imageDTOs);
         }
    
-        //[HttpGet("presigned-url")]
-        //public async Task<IActionResult> GetPresignedUrl([FromQuery] string fileName)
-        //{
-        //    var request = new GetPreSignedUrlRequest
-        //    {
-        //        BucketName = "ai-battle",
-        //        Key = fileName,
-        //        Verb = HttpVerb.PUT,
-        //        Expires = DateTime.UtcNow.AddMinutes(5),
-        //        ContentType = "image/jpeg" // או סוג הקובץ המתאים
-        //    };
-        //    //string imageUrl
-        //    string url = _s3Client.GetPreSignedURL(request);
-        //    return Ok(new { url });
-        //}
-        // GET api/<ImageController>/5
+
         [HttpGet("CountVotes/{id}")]
         public async Task<ActionResult> GetVoteCount(int id)
         {
@@ -79,7 +62,6 @@ namespace Comp.API.Controllers
                 //return Ok(imageDto);
                 return Ok(image);
         }
-        //============================
         [HttpGet("presigned-url")]
         [Authorize]
         public async Task<ActionResult> GetPresignedUrl([FromQuery] string fileName, [FromQuery] string contentType, [FromQuery] int challengeId)
@@ -103,7 +85,7 @@ namespace Comp.API.Controllers
             var downloadUrl = await _s3Service.GetDownloadUrlAsync(fileName);
             return Ok(new { Url = downloadUrl });
         }
-        [HttpPost("addImageToDB")]//insert to database the image details
+        [HttpPost("addImageToDB")]
         [Authorize]
         public async Task<ActionResult> UploadImageSuccessful([FromBody] ImageDto image)
         {
@@ -111,22 +93,7 @@ namespace Comp.API.Controllers
                 return BadRequest("Invalid image data");
             var imageDto=_mapper.Map<Image>(image);
              await _imageService.AddImageAsync(imageDto);
-            //Console.WriteLine(i.FileName + i.ChallengeId+"jkhg");
             return Ok(new {newImage=image});
-        }
-        
-        //[HttpDelete("{id}")]
-        //[Authorize]
-        //public async Task<IActionResult> DeleteImage(int id)
-        //{
-        //    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // קבלת ה-ID של המשתמש המחובר
-        //    var isAdmin = User.IsInRole("admin"); // בדיקה אם המשתמש הוא ADMIN
-        //    var result = await _imageService.DeleteImageAsync(id, userId, isAdmin);
-        //    if (!result)
-        //        return Forbid(); //מחזיר 403 אם אין הרשאה
-        //    return NoContent();
-        //}
-    
-
+        }      
     }
 }

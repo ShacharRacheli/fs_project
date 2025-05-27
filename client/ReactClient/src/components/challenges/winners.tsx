@@ -183,11 +183,8 @@ const Winners = () => {
                     </Box>
                     {winner.userName}
                   </Typography>
-                  {/* <Typography> Votes:
-                    {winner.countVotes}
-                  </Typography> */}
                    <Chip
-                      icon={<ThumbUpIcon sx={{ fontSize: 18 }} />}
+                      // icon={<ThumbUpIcon sx={{ fontSize: 18 }} />}
                       label={`${winner.countVotes.toLocaleString()} votes`}
                       sx={{
                         background: "linear-gradient(135deg,rgb(253, 84, 233) 0%,rgb(207, 0, 225) 100%",

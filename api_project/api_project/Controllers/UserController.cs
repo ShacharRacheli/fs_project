@@ -71,20 +71,15 @@ namespace Comp.API.Controllers
             }
             return Unauthorized();
         }
-        // POST api/<UserController>
+        
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] UserDto user)
         {       
             if (string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Password))
             {
                 return BadRequest("Email and Password are required.");
-            }
-            //if (!Enum.TryParse(user.Role, true, out ERole role))
-            //{
-            //    return BadRequest("Invalid role.");
-            //}
+            }         
             var newUser = _mapper.Map<User>(user);
-            //newUser.Role = role;
             var userAdded = await _userService.AddUserAsync(newUser);
             if (!userAdded)
             {
@@ -102,12 +97,9 @@ namespace Comp.API.Controllers
             {
                 return BadRequest("Email and Password are required.");
             }
-            //if (!Enum.TryParse(user.Role, true, out ERole role))
-            //{
-            //    return BadRequest("Invalid role.");
-            //}
+            
             var newUser = _mapper.Map<User>(user);
-            //newUser.Role = role;
+            newUser.Role=ERole.admin;
             var userAdded = await _userService.AddUserAsync(newUser);
             if (!userAdded)
             {
@@ -116,39 +108,30 @@ namespace Comp.API.Controllers
             var token = Jwt.GenerateJwtToken(newUser);
             return Ok(new { Token = token });
         }
-        // PUT api/<UserController>/5
+
         [HttpPut("{id}")]
-        //[Authorize]
         public async Task<ActionResult> Put(int id, [FromBody] UserUpdateDto user)
         {
             var userEntity = _mapper.Map<User>(user);
-            userEntity.Id = id;
-            //if (Enum.TryParse<ERole>(user.Role, out var role))
-            //{
-            //    userEntity.Role = role; // עדכון התפקיד
-            //}
+            userEntity.Id = id;           
             var userUpdated = await _userService.UpdateUserAsync(id, userEntity);
             if (!userUpdated)
             {
                 return NotFound();
             }
-            // Generate a new JWT token if needed
             var token = Jwt.GenerateJwtToken(userEntity);
-            return Ok(new { Token = token });
-            //if (await _userService.UpdateUserAsync(id, _mapper.Map<User>(user)))
-            //    return Ok();
-            //return NotFound();
+            return Ok(new { Token = token });        
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            if (await _userService.DeleteUserAsync(id))
-                return Ok();
-            return NotFound();
-        }
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult> Delete(int id)
+        //{
+        //    if (await _userService.DeleteUserAsync(id))
+        //        return Ok();
+        //    return NotFound();
+        //}
         [HttpPatch("DeleteUser/{id}")]
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> DeleteUser(int id)
         {
             if (await _userService.DeleteUserAsync(id))

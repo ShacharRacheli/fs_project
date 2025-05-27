@@ -21,7 +21,7 @@ namespace Comp.API.Controllers
             _voteService = voteService;
             _mapper = mapper;
         }
-        //// GET api/<VoteController>/5
+
         [Authorize]
         [HttpGet("HasVoted")]
         public async Task<IActionResult> HasVoted([FromQuery]int imageId,[FromQuery]int userId)
@@ -49,7 +49,6 @@ namespace Comp.API.Controllers
 
 
 
-        // DELETE api/<VoteController>/5
         [HttpDelete("deleteVote")]
         [Authorize]
         public async Task<bool> Delete([FromBody] VoteDto voteRequest)
@@ -57,7 +56,6 @@ namespace Comp.API.Controllers
             //var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             //if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
             //    return Unauthorized("Invalid user ID");
-
             return await _voteService.DeleteVoteAsync(voteRequest.UserId, voteRequest.ImageId);
         }
     }

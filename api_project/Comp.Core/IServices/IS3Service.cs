@@ -8,7 +8,6 @@ namespace Comp.Core.IServices
 {
    public interface IS3Service
     {
-        Task<string> UploadFileAsync(Stream fileStream, string fileName);
         Task<Stream> DownloadFileAsync(string fileName);
         Task DeleteFileAsync(string fileUrl);
         Task<string> GetPresignedUrlAsync(string fileName, string contentType);
