@@ -7,16 +7,10 @@ const Footer = () => {
     return (
         <footer style={{
             textAlign: 'center',
-            // backgroundColor: 'black',
             backgroundColor: 'white',
-            // color: 'white', // צבע טקסט שחור כדי שיהיה קריא על רקע לבן
-            color: 'black', // צבע טקסט שחור כדי שיהיה קריא על רקע לבן
-            padding: '20px 20px',
-            // position: 'fixed', // דבק את הפוטר לתחתית
-            // bottom: 0,
-            // left: 0,
-            // right: 0,       
-             borderTop: '1px solid rgba(0, 0, 0, 0.1)', // קו חלש מעל הפוטר
+            color: 'black', 
+            padding: '20px 20px',      
+             borderTop: '1px solid rgba(0, 0, 0, 0.1)', 
 
             fontFamily: '"Plus Jakarta Sans", Arial, Helvetica, sans-serif',
         }}>

@@ -11,7 +11,6 @@ export const router = createBrowserRouter([
         element: <AppLayout />,
         children: [
             { index: true, element: <HomePage /> },
-            // { path: 'home', element: <HomePage /> },
             { path: 'allChallenges', element: <AllChallenges /> },
             { path: 'winners', element: <Winners/> },
             { path: 'allChallenges/:id', element: <ShowChallenge /> },

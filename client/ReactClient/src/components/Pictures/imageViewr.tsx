@@ -22,51 +22,24 @@ const ImageViewer = ({ fileName }:{fileName:string}) => {
     };
 
     fetchImageUrl();
-  }, [fileName]); // מבצע את הקריאה כל פעם ששם הקובץ משתנה
+  }, [fileName]); 
   return (
-  //   <Box sx={{ position: 'relative', width: '100%', height: '200px' }}>
-  //   {loading ? (
-  //     <CircularProgress
-  //       size={50}
-  //       sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-  //     />
-  //   ) : (
-  //     <Card>
-  //       <CardMedia
-  //         component="img"
-  //         image={imageUrl || ''}
-  //         alt="Uploaded"
-  //         sx={{ height: '100%', objectFit: 'cover' }}
-  //       />
-  //     </Card>
-  //   )}
-  // </Box>
-  <Box sx={{ position: 'relative', width: '100%', height: '250px' }}> {/* Fixed height */}
+  <Box sx={{ position: 'relative', width: '100%', height: '250px' }}> 
   {loading ? (
     <CircularProgress
       size={50}
       sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
     />
   ) : (
-    // <Card>
        <CardMedia 
         component="img"
         image={imageUrl || ''}
         alt="Uploaded"
-        sx={{ height: '100%', width: '100%', objectFit: 'contain' }} // Fixed width and height
+        sx={{ height: '100%', width: '100%', objectFit: 'contain' }} 
       />
-    // </Card>
   )}
 </Box>
   );
 };
 
 export default ImageViewer;
-
-    // <div>
-    //   {imageUrl ? (
-    //     <img src={imageUrl} alt="Uploaded Image" style={{ width: '100%', borderRadius: '8px' }} />
-    //   ) : (
-    //     <p>טוען תמונה...</p>
-    //   )}
-    // </div>

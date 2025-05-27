@@ -7,28 +7,23 @@ const apiUrl = import.meta.env.VITE_APP_API_URL;
 export const getImageByChallengeId=createAsyncThunk('imagesByChallengeId/get',async(challengeId:number,thunkApi)=>{
     try{
 const res=await axios.get(`${apiUrl}/api/Image/challenge/${challengeId}`);
-// const res=await axios.get(`http://localhost:5070/api/Image/challenge/${challengeId}`);
 return res.data as ImageType[]
     }catch(error){
 return thunkApi.rejectWithValue(error);
     }
 })
 
-// const res=await axios.post(`http://localhost:5070/api/Image/CountVotes/${imageId}`);
 export const addVote=createAsyncThunk('postVote/post',async({ userId, imageId ,challengeId}: { userId: number; imageId: number,challengeId:number },thunkApi)=>{
     try {
 
     const token =sessionStorage.getItem('token')
-        // const res = 
         await axios.post(`${apiUrl}/api/Vote`, {
-        // const res = await axios.post(`http://localhost:5070/api/Vote`, {
             userId,
             imageId
         },{
             headers: {
-                Authorization: `Bearer ${token}` // הוספת הטוקן ל-header
+                Authorization: `Bearer ${token}` 
       }});
-        // return res.data;
         const updatedImages = await thunkApi.dispatch(getImageByChallengeId(challengeId)).unwrap();
         return updatedImages; 
     }catch(error){
@@ -38,23 +33,18 @@ return thunkApi.rejectWithValue(error);
 export const deleteVote=createAsyncThunk('deleteVote/delete',async({ userId, imageId ,challengeId}: { userId: number; imageId: number ,challengeId:number},thunkApi)=>{
 try{
     const token =sessionStorage.getItem('token')
-    // const res = 
     await axios.delete(`${apiUrl}/api/Vote/deleteVote`, {
-        // const res = await axios.delete(`http://localhost:5070/api/Vote/deleteVote`, {
-        data: { userId, imageId } ,// Sending both values in the request body
+        data: { userId, imageId } ,
         headers: {
-            Authorization: `Bearer ${token}` // הוספת הטוקן ל-header
+            Authorization: `Bearer ${token}` 
         }
     });
-    // getImageByChallengeId(challengeId);
-    // return res.data;
     const updatedImages = await thunkApi.dispatch(getImageByChallengeId(challengeId)).unwrap();
     return updatedImages;
 }catch(error){
 return thunkApi.rejectWithValue(error);
 }
 })
-// http://localhost:5070/api/Vote/deleteVote
 
 export const imageSlice=createSlice({
     name:'images',
@@ -82,7 +72,7 @@ export const imageSlice=createSlice({
             .addCase(addVote.fulfilled, (state, action: PayloadAction<ImageType[]>) => {
                 state.loading = false;
                 state.error = null;
-                state.imagesByChallenge = action.payload; // עדכון התמונות לאחר הצבעה
+                state.imagesByChallenge = action.payload; 
             })
             .addCase(addVote.rejected, (state) => {
                 state.loading = false;
@@ -95,7 +85,7 @@ export const imageSlice=createSlice({
             .addCase(deleteVote.fulfilled, (state, action: PayloadAction<ImageType[]>) => {
                 state.loading = false;
                 state.error = null;
-                state.imagesByChallenge = action.payload; // עדכון התמונות לאחר מחיקת הצבעה
+                state.imagesByChallenge = action.payload; 
             })
             .addCase(deleteVote.rejected, (state) => {
                 state.loading = false;
@@ -107,6 +97,5 @@ export const imageSlice=createSlice({
 export const selectImagesByChallenge=(state:RootState)=>state.images.imagesByChallenge;
 export const selectAddVote=(state:RootState)=>state.images.imagesByChallenge;
 export const selectDeleteVote=(state:RootState)=>state.images.imagesByChallenge;
-// export const selectImages(state:RootState)=>state.iamges.imagesByChallenge
 export const{actions}=imageSlice;
 export default imageSlice;

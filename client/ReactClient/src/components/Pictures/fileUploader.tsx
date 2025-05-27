@@ -9,7 +9,6 @@ import { getImageByChallengeId } from '../redux/imageSlice';
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
-  // const FileUploader = ({idChallenge,setImages}:{idChallenge:number,setImages: React.Dispatch<SetStateAction<any[]>>}) => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -65,7 +64,7 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
       }
       const imageUrl = presignedUrl.split('?')[0];
       const imageData = {
-        imageUrl: imageUrl, // Use the base URL here
+        imageUrl: imageUrl, 
         userId: getUserIdByToken(),
         challengeId: idChallenge,
         fileName: file.name,
@@ -81,13 +80,11 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
       setImagePreview(null);
       setProgress(0);
     } catch (error) {
-      console.error('שגיאה בהעלאה:', error);
+      console.error('Uploading error', error);
       alert('There was an error while uploading plese try later');
     }
   };
-//display="flex" flexDirection="column" alignItems="flex-end"
   return (
-    // <Box >
           <Paper sx={{ position: 'absolute', top: 100, right: 0, padding: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
       <label htmlFor="file-upload">
         <Button
@@ -112,19 +109,19 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
         type="file"
         onChange={handleFileChange}
         onClick={(event) => {
-          if (!token) {///===================
-            event.preventDefault(); // Prevent file selection if not logged in
+          if (!token) {
+            event.preventDefault(); 
             alert('You must be logged in to select a file.');
           }
           event.stopPropagation();
         }}
-        style={{ display: 'none' }} // Hidden input
+        style={{ display: 'none' }} 
         disabled={!token} 
       />
       <Button
         onClick={handleUpload}
         variant="outlined"
-        disabled={!token||!file}///=============
+        disabled={!token||!file}
         sx={{
           borderColor: 'purple',
           color: 'purple',
@@ -132,7 +129,6 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
             backgroundColor: 'purple',
             color: 'white',
           },
-          // marginTop: 2,
         }}
       >
         upload file
@@ -148,95 +144,7 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
         </Card>
       )}
           </Paper>
-    // </Box>
   );
 };
 
 export default FileUploader;
-//     <div>
-// <div>
-//       <label htmlFor="file-upload">
-//         <Button
-//           variant="contained"
-//           component="span"
-//           startIcon={<CloudUploadIcon />}
-//         >
-//           {file ? file.name : 'בחר קובץ'}
-//         </Button>
-//       </label>
-//       <HiddenInput
-//         id="file-upload"
-//         type="file"
-//         onChange={handleFileChange}
-//         onClick={(event) => {
-//           event.stopPropagation();
-//         }}
-//       />
-//       <Button onClick={handleUpload} variant="outlined" disabled={!file}>
-//         העלה קובץ
-//       </Button>
-//       {progress > 0 && <div>התקדמות: {progress}%</div>}
-//     </div>
-//     </div>
-//     <Box sx={{ padding: 2, border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
-//     <Typography variant="h6" gutterBottom>
-//       העלאת קובץ לאתגר {idChallenge}
-//     </Typography>
-//     <input type="file" onChange={handleFileChange} style={{ marginBottom: '10px' }} />
-//     <Button variant="contained" color="primary" onClick={handleUpload} disabled={!file}>
-//       העלה קובץ
-//     </Button>
-//     {progress > 0 && (
-//       <Typography variant="body2" sx={{ marginTop: 2 }}>
-//         התקדמות: {progress}%
-//       </Typography>
-//     )}
-//   </Box>
-
-// import React, { useRef, useState } from 'react';
-// import axios from 'axios';
-
-// const UploadImage = () => {
-//     const fileInputRef = useRef<HTMLInputElement>(null);
-//     const [challengeId, setChallengeId] = useState('');
-
-//     const handleUpload = async (e:any) => {
-//         e.preventDefault();
-//         const file = fileInputRef.current?.files?.[0];
-//         if (!file) {
-//             alert("Please select a file to upload.");
-//             return;
-//         }
-
-//         const formData = new FormData();
-//         formData.append('File', file);
-//         formData.append('ChallengeId', challengeId);
-
-//         try {
-//             const response = await axios.post('http://localhost:5070/api/upload', formData, {
-//                 headers: {
-//                     'Content-Type': 'multipart/form-data',
-//                 },
-//             });
-//             console.log('File uploaded successfully:', response.data);
-//         } catch (error) {
-//             console.error('Error uploading file:', error);
-//             alert('Error uploading file');
-//         }
-//     };
-
-//     return (
-//         <form onSubmit={handleUpload}>
-//             <input type="file" ref={fileInputRef} />
-//             <input
-//                 type="text"
-//                 placeholder="Challenge ID"
-//                 value={challengeId}
-//                 onChange={(e) => setChallengeId(e.target.value)}
-//             />
-//             <button type="submit">Upload</button>
-//         </form>
-//     );
-// };
-
-// export default UploadImage;
