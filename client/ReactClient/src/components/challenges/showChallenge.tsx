@@ -66,7 +66,7 @@ const ShowChallenge = () => {
   lineHeight: 1.167, 
   letterSpacing: '0em',
   textAlign: 'center', 
- background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
+ color: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
 }}
 >
             {challenge.title}

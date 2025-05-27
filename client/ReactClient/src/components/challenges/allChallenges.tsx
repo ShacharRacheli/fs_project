@@ -34,7 +34,9 @@ const AllChallenges = () => {
   fontWeight: 450, 
   fontSize: '3rem', 
   lineHeight: 1.167,letterSpacing: '0em', 
-  textAlign: 'center', }}>
+  textAlign: 'center', 
+   color: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
+}}>
             Challenges List
         </Typography>
         <List>
