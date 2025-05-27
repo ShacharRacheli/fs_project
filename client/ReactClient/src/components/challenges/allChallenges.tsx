@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../redux/store"
 import { useEffect, useState } from "react";
 import { getChallenges } from "../redux/challengeSlice";
-import { Box, Button, List, ListItem, ListItemText, Typography , ListItemAvatar, Avatar} from "@mui/material";
+import { Box, Button, List, ListItem, ListItemText, Typography, ListItemAvatar, Avatar } from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
 // import SendPrompt from "./sendPrompt";
 
@@ -28,15 +28,16 @@ const AllChallenges = () => {
     console.log(challengesList);
 
     return (<>
-    
-       <Typography variant="h4" sx={{  margin: '70px 0px 24px', 
-  fontFamily: 'cursive',  
-  fontWeight: 450, 
-  fontSize: '3rem', 
-  lineHeight: 1.167,letterSpacing: '0em', 
-  textAlign: 'center', 
-   color: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
-}}>
+
+        <Typography variant="h4" sx={{
+            margin: '70px 0px 24px',
+            fontFamily: 'cursive',
+            fontWeight: 450,
+            fontSize: '3rem',
+            lineHeight: 1.167, letterSpacing: '0em',
+            textAlign: 'center',
+            color: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
+        }}>
             Challenges List
         </Typography>
         <List>
@@ -46,69 +47,69 @@ const AllChallenges = () => {
                         key={challenge.id}
                         sx={{
                             padding: 2,
-                            borderBottom: '1px solid purple', 
+                            borderBottom: '1px solid purple',
                             display: 'flex',
                             alignItems: 'center',
                             backgroundColor: 'white',
                             marginBottom: 2,
                         }}
                     >    <ListItemAvatar>
-                    <Avatar src={'./icon.png'} alt={challenge.title} sx={{ width: 40, height: 40 }} /> {/* הוסף את התמונה כאן */}
-        {/* <SendPrompt challengeTopic={challenge.title} challengeDescription={challenge.description} /> */}
-                </ListItemAvatar>
+                            <Avatar src={'./icon.png'} alt={challenge.title} sx={{ width: 40, height: 40 }} /> {/* הוסף את התמונה כאן */}
+                            {/* <SendPrompt challengeTopic={challenge.title} challengeDescription={challenge.description} /> */}
+                        </ListItemAvatar>
                         <ListItemText
                             primary={
-                                // challenge.title
                                 <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                                {challenge.title}
-                            </Typography>                    
+                                    {challenge.title}
+                                </Typography>
                             }
                             secondary={
                                 <>
-                                <Typography 
-                                    onClick={() => toggleDescription(challenge.id)} 
-                                    sx={{ color: 'purple', cursor: 'pointer',  textDecoration: 'underline', marginBottom: 1  }}
-                                >
-                                    {expandedChallengeId === challenge.id ? "Show Less" : "Show More"}
-                                </Typography>
-                                <Typography 
-                                    sx={{
-                                        display: expandedChallengeId === challenge.id ? 'block' : 'none',
-                                        marginTop: 1,
-                                        whiteSpace: 'pre-wrap', 
-                                    }}
-                                >
-                                    {challenge.description}
-                                </Typography>
-                            </>
-                            }                            
+                                    <Typography
+                                        onClick={() => toggleDescription(challenge.id)}
+                                        sx={{ color: 'purple', cursor: 'pointer', textDecoration: 'underline', marginBottom: 1 }}
+                                    >
+                                        {expandedChallengeId === challenge.id ? "Show Less" : "Show More"}
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            display: expandedChallengeId === challenge.id ? 'block' : 'none',
+                                            marginTop: 1,
+                                            whiteSpace: 'pre-wrap',
+                                        }}
+                                    >
+                                        {challenge.description}
+                                    </Typography>
+                                </>
+                            }
                             sx={{
-                                color: challenge.status ? 'black' : 'gray',                        
-                                overflow: "hidden",                       
-                                maxWidth: "350px", }}
+                                color: challenge.status ? 'black' : 'gray',
+                                overflow: "hidden",
+                                maxWidth: "350px",
+                            }}
                         />     <Typography
-                        sx={{
-                            marginLeft: 2,
-                            color: 'purple', 
-                            fontStyle: 'italic', 
-                            opacity: challenge.status ? 1 : 0.5, // Only apply opacity to date//////================
-                
-                        }}
-                    >
-                        From: {new Date(challenge.startDate).toLocaleDateString()} - Till: {new Date(challenge.endDate).toLocaleDateString()}
-                    </Typography>
+                            sx={{
+                                marginLeft: 2,
+                                color: 'purple',
+                                fontStyle: 'italic',
+                                opacity: challenge.status ? 1 : 0.5, // Only apply opacity to date//////================
+
+                            }}
+                        >
+                            From: {new Date(challenge.startDate).toLocaleDateString()} - Till: {new Date(challenge.endDate).toLocaleDateString()}
+                        </Typography>
                         <Button
                             variant="contained"
                             onClick={() => handleNavigate(challenge.id)}
                             sx={{
                                 marginLeft: 2,
-                                backgroundColor: 'white',  
-                                color: 'purple', 
+                                backgroundColor: 'white',
+                                color: 'purple',
                                 borderRadius: '20px',
                                 padding: '10px 20px',
-                                border: '1px solid purple', 
+                                border: '1px solid purple',
                                 '&:hover': {
-                                    backgroundColor: 'lightgray' 
+                                    backgroundColor: 'lightgray'
                                 }
                             }}
                         >

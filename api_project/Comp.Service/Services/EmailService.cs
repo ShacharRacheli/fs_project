@@ -21,26 +21,19 @@ namespace Comp.Service.Services
             try
             {
                 var smtpServer = Environment.GetEnvironmentVariable("SMTP_SERVER");
-                //var smtpServer = _configuration["EmailSettings:SmtpServer"];
                 var port = int.Parse(Environment.GetEnvironmentVariable("EMAIL_PORT"));
-                //var port = int.Parse(_configuration["EmailSettings:Port"]);
                 var senderEmail = Environment.GetEnvironmentVariable("SENDER_EMAIL");
-                //var senderEmail = _configuration["EmailSettings:SenderEmail"];
                 var senderPassword = Environment.GetEnvironmentVariable("SENDER_PASSWORD");
-                //var senderPassword = _configuration["EmailSettings:SenderPassword"];
 
                 using var smtp = new SmtpClient(Environment.GetEnvironmentVariable("SMTP_SERVER"))
-                //using var smtp = new SmtpClient("smtp.gmail.com")
                 {
                     Port = 587,
                     Credentials = new System.Net.NetworkCredential(senderEmail, senderPassword),
-                    //Credentials = new System.Net.NetworkCredential("@gmail.com", ""),
                     EnableSsl = true
                 };
                 var mail = new MailMessage
                 {
                     From = new MailAddress(senderEmail),
-                    //From = new MailAddress("@gmail.com"),
                     Subject = subject,
                     Body = body,
                     IsBodyHtml = true

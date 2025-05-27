@@ -11,7 +11,6 @@ namespace Comp.Core.IServices
     public interface IUserService
     {
          Task<IEnumerable<User>> GetAllAsync();
-         //Task<User> GetUserByIDAsync(int id);
          Task<User> GetUserByEmailPasswordAsync( UserLoginDto user);
          Task<bool> AddUserAsync(User user);
         Task<bool> UpdateUserAsync(int id, User user);

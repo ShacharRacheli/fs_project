@@ -17,7 +17,6 @@ namespace Comp.Core.IRepositories
         Task<bool> DeleteImageAsync(int id);
         Task<List<Image>> GetImagesByChallengeAsync(int challengeId);
         Task<TopImageDTO> GetTopImageByChallengeAsync(int challengeId);
-        //Task<Image>GetTopImageByChallengeAsync(int challengeId);
       Task<bool> UserUploadedAlready(int userId, int challengeId);
     }
 }

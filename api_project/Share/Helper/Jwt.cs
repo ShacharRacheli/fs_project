@@ -13,10 +13,6 @@ namespace Share.Helper
 {
     public class Jwt
     {
-        //private const string SecretKey = "ThisisaverylongsecretkeyJWT123456"; 
-        //private const string SecretKey = Environment.GetEnvironmentVariable("JWT_KEY")
-        // ?? throw new InvalidOperationException("JWT_SECRET is not set");
-        //public static string GenerateJwtToken(int userId, string username)
         public static string GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -25,7 +21,6 @@ namespace Share.Helper
                           ?? throw new InvalidOperationException("JWT_SECRET is not set");
             var issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "https://fs-project-qz0v.onrender.com";
             var audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "https://fs-project-qz0v.onrender.com";
-            //var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secretKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {

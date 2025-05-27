@@ -283,7 +283,7 @@ export default function SendPrompt({ challengeTopic, challengeDescription }: { c
                             alignItems="center"
                             sx={{
                                 p: 2,
-                                background: 'linear-gradient(90deg, rgb(103, 58, 183) 0%, rgb(149, 117, 205) 100%)',
+                                background: 'linear-gradient(90deg, rgb(198 97 233) 0%, rgb(193 68 214) 100%)',
                                 color: 'white',
                                 borderBottom: '1px solid rgba(0,0,0,0.1)'
                             }}

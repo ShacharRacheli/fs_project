@@ -27,10 +27,6 @@ namespace Comp.Service.Services
         {
             return await _userRepository.getAllUsersAsync();
         }
-        //public async Task<User> GetUserByIDAsync(int id)
-        //{
-        //    return await _userRepository.GetUserByIDAsync(id);          
-        //}
         public async Task<User> GetUserByEmailPasswordAsync(UserLoginDto user)
         {
                var user1= await _userRepository.GetUserByEmailPasswordAsync(user);
@@ -43,7 +39,7 @@ namespace Comp.Service.Services
                 user.JoiningDate = DateTime.Now;
                 if (await _userRepository.EmailExistsAsync(user.Email))
                 {
-                    return false; // Email already exists, do not add user
+                    return false; 
                 }
                 user.Role = ERole.user;
                 user.Password = VPassword.HashPassword(user.Password);                
@@ -52,12 +48,6 @@ namespace Comp.Service.Services
         }
         public async Task<bool> UpdateUserAsync(int id, User user)
         {
-            //if (user != null)
-            //{
-            //    _userRepository.updateUser(id, user);
-            //    return true;
-            //}
-            //return false;
             return await _userRepository.updateUserAsync(id, user);
         }
         public async Task<bool> DeleteUserAsync(int id)

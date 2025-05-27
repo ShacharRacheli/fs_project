@@ -45,10 +45,6 @@ namespace Comp.Data.Reposirories
         {
             return await _dataContext.Images.FirstOrDefaultAsync(x => x.Id == id);
         }
-        //public async Task<Image> GetImageByIdAsync(int id)
-        //{
-        //    return await _context.Images.Include(i => i.User).FirstOrDefaultAsync(i => i.ID == id);
-        //}
         public async Task<TopImageDTO> GetTopImageByChallengeAsync(int challengeId)
         {
             var topImage = await _dataContext.Images

@@ -26,14 +26,8 @@ namespace Comp.Service.Services
         {
             return await _challengeRepository.GetAllChallengesAsync();
         }
-        //public async Task<Challenge> AddNewChallengeAsync(ChallengeDto challengeDto)
-        //{
-        //  return await _challengeRepository.AddNewChallengeAsync();
-        //}
         public async Task<Challenge> CreateChallengeAsync(ChallengeDto challengeDto)
         {
-            Console.WriteLine("in add chalengserviceeeee++++++==");
-
             var challenge = new Challenge
             {
                 Title = challengeDto.Title,
@@ -79,15 +73,12 @@ namespace Comp.Service.Services
             {
                 var winnerId = await _challengeRepository.GetWinnerByTopImageAsync(challenge.Id);
                 var winner = await _userRepository.GetUserByIDAsync((int)winnerId);
-                if (winner == null) continue; // אם אין מנצח, ממשיכים הלאה
+                if (winner == null) continue; 
 
                 var subject = "You won the challenge!";
                 var body = $"Congratulations {winner.FullName}! You won the challenge '{challenge.Title}' 🎉";
 
                 await _emailService.SendEmailAsync(winner.Email, subject, body);
-
-                //challenge.Status = EStatus.notActive;
-                //challenge.IsWinnerEmailSent = true;
                 await _challengeRepository.UpdateAsync(challenge);
             }
         }

@@ -62,18 +62,17 @@ namespace Comp.Data.Reposirories
                 .OrderByDescending(img => img.CountVotes)
                 .FirstOrDefaultAsync();
 
-            return topImage?.UserId; // מחזיר את המשתמש שהעלה את התמונה
+            return topImage?.UserId; 
         }
         public async Task<IEnumerable<ChallengeVotesDTO>> GetChallengeVotesAsync()
         {
             return await _dataContext.Challenges
           .Select(c => new ChallengeVotesDTO
           {
-              //Id = c.Id,
               Title = c.Title,
               Votes = _dataContext.Images
                   .Where(i => i.ChallengeId == c.Id)
-                  .Sum(i => i.CountVotes) // Assuming CountVotes holds the number of votes for each image
+                  .Sum(i => i.CountVotes) 
           })
           .ToListAsync();
         }

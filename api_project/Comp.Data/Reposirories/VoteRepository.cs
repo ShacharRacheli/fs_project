@@ -35,7 +35,6 @@ namespace Comp.Data.Reposirories
 
             await _dataContext.Votes.AddAsync(vote);
 
-            // עדכון ספירת ההצבעות בתמונה
             var image = await _dataContext.Images.FirstOrDefaultAsync(i => i.Id == imageId);
             if (image != null)
             {
