@@ -50,7 +50,6 @@
 // export default Winners
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useEffect } from "react";
 import { 
   CardMedia, 
@@ -59,7 +58,6 @@ import {
   Typography, 
   Box, 
   Container,
-//   useTheme,
   Divider,
   Chip
 } from "@mui/material";
@@ -70,13 +68,11 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 const Winners = () => {
   const dispatch = useDispatch<AppDispatch>();
   const winnersList = useSelector((state: RootState) => state.topImages.topImages);
-//   const theme = useTheme();
   
   useEffect(() => {
     dispatch(getTopImagesByChallenge());
   }, [dispatch]);
 
-  console.log("in winnerrrrrr1111");
 
   return (
     <Container maxWidth="lg">
