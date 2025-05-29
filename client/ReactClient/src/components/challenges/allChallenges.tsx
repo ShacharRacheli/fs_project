@@ -31,15 +31,23 @@ const AllChallenges = () => {
 
         <Typography variant="h4" sx={{
             margin: '70px 0px 24px',
-            fontFamily: 'cursive',
-            fontWeight: 450,
-            fontSize: '3rem',
-            lineHeight: 1.167, letterSpacing: '0em',
-            textAlign: 'center',
-            background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
-            backgroundClip: "text",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
+            // fontFamily: 'cursive',
+            // fontWeight: 450,
+            // fontSize: '3rem',
+            // lineHeight: 1.167, letterSpacing: '0em',
+            // textAlign: 'center',
+            // background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
+            // backgroundClip: "text",
+            // WebkitBackgroundClip: "text",
+            // WebkitTextFillColor: "transparent",
+            fontWeight: 700,
+              background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              fontFamily:"cursive",
+              mb: 2,
+              mt: 8
         }}>
             Challenges List
         </Typography>
