@@ -105,7 +105,7 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
             if (res.status===200&&res.data && res.data.token) {
                 sessionStorage.setItem('token', res.data.token);
                 succeedFunc(res.data.token); 
-                // window.location.reload();
+                window.location.reload();
             }
             // succeedFunc();
             handleClose();

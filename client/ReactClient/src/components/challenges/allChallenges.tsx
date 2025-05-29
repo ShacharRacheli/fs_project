@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { getChallenges } from "../redux/challengeSlice";
 import { Box, Button, List, ListItem, ListItemText, Typography, ListItemAvatar, Avatar } from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
-// import SendPrompt from "./sendPrompt";
 
 const AllChallenges = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -25,28 +24,21 @@ const AllChallenges = () => {
     const toggleDescription = (challengeId: number) => {
         setExpandedChallengeId(expandedChallengeId === challengeId ? null : challengeId);
     };
-    console.log(challengesList);
 
     return (<>
 
         <Typography variant="h4" sx={{
-            // margin: '70px 0px 24px',
-            // fontFamily: 'cursive',
-            // fontWeight: 450,
-            // fontSize: '3rem',
-            // lineHeight: 1.167, letterSpacing: '0em',
-            // textAlign: 'center',
-            // background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
-        margin: '70px 0px 54px',
-    fontFamily: 'cursive',
-    fontWeight: 450,
-    fontSize: '3rem',
-    lineHeight: 1.167,
-    letterSpacing: '0em',
-    textAlign: 'center',
-    background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
-    backgroundClip: 'text',
-    color: 'transparent',
+            margin: '70px 0px 54px',
+            padding: '10px',
+            fontFamily: 'cursive',
+            fontWeight: 450,
+            fontSize: '3rem',
+            lineHeight: 1.167,
+            letterSpacing: '0em',
+            textAlign: 'center',
+            background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
+            backgroundClip: 'text',
+            color: 'transparent',
         }}>
             Challenges List
         </Typography>
@@ -127,7 +119,7 @@ const AllChallenges = () => {
                     </ListItem>
                 ))
             ) : (
-                <Typography sx={{ padding: 2 }}>Loading challenges...</Typography>
+                <Typography sx={{ padding: 2,textAlign:'center' }}>Loading challenges...</Typography>
             )}
         </List>
         <Box>
