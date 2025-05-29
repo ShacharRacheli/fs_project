@@ -54,30 +54,23 @@ const ShowChallenge = () => {
     }
   };
   return (
-
     <Box sx={{ padding: 4 }}>
       {challenge ? (
         <>
           <Typography variant="h3" gutterBottom sx={{
             margin: '70px 0px 110px',
-            // fontFamily: 'cursive',
-            // fontWeight: 450,
-            // fontSize: '3rem',
-            // lineHeight: 1.167,
-            // letterSpacing: '0em',
-            // textAlign: 'center',
-            // background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
-            // backgroundClip: "text",
-            // WebkitBackgroundClip: "text",
-            // WebkitTextFillColor: "transparent",
-            fontWeight: 700,
-              background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              fontFamily:"cursive",
-              mb: 2,
-              mt: 8
+            fontFamily: 'cursive',
+            fontWeight: 450,
+            fontSize: '3rem',
+            lineHeight: 1.167,
+            letterSpacing: '0em',
+            textAlign: 'center',
+            background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            mb: 2,
+            mt: 8
           }}
           >
             {challenge.title}
@@ -87,7 +80,12 @@ const ShowChallenge = () => {
           {challenge.status ? (<FileUploader idChallenge={Number(id)} />) : <></>}
           <Grid container spacing={3}>
             {ImagesOfChallenge.map((image) => (
-              <Grid item xs={12} sm={6} md={4} key={image.id}>
+              <Grid
+                item
+                xs={12}
+                sm={ImagesOfChallenge.length === 1 ? 8 : 6}
+                md={ImagesOfChallenge.length === 1 ? 6 : ImagesOfChallenge.length === 2 ? 6 : 4}
+                key={image.id}>
                 <Paper sx={{ padding: 2, textAlign: "center", transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)' } }}>
                   <ImageViewer fileName={image.fileName} />
                   <Vote imageId={image.id} challengeId={image.challengeId} />

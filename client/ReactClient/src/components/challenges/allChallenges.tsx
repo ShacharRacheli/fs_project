@@ -31,21 +31,15 @@ const AllChallenges = () => {
 
         <Typography variant="h4" sx={{
             margin: '70px 0px 24px',
-            // fontFamily: 'cursive',
-            // fontWeight: 450,
-            // fontSize: '3rem',
-            // lineHeight: 1.167, letterSpacing: '0em',
-            // textAlign: 'center',
-            // background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
-            // backgroundClip: "text",
-            // WebkitBackgroundClip: "text",
-            // WebkitTextFillColor: "transparent",
-            fontWeight: 700,
-              background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              fontFamily:"cursive",
+            fontFamily: 'cursive',
+            fontWeight: 450,
+            fontSize: '3rem',
+            lineHeight: 1.167, letterSpacing: '0em',
+            textAlign: 'center',
+            background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
               mb: 2,
               mt: 8
         }}>
@@ -66,7 +60,6 @@ const AllChallenges = () => {
                         }}
                     >    <ListItemAvatar>
                             <Avatar src={'./icon.png'} alt={challenge.title} sx={{ width: 40, height: 40 }} /> {/* הוסף את התמונה כאן */}
-                            {/* <SendPrompt challengeTopic={challenge.title} challengeDescription={challenge.description} /> */}
                         </ListItemAvatar>
                         <ListItemText
                             primary={

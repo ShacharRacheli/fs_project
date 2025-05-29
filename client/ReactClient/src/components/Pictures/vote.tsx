@@ -45,7 +45,7 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
                 const resultAction = await dispatch(addVote({ userId, imageId, challengeId }));
         if (addVote.rejected.match(resultAction)) {
             // Show alert with error message
-            alert(resultAction.payload); // Assuming the payload contains the error message
+            alert("You can't vote for your own image"); // Assuming the payload contains the error message
         } else {
             setHasVoted(true);
         }
