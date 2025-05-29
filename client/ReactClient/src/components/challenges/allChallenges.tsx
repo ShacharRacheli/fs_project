@@ -36,7 +36,10 @@ const AllChallenges = () => {
             fontSize: '3rem',
             lineHeight: 1.167, letterSpacing: '0em',
             textAlign: 'center',
-            color: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
+            background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
         }}>
             Challenges List
         </Typography>

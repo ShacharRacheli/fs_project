@@ -25,7 +25,7 @@ const ShowChallenge = () => {
   const handleDownload = async (fileName: string) => {
     try {
       const response = await axios.get(`${apiUrl}/api/Image/getImageUrl`, {
-        params: { fileName } 
+        params: { fileName }
       });
       const downloadUrl = response.data.url;
 
@@ -36,7 +36,7 @@ const ShowChallenge = () => {
 
       console.log("Download URL:", downloadUrl);
       const fileResponse = await axios.get(downloadUrl, {
-        responseType: 'blob' 
+        responseType: 'blob'
       });
 
       const blobUrl = URL.createObjectURL(fileResponse.data);
@@ -55,25 +55,28 @@ const ShowChallenge = () => {
   };
   return (
 
-    <Box sx={{ padding: 4}}>
+    <Box sx={{ padding: 4 }}>
       {challenge ? (
         <>
           <Typography variant="h3" gutterBottom sx={{
-  margin: '70px 0px 110px', 
-  fontFamily: 'cursive', 
-  fontWeight: 450, 
-  fontSize: '3rem', 
-  lineHeight: 1.167, 
-  letterSpacing: '0em',
-  textAlign: 'center', 
- color: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
-}}
->
+            margin: '70px 0px 110px',
+            fontFamily: 'cursive',
+            fontWeight: 450,
+            fontSize: '3rem',
+            lineHeight: 1.167,
+            letterSpacing: '0em',
+            textAlign: 'center',
+            background: "linear-gradient(45deg, #6a1b9a 30%, #9c27b0 90%)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+          >
             {challenge.title}
           </Typography>
-        <SendPrompt challengeTopic={challenge.title} challengeDescription={challenge.description} />
+          <SendPrompt challengeTopic={challenge.title} challengeDescription={challenge.description} />
 
-        {challenge.status?(<FileUploader idChallenge={Number(id)} />):<></>}
+          {challenge.status ? (<FileUploader idChallenge={Number(id)} />) : <></>}
           <Grid container spacing={3}>
             {ImagesOfChallenge.map((image) => (
               <Grid item xs={12} sm={6} md={4} key={image.id}>
