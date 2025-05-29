@@ -8,7 +8,6 @@ export const getUserIdByToken = () => {
         const decodedToken:any = jwtDecode(token);
         return decodedToken.nameid; 
     } catch (error) {
-        console.error('שגיאה בפענוח ה-Token:', error);
         return -1;
     }
 };
@@ -20,7 +19,6 @@ export const getUserNameByToken = () => {
         const decodedToken:any = jwtDecode(token); 
         return decodedToken.unique_name;
     } catch (error) {
-        console.error('שגיאה בפענוח ה-Token:', error);
         return -1; 
     }
 };
@@ -35,7 +33,6 @@ export const getEmailByToken = () => {
         
         return decodedToken.email; 
     } catch (error) {
-        console.error('שגיאה בפענוח ה-Token:', error);
         return -1; 
     }
 };

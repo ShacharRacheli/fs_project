@@ -16,8 +16,8 @@ const ImageViewer = ({ fileName }:{fileName:string}) => {
         setImageUrl(response.data.url); 
             setLoading(false); 
   } catch (error) {
-        console.error('שגיאה בהבאת ה-URL:', error);
         setLoading(false); 
+        alert('An error occured while downloading')
       }
     };
 

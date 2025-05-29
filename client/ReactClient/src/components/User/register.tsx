@@ -161,15 +161,15 @@ const Register = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, o
                     'Accept': 'application/json'
                 }
             });
-            if (res.data && res.data.token) {
+            if (res.status===200&&res.data && res.data.token) {
                 sessionStorage.setItem('token', res.data.token);
                 succeedFunc(res.data.token);
+                window.location.reload();
             }
-            // succeedFunc();
             handleClose();
         } catch (e: any) {
             if ((e.response && e.response.status === 400)) {
-                alert('Email already exists');
+                alert('Registration failed. Email may already exist.Please try again');
             }
         }
     }

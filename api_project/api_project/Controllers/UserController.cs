@@ -117,7 +117,8 @@ namespace Comp.API.Controllers
             var userUpdated = await _userService.UpdateUserAsync(id, userEntity);
             if (!userUpdated)
             {
-                return NotFound();
+                //return NotFound();
+                return Conflict(new { Message = "Email already exists or user not found." });
             }
             var token = Jwt.GenerateJwtToken(userEntity);
             return Ok(new { Token = token });        

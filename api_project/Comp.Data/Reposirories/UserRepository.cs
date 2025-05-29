@@ -35,7 +35,7 @@ namespace Comp.Data.Reposirories
         {
             return await _dataContext.Users.AnyAsync(u => u.Email == email&&id!=u.Id);
         }
-        public async Task<bool> EmailExistsAsync( string email)
+        public async Task<bool> EmailExistsAsync(string email)
         {
             return await _dataContext.Users.AnyAsync(u => u.Email == email);
         }
@@ -60,12 +60,6 @@ namespace Comp.Data.Reposirories
                 //if (!string.IsNullOrEmpty(user.Password))
                 //{
                 //    tempUser.Password = VPassword.HashPassword(user.Password);
-                //}
-
-                // עדכון תפקיד אם הוא שונה
-                //if (tempUser.Role != user.Role)
-                //{
-                //    tempUser.Role = user.Role;
                 //}
 
                 return await _dataContext.SaveChangesAsync() > 0;

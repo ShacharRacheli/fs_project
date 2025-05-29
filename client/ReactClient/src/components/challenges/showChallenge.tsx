@@ -43,7 +43,7 @@ const ShowChallenge = () => {
 
       const link = document.createElement("a");
       link.href = blobUrl;
-      link.setAttribute("download", fileName); // שם הקובץ שישמר
+      link.setAttribute("download", fileName);
       document.body.appendChild(link);
       link.click();
 
@@ -74,15 +74,11 @@ const ShowChallenge = () => {
         <SendPrompt challengeTopic={challenge.title} challengeDescription={challenge.description} />
 
         {challenge.status?(<FileUploader idChallenge={Number(id)} />):<></>}
-          {/* <FileUploader idChallenge={Number(id)} setImages={setImages}/> */}
           <Grid container spacing={3}>
             {ImagesOfChallenge.map((image) => (
               <Grid item xs={12} sm={6} md={4} key={image.id}>
                 <Paper sx={{ padding: 2, textAlign: "center", transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)' } }}>
-                  {/* <Grid item xs={12} sm={6} md={4} key={image.id}> */}
-                  {/* <Card sx={{ boxShadow: 3, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)' } }}> */}
                   <ImageViewer fileName={image.fileName} />
-                  {/* <CardContent> */}
                   <Vote imageId={image.id} challengeId={image.challengeId} />
                   <Typography variant="h6">{image.countVotes}</Typography>
                   <IconButton
@@ -101,8 +97,6 @@ const ShowChallenge = () => {
                   >
                     <DownloadIcon sx={{ fontSize: 30 }} />
                   </IconButton>
-                  {/* </CardContent> */}
-                  {/* </Card> */}
                 </Paper>
               </Grid>
             ))}
