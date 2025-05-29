@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios, { AxiosError } from 'axios';
+// import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { getUserIdByToken } from '../store/getFromToken';
 import { Button, Card, CardMedia, Paper, Typography } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
