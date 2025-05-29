@@ -38,15 +38,29 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
             }
         }
         checkUserVote();
-    }, [token, userId, imageId])
-    const handleAddVote = () => {
+    }, [token, userId, imageId]);
+    const handleAddVote = async () => {
+        // dispatch(addVote({ userId, imageId, challengeId }))
+        // setHasVoted(true)
+                const resultAction = await dispatch(addVote({ userId, imageId, challengeId }));
+        if (addVote.rejected.match(resultAction)) {
+            // Show alert with error message
+            alert(resultAction.payload); // Assuming the payload contains the error message
+        } else {
+            setHasVoted(true);
+        }
 
-        dispatch(addVote({ userId, imageId, challengeId }))
-        setHasVoted(true)
     }
-    const handleRemoveVote = () => {
-        dispatch(deleteVote({ userId, imageId, challengeId }))
-        setHasVoted(false)
+    const handleRemoveVote = async () => {
+        // dispatch(deleteVote({ userId, imageId, challengeId }))
+        // setHasVoted(false)
+        const resultAction = await dispatch(deleteVote({ userId, imageId, challengeId }));
+        if (deleteVote.rejected.match(resultAction)) {
+            // Handle error if necessary
+            alert('Failed to remove vote. Please try again.'); // Example alert
+        } else {
+            setHasVoted(false);
+        }
     }
     const isChallengeActive = challenge?.status ? true : false;
 

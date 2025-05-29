@@ -76,7 +76,7 @@ export const imageSlice=createSlice({
             })
             .addCase(addVote.rejected, (state) => {
                 state.loading = false;
-                state.error = "Failed to add vote";
+                state.error = "You can't vote for your own image";
             })
             .addCase(deleteVote.pending, (state) => {
                 state.loading = true;
