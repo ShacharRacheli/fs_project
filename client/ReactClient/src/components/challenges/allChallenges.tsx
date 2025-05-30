@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../redux/store"
 import { useEffect, useState } from "react";
 import { getChallenges } from "../redux/challengeSlice";
-import { Box, Button, List, ListItem, ListItemText, Typography, ListItemAvatar, Avatar } from "@mui/material";
+import { Box, Button, List, ListItem, ListItemText, Typography, ListItemAvatar, Avatar, CircularProgress } from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
 
 const AllChallenges = () => {
@@ -120,28 +120,19 @@ const AllChallenges = () => {
                 ))
             ) : (
                 // <Typography sx={{ padding: 2,textAlign:'center' }}>Loading challenges...</Typography>
-                 <div className="flex flex-col items-center justify-center min-h-screen bg-white p-8">
-      {/* Main Loading Content */}
-      <div className="flex flex-col items-center space-y-6">
-        {/* Spinner */}
-        <div className="relative w-16 h-16">
-          <div className="absolute inset-0 border-4 border-gray-200 rounded-full"></div>
-          <div className="absolute inset-0 border-4 border-transparent border-t-purple-600 rounded-full animate-spin"></div>
-        </div>
-
-        {/* Text Content */}
-        <div className="text-center space-y-2">
-          <h2 className="text-2xl font-semibold text-gray-800">
-            Loading Challenges
-          </h2>
-          <div className="flex items-center justify-center space-x-1">
-            <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce"></div>
-            <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce delay-100"></div>
-            <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce delay-200"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <Box 
+      display="flex" 
+      flexDirection="column" 
+      alignItems="center" 
+      justifyContent="center" 
+      minHeight="100vh"
+      gap={2}
+    >
+      <CircularProgress size={60} sx={{ color: '#9333ea' }} />
+      <Typography variant="h5" color="text.primary" fontWeight="medium">
+        Loading Challenges...
+      </Typography>
+    </Box>
             )}
         </List>
         <Box>

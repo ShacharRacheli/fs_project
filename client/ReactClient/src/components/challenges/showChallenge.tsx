@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Typography, Box, IconButton, Paper } from '@mui/material';
+import { Grid, Typography, Box, IconButton, Paper, CircularProgress } from '@mui/material';
 import { AppDispatch, RootState } from '../redux/store';
 import { getImageByChallengeId } from '../redux/imageSlice';
 import { useParams } from 'react-router';
@@ -109,9 +109,22 @@ const ShowChallenge = () => {
           </Grid>
         </>
       ) : (
-        <Typography variant="h6" sx={{ textAlign: 'center' }}>
-          Loading challenge ...
-        </Typography>
+        // <Typography variant="h6" sx={{ textAlign: 'center' }}>
+        //   Loading challenge ...
+        // </Typography>
+        <Box 
+      display="flex" 
+      flexDirection="column" 
+      alignItems="center" 
+      justifyContent="center" 
+      minHeight="100vh"
+      gap={2}
+    >
+      <CircularProgress size={60} sx={{ color: '#9333ea' }} />
+      <Typography variant="h5" color="text.primary" fontWeight="medium">
+        Loading Challenges...
+      </Typography>
+    </Box>
       )}
     </Box>
   );
