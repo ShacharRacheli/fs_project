@@ -120,7 +120,8 @@ namespace Comp.API.Controllers
                 return NotFound();
                 //return Conflict(new { Message = "Email already exists or user not found." });
             }
-            var token = Jwt.GenerateJwtToken(userEntity);
+            var currentUser=await _userService.GetUserByIDAsync(id);
+            var token = Jwt.GenerateJwtToken(currentUser);
             return Ok(new { Token = token });        
         }
 

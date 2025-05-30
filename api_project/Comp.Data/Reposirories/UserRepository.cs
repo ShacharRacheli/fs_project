@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Comp.Data.Reposirories
 {
-    public class UserRepository:IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly DataContext _dataContext;
         public UserRepository(DataContext dataContext)
@@ -21,7 +21,7 @@ namespace Comp.Data.Reposirories
         }
         public async Task<IEnumerable<User>> getAllUsersAsync()
         {
-            return await _dataContext.Users.ToListAsync();  
+            return await _dataContext.Users.ToListAsync();
         }
         public async Task<User> GetUserByIDAsync(int id)
         {
@@ -29,27 +29,27 @@ namespace Comp.Data.Reposirories
         }
         public async Task<User> GetUserByEmailPasswordAsync(UserLoginDto user)
         {
-            return await _dataContext.Users.FirstOrDefaultAsync(u => u.Email==user.Email);
+            return await _dataContext.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
         }
-        public async Task<bool> EmailExistsAsync(int id,string email)
+        public async Task<bool> EmailExistsAsync(int id, string email)
         {
-            return await _dataContext.Users.AnyAsync(u => u.Email == email&&id!=u.Id);
+            return await _dataContext.Users.AnyAsync(u => u.Email == email && id != u.Id);
         }
         public async Task<bool> EmailExistsAsync(string email)
         {
             return await _dataContext.Users.AnyAsync(u => u.Email == email);
         }
         public async Task<bool> AddUserAsync(User user)
-        { 
-           await _dataContext.Users.AddAsync(user);
-           return await _dataContext.SaveChangesAsync() > 0;
+        {
+            await _dataContext.Users.AddAsync(user);
+            return await _dataContext.SaveChangesAsync() > 0;
         }
-        public async Task<bool> updateUserAsync(int id, User user) 
+        public async Task<bool> updateUserAsync(int id, User user)
         {
             var tempUser = await _dataContext.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (tempUser != null)
             {
-                if (!string.IsNullOrEmpty(user.Email) && await EmailExistsAsync(id,user.Email))
+                if (!string.IsNullOrEmpty(user.Email) && await EmailExistsAsync(id, user.Email))
                 {
                     return false;
                 }
@@ -61,8 +61,8 @@ namespace Comp.Data.Reposirories
                 //{
                 //    tempUser.Password = VPassword.HashPassword(user.Password);
                 //}
-
-                return await _dataContext.SaveChangesAsync() > 0;
+                await _dataContext.SaveChangesAsync();
+                return true;
             }
             return false;
             // User tempUser=await _dataContext.UsersList.FirstOrDefaultAsync(u=>u.Id == id);
@@ -75,11 +75,12 @@ namespace Comp.Data.Reposirories
         }
         public async Task<bool> deleteUserAsync(int id)
         {
-            User user =await _dataContext.Users.FirstOrDefaultAsync(u=>u.Id == id);
-            if (user != null) { 
-            user.IsDeleted= !user.IsDeleted;
+            User user = await _dataContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+            if (user != null)
+            {
+                user.IsDeleted = !user.IsDeleted;
             }
-            return await _dataContext.SaveChangesAsync()>0;
+            return await _dataContext.SaveChangesAsync() > 0;
         }
     }
 }

@@ -9,7 +9,7 @@ const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const schema = object({
   email: string().email('Invalid email format').required('Email is required'),
-  fullName: string().min(5, 'Name must be at least 6 characters').required('Name is required'),
+  fullName: string().min(3, 'Name must be at least 3 characters').required('Name is required'),
 });
 const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open: boolean, handleClose: () => void }) => {
   const navigate = useNavigate();

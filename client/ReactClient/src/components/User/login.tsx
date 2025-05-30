@@ -10,7 +10,7 @@ const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const schema = object({
   email: string().email('Invalid email format').required('Email is required'),
-  password: string().min(5, 'Password must be at least 6 characters').required('Password is required'),
+  password: string().min(5, 'Password must be at least 5 characters').required('Password is required'),
 });
 const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open: boolean, handleClose: () => void }) => {
   const [showPassword, setShowPassword] = useState(false);

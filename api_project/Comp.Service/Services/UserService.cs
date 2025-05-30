@@ -32,6 +32,11 @@ namespace Comp.Service.Services
                var user1= await _userRepository.GetUserByEmailPasswordAsync(user);
             return user1;
         }
+        public async Task<User> GetUserByIDAsync(int id)
+        {
+            return await _userRepository.GetUserByIDAsync(id);
+        }
+
         public async Task<bool> AddUserAsync(User user)
         {
             if (user != null)

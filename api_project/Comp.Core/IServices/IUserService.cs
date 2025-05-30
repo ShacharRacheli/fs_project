@@ -15,5 +15,7 @@ namespace Comp.Core.IServices
          Task<bool> AddUserAsync(User user);
         Task<bool> UpdateUserAsync(int id, User user);
         Task<bool> DeleteUserAsync(int id);
+       Task<User> GetUserByIDAsync(int id);
+
     }
 }
