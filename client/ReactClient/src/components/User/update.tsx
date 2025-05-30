@@ -43,9 +43,10 @@ const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, ope
     } catch (e: any) {
       if ((e.response && e.response.status === 404) || e.response.status === 400) {
         alert('Email or password are not correct');
-      } else if (e.response && e.response.status === 409) {
-        alert('Email already exists.');
-      }
+      } 
+      // else if (e.response && e.response.status === 409) {
+      //   alert('Email already exists.');
+      // }
     }
   };
 
