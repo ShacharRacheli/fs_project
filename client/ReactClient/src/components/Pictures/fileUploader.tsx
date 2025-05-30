@@ -41,7 +41,6 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
         });
         presignedUrl = response.data.url;
       } catch (error) {
-        // const axiosError = error as AxiosError;
         alert('There was an error while uploading please try later');
         return;
       }
@@ -59,9 +58,7 @@ const FileUploader = ({ idChallenge }: { idChallenge: number }) => {
           },
         });
       } catch (error) {
-        // const axiosError = error as AxiosError;
         alert('There was an error while uploading please try later');
-        // alert(axiosError.response?.data);
         return;
       }
       const imageUrl = presignedUrl.split('?')[0];

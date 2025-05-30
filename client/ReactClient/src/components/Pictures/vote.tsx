@@ -21,7 +21,6 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
         const checkUserVote = async () => {
             if (token) {
                 try {
-                    console.log(imageId + "dsss" + userId);
                     const response = await axios.get(`${apiUrl}/api/Vote/HasVoted`,
                         {
                             params: { imageId: imageId, userId: userId },
@@ -31,7 +30,6 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
                             }
                         });
                     setHasVoted(response.data);
-                    console.log("Vote status:", response.data, "userid", userId, "imageid", imageId);
                 } catch (e) {
                     console.error("there was an error");
                 }
@@ -44,8 +42,7 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
         // setHasVoted(true)
                 const resultAction = await dispatch(addVote({ userId, imageId, challengeId }));
         if (addVote.rejected.match(resultAction)) {
-            // Show alert with error message
-            alert("You can't vote for your own image"); // Assuming the payload contains the error message
+            alert("You can't vote for your own image"); 
         } else {
             setHasVoted(true);
         }
@@ -56,8 +53,7 @@ const Vote = ({ imageId, challengeId }: { imageId: number, challengeId: number }
         // setHasVoted(false)
         const resultAction = await dispatch(deleteVote({ userId, imageId, challengeId }));
         if (deleteVote.rejected.match(resultAction)) {
-            // Handle error if necessary
-            alert('Failed to remove vote. Please try again.'); // Example alert
+            alert('Failed to remove vote. Please try again.'); 
         } else {
             setHasVoted(false);
         }
