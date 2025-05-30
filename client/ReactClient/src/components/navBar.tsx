@@ -209,7 +209,7 @@ const NavBar = (props: any) => {
                 </>
               )}
               </Box>
-              <img src='./pickapic2.png' style={{ height: '80px' }} />
+              <img src='/pickapic2.png' style={{ height: '80px' }} />
               <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'flex-end', gap: 2 }}>
                 {navItems.map((item) => (
                   <Button key={item.name} component={Link} to={item.path} sx={buttonStyles()}>

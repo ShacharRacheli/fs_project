@@ -4,6 +4,7 @@ import { getEmailByToken, getUserIdByToken } from "../store/getFromToken";
 import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router";
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const schema = object({
@@ -11,6 +12,8 @@ const schema = object({
   fullName: string().min(5, 'Name must be at least 6 characters').required('Name is required'),
 });
 const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open: boolean, handleClose: () => void }) => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -20,8 +23,6 @@ const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, ope
   });
   const onSubmit = async (data: { email: string; fullName: string }) => {
     const userId = getUserIdByToken();
-    console.log("in updateeeeeeeeeeeee");
-    console.log(userId);
 
     try {
       const res = await axios.put(`${apiUrl}/api/User/${userId}`, {
@@ -36,7 +37,7 @@ const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, ope
       if (res.data && res.data.token) {
         sessionStorage.setItem('token', res.data.token);
         succeedFunc(res.data.token);
-        window.location.reload();
+        navigate('/');
       }
       handleClose();
     } catch (e: any) {
