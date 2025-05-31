@@ -40,7 +40,7 @@ export const challengeSlice = createSlice({
             state.loading = false,
                 state.error = null,
                 state.list = action.payload.sort((a, b) => {
-                return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+                return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
             });
         }).addCase(getChallenges.rejected, (state) => {
             state.loading = false,
