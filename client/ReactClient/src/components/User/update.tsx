@@ -17,7 +17,8 @@ const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, ope
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -38,12 +39,13 @@ const Update = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, ope
         sessionStorage.setItem('token', res.data.token);
         succeedFunc(res.data.token);
         navigate('/');
+        reset();
       }
       handleClose();
     } catch (e: any) {
       if ((e.response && e.response.status === 404) || e.response.status === 400) {
         alert('Email or password are not correct');
-      } 
+      }
       // else if (e.response && e.response.status === 409) {
       //   alert('Email already exists.');
       // }

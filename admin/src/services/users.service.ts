@@ -8,29 +8,29 @@ import { environment } from '../environment';
   providedIn: 'root'
 })
 export class UsersService {
-  apiUrl=environment.apiUrl;
+  apiUrl = environment.apiUrl;
 
-  private usersSubject:BehaviorSubject<Users[]>=new BehaviorSubject<Users[]>([]);
-allUsers$:Observable<Users[]>;
-  constructor(private http:HttpClient) {
-    this.allUsers$=this.usersSubject.asObservable();
-   }
-getAllUsers(){
-  this.http.get<Users[]>(`${this.apiUrl}/api/User`).subscribe({
-    next:(data)=>{
-      this.usersSubject.next(data);
-    }
-  })
-}
-deleteUser(userId:number){
-  this.http.patch(`${this.apiUrl}/api/User/DeleteUser/${userId}`,{}).subscribe({
-    next:(res)=>{
-      this.getAllUsers();
-    },error:(e)=>{
-      
-    }
-  })
-}
+  private usersSubject: BehaviorSubject<Users[]> = new BehaviorSubject<Users[]>([]);
+  allUsers$: Observable<Users[]>;
+  constructor(private http: HttpClient) {
+    this.allUsers$ = this.usersSubject.asObservable();
+  }
+  getAllUsers() {
+    this.http.get<Users[]>(`${this.apiUrl}/api/User`).subscribe({
+      next: (data) => {
+        this.usersSubject.next(data);
+      }
+    })
+  }
+  deleteUser(userId: number) {
+    this.http.patch(`${this.apiUrl}/api/User/DeleteUser/${userId}`, {}).subscribe({
+      next: (res) => {
+        this.getAllUsers();
+      }, error: (e) => {
+        alert('An error occurred while deleting the user. Please try again later.');
+      }
+    })
+  }
 
 
 }

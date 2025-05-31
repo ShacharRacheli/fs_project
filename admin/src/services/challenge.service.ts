@@ -8,7 +8,7 @@ import { environment } from '../environment';
   providedIn: 'root'
 })
 export class ChallengeService {
-   apiUrl=environment.apiUrl;
+  apiUrl = environment.apiUrl;
   private challengesSubject: BehaviorSubject<Challenge[]> = new BehaviorSubject<Challenge[]>([])
   challenges$: Observable<Challenge[]>;
 
@@ -52,13 +52,11 @@ export class ChallengeService {
     })
   }
   addChallenge(challenge: Challenge) {
-    console.log("in add service1");
     this.http.post(`${this.apiUrl}/api/Challenge/createChallenge`, challenge).subscribe({
       next: (response) => {
         this.getAllChallenges();
-        console.log("in add service2");
       }, error: (e) => {
-        console.log("errorrrrrrrrrrr");
+        
       }
     })
   }
@@ -67,13 +65,13 @@ export class ChallengeService {
       next: (response) => {
         this.getAllChallenges();
       }, error: (e) => {
-        console.log("errorrrrrrrrrrr");
+
       }
     })
   }
 
-  getChallengeVotes():Observable<ChallengesVotes[]>{
-   return this.http.get<ChallengesVotes[]>(`${this.apiUrl}/api/Challenge/getChallengeVotes`)
+  getChallengeVotes(): Observable<ChallengesVotes[]> {
+    return this.http.get<ChallengesVotes[]>(`${this.apiUrl}/api/Challenge/getChallengeVotes`)
   }
 }
 

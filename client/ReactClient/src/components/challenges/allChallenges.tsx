@@ -56,7 +56,7 @@ const AllChallenges = () => {
                             marginBottom: 2,
                         }}
                     >    <ListItemAvatar>
-                            <Avatar src={'./icon.png'} alt={challenge.title} sx={{ width: 40, height: 40 }} /> {/* הוסף את התמונה כאן */}
+                            <Avatar src={'/icon.png'} alt={challenge.title} sx={{ width: 40, height: 40 }} />
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -93,7 +93,7 @@ const AllChallenges = () => {
                                 marginLeft: 2,
                                 color: 'purple',
                                 fontStyle: 'italic',
-                                opacity: challenge.status ? 1 : 0.5, // Only apply opacity to date//////================
+                                opacity: challenge.status ? 1 : 0.5, 
 
                             }}
                         >
@@ -119,20 +119,19 @@ const AllChallenges = () => {
                     </ListItem>
                 ))
             ) : (
-                // <Typography sx={{ padding: 2,textAlign:'center' }}>Loading challenges...</Typography>
-  <Box 
-      display="flex" 
-      flexDirection="column" 
-      alignItems="center" 
-      justifyContent="center" 
-      minHeight="100vh"
-      gap={2}
-    >
-      <CircularProgress size={60} sx={{ color: '#9333ea' }} />
-      <Typography variant="h5" color="text.primary" fontWeight="medium">
-        Loading Challenges...
-      </Typography>
-    </Box>
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    minHeight="100vh"
+                    gap={2}
+                >
+                    <CircularProgress size={60} sx={{ color: '#9333ea' }} />
+                    <Typography variant="h5" color="text.primary" fontWeight="medium">
+                        Loading Challenges...
+                    </Typography>
+                </Box>
             )}
         </List>
         <Box>

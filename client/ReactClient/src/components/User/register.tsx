@@ -23,7 +23,8 @@ const Register = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, o
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -45,6 +46,8 @@ const Register = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, o
         sessionStorage.setItem('token', res.data.token);
         succeedFunc(res.data.token);
         navigate('/');
+        reset();
+
       }
       handleClose();
     } catch (e: any) {

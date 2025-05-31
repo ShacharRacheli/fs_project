@@ -8,8 +8,8 @@ import { environment } from '../environment';
   providedIn: 'root'
 })
 export class AuthService {
- apiUrl=environment.apiUrl;
-  constructor(private http:HttpClient) { }
+  apiUrl = environment.apiUrl;
+  constructor(private http: HttpClient) { }
   login(user: UserLogin): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/User/loginManager`, user);
   }

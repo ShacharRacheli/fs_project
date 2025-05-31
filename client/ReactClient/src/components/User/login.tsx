@@ -23,6 +23,7 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -41,6 +42,7 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
         sessionStorage.setItem('token', res.data.token);
         succeedFunc(res.data.token);
         navigate('/');
+        reset();
       }
       handleClose();
     } catch (e: any) {
@@ -195,7 +197,7 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
         </Paper>
       </Fade>
     </Modal>
-    
+
   );
 }
 

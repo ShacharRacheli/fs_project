@@ -39,7 +39,9 @@ export const challengeSlice = createSlice({
         }).addCase(getChallenges.fulfilled, (state, action: PayloadAction<ChallengeType[]>) => {
             state.loading = false,
                 state.error = null,
-                state.list = action.payload
+                state.list = action.payload.sort((a, b) => {
+                return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+            });
         }).addCase(getChallenges.rejected, (state) => {
             state.loading = false,
                 state.error = "Failed to load challenges"
