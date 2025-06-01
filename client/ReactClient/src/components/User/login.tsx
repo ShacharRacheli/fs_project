@@ -250,7 +250,6 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
           />
 
           <Box sx={{ position: "relative", p: 4 }}>
-            {/* Header */}
             <Box sx={{ textAlign: "center", mb: 4 }}>
               <Box
                 sx={{
@@ -260,7 +259,7 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
                   width: 64,
                   height: 64,
                   borderRadius: 3,
-                  background: "linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)",
+                  background: "linear-gradient(135deg,rgb(239, 83, 241) 0%,rgb(158, 9, 156) 100%)",
                   boxShadow: "0 10px 25px -5px rgba(124, 58, 237, 0.25)",
                   mb: 3,
                 }}
@@ -432,7 +431,6 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
                 />
               </Box>
 
-              {/* Submit Button */}
               <Button
                 type="submit"
                 fullWidth
@@ -444,11 +442,11 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
                   textTransform: "none",
                   fontWeight: 600,
                   fontSize: "1rem",
-                  background: "linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)",
+                  background: "linear-gradient(135deg, rgb(137, 6, 146) 0%,rgb(174, 0, 187) 100%)",
                   boxShadow: "0 10px 25px -5px rgba(124, 58, 237, 0.25)",
                   transition: "all 0.2s ease-in-out",
                   "&:hover": {
-                    background: "linear-gradient(135deg, #6d28d9 0%, #9333ea 100%)",
+                    background: "linear-gradient(135deg, rgb(199, 40, 217) 0%,rgb(153, 17, 162) 100%)",
                     boxShadow: "0 20px 40px -10px rgba(124, 58, 237, 0.3)",
                     transform: "translateY(-2px)",
                   },
