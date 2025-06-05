@@ -16,7 +16,7 @@ namespace Comp.API.Jobs
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var timer = new PeriodicTimer(TimeSpan.FromHours(1));
+            var timer = new PeriodicTimer(TimeSpan.FromMinutes(10));
 
             while (await timer.WaitForNextTickAsync(stoppingToken))
             {
