@@ -16,7 +16,7 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+    setShowPassword(!showPassword );
   };
   const {
     register,
@@ -108,7 +108,7 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
           <Box sx={{ position: "relative", p: 4 }}>
             <Box sx={{ textAlign: "center", mb: 4 }}>
               <Box
-                sx={{
+                sx={{ 
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -150,7 +150,7 @@ const Login = ({ succeedFunc, open, handleClose }: { succeedFunc: Function, open
             </Box>
 
             <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              <Box>
+               <Box>
                 <Typography
                   variant="body2"
                   sx={{
